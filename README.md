@@ -14,13 +14,13 @@ Cross-platform UI library combining Chakra UI's developer experience with Tamagu
 
 ## Packages
 
-| Package | Purpose |
-|---|---|
-| `@superstyling/core` | Components, theme, style-prop engine |
-| `@superstyling/icons` | Default icon set and `<Icon>` component |
-| `@superstyling/next` | Next.js integration (SSR, color mode, plugin wrapper) |
-| `@superstyling/expo` | Expo integration (Metro, Babel, teleport host) |
-| `@superstyling/vite` | Vite integration (plugin, SSG helpers) |
+| Package               | Purpose                                               |
+| --------------------- | ----------------------------------------------------- |
+| `@superstyling/core`  | Components, theme, style-prop engine                  |
+| `@superstyling/icons` | Default icon set and `<Icon>` component               |
+| `@superstyling/next`  | Next.js integration (SSR, color mode, plugin wrapper) |
+| `@superstyling/expo`  | Expo integration (Metro, Babel, teleport host)        |
+| `@superstyling/vite`  | Vite integration (plugin, SSG helpers)                |
 
 ## Getting started
 

@@ -2,35 +2,35 @@
   "name": "@superstyling/expo",
   "version": "0.0.0",
   "description": "Expo integration for Superstyling — Metro/Babel config, teleport host registration",
+  "keywords": [
+    "expo",
+    "metro",
+    "react-native",
+    "superstyling"
+  ],
+  "homepage": "https://github.com/natestack/superstyling/tree/main/packages/expo",
   "license": "MIT",
   "author": "Nathan Irikefe",
-  "homepage": "https://github.com/natestack/superstyling/tree/main/packages/expo",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/natestack/superstyling.git",
     "directory": "packages/expo"
   },
-  "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
-  "sideEffects": false,
   "files": [
     "dist",
     "src",
     "README.md"
   ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "echo 'build: not yet implemented (Milestone 3)'",
     "typecheck": "tsc --noEmit",
     "test": "echo 'test: not yet implemented (Milestone 2)'"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "expo",
-    "react-native",
-    "metro",
-    "superstyling"
-  ]
+  }
 }

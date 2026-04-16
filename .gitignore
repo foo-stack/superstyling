@@ -61,3 +61,5 @@ yarn-error.log*
 # Temp
 .tmp/
 tmp/
+
+docs/prior-art/

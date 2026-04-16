@@ -11,21 +11,26 @@ Projected effort: **16–22 weeks (4–5.5 months) full-time** for v0.1.
 ## 2. Vision and scope
 
 ### What the library is
-- A full component library implemented *on top of* Tamagui. Tamagui is the styling + cross-platform engine; the component-facing API is Chakra-shaped.
-- Competing tier: peer of Chakra, Gluestack, NativeBase, and Tamagui's own component set — distinguished by being the only one that's Chakra-faithful *and* cross-platform-first *and* Tamagui-powered.
+
+- A full component library implemented _on top of_ Tamagui. Tamagui is the styling + cross-platform engine; the component-facing API is Chakra-shaped.
+- Competing tier: peer of Chakra, Gluestack, NativeBase, and Tamagui's own component set — distinguished by being the only one that's Chakra-faithful _and_ cross-platform-first _and_ Tamagui-powered.
 
 ### Platforms
+
 - **Tier A, v0.1 must-work:** Web (Vite), Web (Next.js Pages Router), iOS (Expo), Android (Expo).
 - **Tier B, v0.2:** Next.js App Router / RSC, bare React Native (non-Expo).
 - **Tier C, v0.3+:** macOS (`react-native-macos`), Windows (`react-native-windows`), tvOS, visionOS, Remix/TanStack Start/etc.
 
 ### Audience
+
 - OSS, npm-published, community-facing. Docs, contribution guide, and release process aimed at external contributors.
 
 ### Chakra traits kept
+
 All of them: style props, color mode, `sx`, theme-driven tokens, `colorScheme`, a11y defaults, compound components, `asChild`-style composition.
 
 ### Dependency philosophy
+
 Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag machines). Every new runtime dep requires explicit justification.
 
 ---
@@ -33,6 +38,7 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 ## 3. Architecture decisions — full reference
 
 ### 3.1 Naming and packaging
+
 - npm scope: `@superstyling/*`
 - 7 packages in the monorepo:
   - `packages/core`
@@ -44,17 +50,20 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
   - `apps/playground`
 
 ### 3.2 Monorepo tooling
+
 - **Yarn v4.13.0** as package manager.
 - **Turborepo** for task orchestration, caching, and pipeline definition.
 - Yarn `nodeLinker: node-modules` (not PnP) to avoid Metro resolver issues.
 
 ### 3.3 Component scope for v0.1
+
 - **Tier 0 (foundations):** theme + tokens, `<SuperStylingProvider>`, `createSystem()`, color mode, style prop engine, `Box`, `Stack`/`HStack`/`VStack`, `Text`, `Heading`.
 - **Tier 1 (v0.1 components):** `Button`, `IconButton`, `Input`, `Textarea`, `Checkbox`, `Radio`, `Switch`, `Select`, `FormControl.*`, `Link`, `Divider`, `Spinner`, `Avatar`, `Badge`, `Alert`, `Modal`.
 - **Tier 2 (v0.2+):** Menu, Popover, Tooltip, Drawer, Toast, Tabs, Accordion, Progress, Slider, NumberInput, PinInput, Skeleton, Breadcrumb, Table.
 - **Tier 3 (v0.3+):** Combobox, DatePicker, Calendar, CommandPalette, DataTable, Tree, virtualized lists, charts.
 
 ### 3.4 Style API
+
 - **Token syntax:** Chakra-first (`p={4}`, `bg="blue.500"`), Tamagui syntax works as escape hatch. Translation layer in the library.
 - **Shortcuts:** Chakra's full set (`p`, `px`, `py`, `pt`, …, `m`, …, `bg`, `w`, `h`, `minW`, `rounded`, `shadow`, etc.) registered via Tamagui's `shorthands` config — free at runtime, compile-time extractable.
 - **Pseudo-props:** Cross-platform set guaranteed (`_hover`, `_focus`, `_active`, `_disabled`, `_checked`, `_invalid`, `_readOnly`, `_required`, `_first`, `_last`, `_dark`, `_light`). Web-only extras (`_before`, `_after`, `_placeholder`, `_selection`) typed and documented as web-only. `_groupHover`/`_peerFocus` deferred to v0.2+.
@@ -63,24 +72,28 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 - **Breakpoints:** Chakra defaults — `base/sm/md/lg/xl/2xl` in `em` units, mobile-first only.
 
 ### 3.5 Polymorphism
+
 - **`asChild`** as primary API (Radix/Chakra v3 pattern).
 - **`tag` prop** on web-supporting components for changing the underlying HTML element; no-op on native.
 - **No polymorphic `as` prop** (avoids the Chakra v2 TypeScript-perf trap).
 - Heading semantic levels: `<Heading level={1|2|3|4|5|6}>` maps to `<h1>`…`<h6>` on web via internal `tag` usage, and to `accessibilityRole="header"` + `aria-level` on native.
 
 ### 3.6 TypeScript
+
 - **Declaration merging** — users augment a `Theme` interface in a project-level `.d.ts` file to narrow token types.
 - Shipped CLI command generates the boilerplate `superstyling.d.ts`.
 - No deep generics in public component types. Prioritize TS-perf over inference cleverness.
 
 ### 3.7 Theme shape and color mode
-- **Theme structure:** Chakra-shaped top level (`colors`, `space`, `sizes`, `fontSizes`, `radii`, `shadows`, `zIndices`, `breakpoints`, `components`, `config`), *plus* a `semanticTokens` layer that resolves per mode.
+
+- **Theme structure:** Chakra-shaped top level (`colors`, `space`, `sizes`, `fontSizes`, `radii`, `shadows`, `zIndices`, `breakpoints`, `components`, `config`), _plus_ a `semanticTokens` layer that resolves per mode.
 - **Color mode:** Chakra-style API (`useColorMode`, `useColorModeValue`, `<ColorModeScript/>`, `initialColorMode` in config), implemented on top of Tamagui's theme provider for performance. Follows system preference by default, persists manual override. SSR-safe. Arbitrary mode names supported beyond `light/dark`.
 - **`colorScheme` prop:** sugar for wrapping component internals in Tamagui's nested `<Theme name={colorScheme}>`. Every color scheme auto-registered as a Tamagui theme at `createSystem()` time. Components author styles against semantic tokens (`$primary`, `$primaryForeground`, etc.), not hardcoded color names.
 - **Component-level theme overrides:** build-time expansion via `createSystem(theme)`. Users import components from their generated system file, not directly from `@superstyling/core`. Zero-config default for users who don't customize.
 - **Breakpoint set:** Chakra defaults.
 
 ### 3.8 Compound components
+
 - **Dot-namespaced pattern** throughout: `Menu.Root`, `Menu.Trigger`, `Menu.Content`, `Menu.Item`; `FormControl.Root`, `FormControl.Label`, `FormControl.HelperText`, `FormControl.ErrorMessage`; etc.
 - Aligns with Radix / Chakra v3 / Ark / Kobalte conventions.
 
@@ -125,17 +138,20 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 10. **`HAND_ROLLED.md` log per component.** Every hand-rolled native state component gets a `src/components/<Name>/HAND_ROLLED.md` file listing: (a) why Tamagui + Zag can't cover this, (b) the state-machine contract, (c) known edge cases, (d) planned migration path if Zag ever ships RN support. Makes the divergence auditable.
 
 **Dropped guardrails (original #6 and #12) with rationale noted:**
-- *(Original #6) Screen-reader sign-off checklist with video/transcript evidence:* trimmed as too friction-heavy for a solo-maintainer workflow. Screen-reader testing still happens informally via guardrail #6 (real-device smoke) and guardrail #3 (a11y snapshot tests), just without mandatory video evidence per PR.
-- *(Original #12) 48-hour PR cooling-off period:* trimmed as unnecessary ceremony for a solo maintainer. Revisit when maintainer #2 joins.
+
+- _(Original #6) Screen-reader sign-off checklist with video/transcript evidence:_ trimmed as too friction-heavy for a solo-maintainer workflow. Screen-reader testing still happens informally via guardrail #6 (real-device smoke) and guardrail #3 (a11y snapshot tests), just without mandatory video evidence per PR.
+- _(Original #12) 48-hour PR cooling-off period:_ trimmed as unnecessary ceremony for a solo maintainer. Revisit when maintainer #2 joins.
 
 **Total estimated cost added by these guardrails per component:** ~2 days beyond the base ~1-week component implementation (was ~2–3 days with the dropped guardrails). That brings per-component cost to ~1.4 weeks in practice. For the v0.1 + v0.2 native gap set (~5 components), that's ~7 weeks of guardrail+implementation time total — weight accordingly in phase planning.
 
 ### 3.10 Icons
+
 - Ship `@superstyling/icons` as its own package with ~30–50 common icons + an `<Icon>` component accepting SVG path children.
 - Library components use the built-in set internally; every icon-bearing prop accepts an override.
 - `react-native-svg` as a peer dep on native (unavoidable).
 
 ### 3.11 Animation
+
 - **CSS** on web (`@tamagui/animations-css`).
 - **Moti + Reanimated** on native (`@tamagui/animations-moti`).
 - `react-native-reanimated` and `moti` as peer deps. Playground and docs configured for Reanimated from day one (Babel plugin, Metro config).
@@ -154,6 +170,7 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 - Z-index scale: Chakra's (`hide/auto/base/docked/dropdown/sticky/banner/overlay/modal/popover/skipLink/toast/tooltip`) exposed as semantic tokens.
 
 ### 3.13 SSR strategy
+
 - Integration packages (`@superstyling/next`, `@superstyling/expo`, `@superstyling/vite`) ship in v0.1.
 - Responsive props: render `base` value on server, swap to breakpoint-matched values after hydration.
 - Portals: defer mounting until after hydration via internal `useIsMounted`.
@@ -164,12 +181,14 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 ## 4. Development infrastructure
 
 ### 4.1 Library build
+
 - **`@tamagui/build`** — purpose-built for Tamagui-based libraries, handles `.native.ts` / `.web.ts` resolution correctly.
 - ESM primary; dual-build as `@tamagui/build` decides — we follow its conventions rather than fighting them.
 - `sideEffects: false` in each package's `package.json`.
 - JSX: automatic runtime (React 17+).
 
 ### 4.2 Testing
+
 - **Vitest** — logic tests (Node) and web component tests (happy-dom).
 - **Jest + `@testing-library/react-native` + `jest-expo`** — native component tests.
 - **Playwright component tests** — real-browser web tests.
@@ -178,11 +197,13 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 - **No snapshot tests** — prefer role/label-based assertions.
 
 ### 4.3 Linting, formatting, git hooks
+
 - **Oxlint** as linter.
 - **Oxfmt** as formatter. Flag: if Oxfmt isn't stable at project start, use Prettier as temporary bridge and swap when Oxfmt hits 1.0.
 - **lefthook** for pre-commit hooks.
 
 ### 4.4 CI
+
 - **GitHub Actions** with tiered gating:
   - **Fast lane (merge-blocking):** lint, typecheck, build, Vitest, Jest native (no device), Playwright web. Linux, 5–10 min.
   - **Slow lane (advisory):** Maestro iOS (macOS-14), Maestro Android (Ubuntu). 15–25 min.
@@ -196,12 +217,14 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 ## 5. Docs and playground
 
 ### 5.1 Docs site
+
 - **Custom Vite-based app** in `apps/docs`.
 - **One (onestack.dev)** as the universal React framework — dogfoods our library on web + iOS + Android from a single codebase.
 - MDX for content, Sandpack for live code (web), Expo Snack embeds for native previews (fallback where One-native isn't ideal), Pagefind for search.
 - Pre-1.0 risk accepted; fallback plan if One proves unworkable is to swap to Vike or Astro Starlight.
 
 ### 5.2 Playground
+
 - **Expo + Expo Router** in `apps/playground`, kept intentionally conventional (not using One) so it remains a stable fallback if One has issues.
 - One route per component exercising every variant × size × colorScheme × state.
 - Not shipped to npm. Target for Maestro E2E flows in CI.
@@ -211,6 +234,7 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 ## 6. Release, versioning, and community
 
 ### 6.1 Versioning
+
 - **Changesets** + **fixed versioning** + **strict semver even pre-1.0** (breaking changes bump the `y` in `0.y.z`).
 - `@changesets/action` blocks PRs that modify `packages/*/src/**` without a changeset.
 - Release PR workflow: Changesets bot opens "Version Packages" PR with bumps + aggregated changelog; merging triggers publish.
@@ -218,6 +242,7 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 - npm public registry.
 
 ### 6.2 Community
+
 - **License:** MIT.
 - **No CLA.**
 - **Code of Conduct:** Contributor Covenant v2.1.
@@ -231,11 +256,13 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 ## 7. Dependency ledger (committed runtime + peer deps)
 
 **Direct runtime deps (our library's `dependencies`):**
+
 - Tamagui core packages (`tamagui`, `@tamagui/core`, `@tamagui/web`, etc. — specific list nailed down in Phase 1).
 - `@tamagui/animations-css` + `@tamagui/animations-moti` drivers.
 - Small set of `@zag-js/*` machines (field, toast, and whichever component machines we use as v0.1 grows; each is small, all from one vendor).
 
 **Peer deps (users install):**
+
 - `react`, `react-dom`, `react-native`.
 - `react-native-svg` (native icons).
 - `react-native-reanimated`, `moti` (native animations).
@@ -244,6 +271,7 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 - `vite` (for the Vite integration package).
 
 **Dev deps (our monorepo only, not shipped):**
+
 - `typescript`, `@tamagui/build`, Yarn v4, Turborepo.
 - Vitest, Jest + jest-expo + `@testing-library/*`, Playwright, Maestro.
 - Oxlint, Oxfmt, lefthook, Changesets + `@changesets/action`.
@@ -256,6 +284,7 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 ## 8. Phased roadmap
 
 ### Phase 0 — Prior art audit (~1 week)
+
 - Read sources of the 8 libraries: Tamagui's own components, Gluestack v2, Chakra v3, Radix, Zag + Ark, NativeBase, NativeWind, Dripsy/Restyle.
 - Produce `docs/prior-art/`:
   - `README.md` — intro + navigation
@@ -267,6 +296,7 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 - **Exit:** we can answer portal, focus-trap, keyboard-nav, color-mode, and theme-override questions for each library from memory.
 
 ### Phase 1 — Scaffolding (~1 week)
+
 - Initialize Yarn v4.13.0 + Turborepo monorepo with 7 packages.
 - Configure `@tamagui/build` for `core`, `icons`, `next`, `expo`, `vite`.
 - Set up Oxlint + Oxfmt + lefthook + Changesets + `@changesets/action`.
@@ -279,6 +309,7 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 - **Exit:** `yarn dev` starts docs + playground with `<Box>Hi</Box>`. All CI scripts green.
 
 ### Phase 2 — Foundation layer (~2–3 weeks)
+
 - Theme + token system (Chakra shape + `semanticTokens`).
 - Color mode (`useColorMode`, `useColorModeValue`, `<ColorModeScript/>`, system preference following, persistence).
 - Style prop engine (full shortcut set via Tamagui `shorthands`).
@@ -294,12 +325,14 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 - **Exit:** `<Box p={4} bg="blue.500" _hover={{ bg: "blue.600" }}>` works on web + iOS + Android. Color mode toggles. Tests cover token resolution, shortcut/pseudo-prop translation, responsive expansion.
 
 ### Phase 3 — Tier 1 primitives (~3–4 weeks)
+
 - `Button`, `IconButton`, `Link`, `Divider`, `Spinner`, `Badge`, `Alert`, `Avatar`.
 - `@superstyling/icons`: initial icon set + `<Icon>` component.
 - Per component: implement + docs page + playground entry + tests.
 - **Exit:** all 8 pass on Tier A platforms; each has a docs page with Sandpack.
 
 ### Phase 4 — Modal (the forcing function) (~2 weeks)
+
 - Portal integration + overlay registry participation.
 - Focus trap via Zag's dialog machine.
 - Scroll lock on web, native modal presentation on iOS/Android.
@@ -308,17 +341,20 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 - **Exit:** Modal works on web + iOS + Android with no hydration errors on Next.js Pages, no jank on native, passes screen-reader testing.
 
 ### Phase 5 — Tier 1 form components (~3–4 weeks)
+
 - `Input`, `Textarea`, `Checkbox`, `Radio`, `Switch`, `Select` (native picker), `FormControl.*` (on Zag's field machine).
 - Screen-reader verification per component.
 - **Exit:** a login + settings screen in the playground composed only of these components feels natural and a11y-correct.
 
 ### Phase 6 — Integration packages (~2 weeks)
+
 - `@superstyling/next`: `<SuperStylingDocument>`, `<ColorModeScript>` auto-injection, Next plugin wrapper, SSR helpers.
 - `@superstyling/expo`: Expo config plugin, Metro/Babel config helper (including Reanimated), SDK compatibility.
 - `@superstyling/vite`: Vite plugin wrapper, `index.html` mode-script snippet, SSG helpers for Vike/One setups.
 - **Exit:** fresh `create-next-app`, `create-expo-app`, and `create-vite` projects each achieve a working setup in under 5 minutes.
 
 ### Phase 7 — Docs, examples, polish (~2–3 weeks)
+
 - Docs page per v0.1 component with live examples.
 - 3–5 full example apps (login flow, settings screen, validated form, theming customization, color mode).
 - Getting Started guides per platform (Next, Expo, Vite).
@@ -327,6 +363,7 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 - **Exit:** a new user lands on the docs and has `<Button>` running in under 10 minutes.
 
 ### Phase 8 — Pre-release hardening (~1–2 weeks)
+
 - Manual walkthrough: every component on every Tier A platform.
 - Maestro flows for critical paths (Modal open/close, form submit, color mode toggle).
 - Dogfood: build a real sample app (e.g., TODO with auth) using only the library. Every rough edge is a bug to file and fix.
@@ -334,6 +371,7 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 - **Exit:** you'd use v0.1 in your own production project.
 
 ### Phase 9 — Publish v0.1.0 (~1 day)
+
 - Cut release via Changesets.
 - Publish all 5 `packages/*` to npm.
 - Announcement: blog post, X, relevant Discord/subreddit, Tamagui community.
@@ -357,6 +395,7 @@ Direct runtime dep count stays small; peer deps are platform-appropriate and mos
 ## 10. v0.1 success criteria
 
 v0.1 ships when:
+
 1. All 16 Tier 0 + Tier 1 components work on all Tier A platforms.
 2. CI is green on fast lane + slow lane.
 3. Docs site has a page per component with live examples.

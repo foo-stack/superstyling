@@ -2,35 +2,35 @@
   "name": "@superstyling/vite",
   "version": "0.0.0",
   "description": "Vite integration for Superstyling — plugin wrapper, SSG helpers",
+  "keywords": [
+    "plugin",
+    "ssg",
+    "superstyling",
+    "vite"
+  ],
+  "homepage": "https://github.com/natestack/superstyling/tree/main/packages/vite",
   "license": "MIT",
   "author": "Nathan Irikefe",
-  "homepage": "https://github.com/natestack/superstyling/tree/main/packages/vite",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/natestack/superstyling.git",
     "directory": "packages/vite"
   },
-  "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
-  "sideEffects": false,
   "files": [
     "dist",
     "src",
     "README.md"
   ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "echo 'build: not yet implemented (Milestone 3)'",
     "typecheck": "tsc --noEmit",
     "test": "echo 'test: not yet implemented (Milestone 2)'"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "vite",
-    "plugin",
-    "ssg",
-    "superstyling"
-  ]
+  }
 }

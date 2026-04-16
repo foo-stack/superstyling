@@ -8,6 +8,7 @@ Phase definitions and decisions live in [`PLAN.md`](./PLAN.md). This file tracks
 ---
 
 ## Phase 0 — Prior art audit (~1 week)
+
 Status: **Claude's source-reading pass complete; awaiting Nate's hands-on DX pass**
 
 - [x] Read Tamagui's `@tamagui/*` components (docs pass; portal source still open)
@@ -42,9 +43,11 @@ Timebox: 5 working days. Hard stop: 7.
 ---
 
 ## Phase 1 — Scaffolding (~1 week)
+
 Status: **Milestone 1 complete; Milestones 2–3 pending**
 
 ### Milestone 1 — Foundation + release tooling ✅ (2026-04-16)
+
 - [x] Yarn v4.13.0 + `nodeLinker: node-modules`, corepack-managed via `packageManager` field
 - [x] Turborepo 2.9.6 with `build`, `typecheck`, `test`, `lint`, `dev` pipelines
 - [x] 7 workspaces created (`packages/{core,icons,next,expo,vite}`, `apps/{docs,playground}`)
@@ -58,20 +61,23 @@ Status: **Milestone 1 complete; Milestones 2–3 pending**
 - [x] 4 issue templates (bug / feature / docs / question) + `config.yml` (blank issues disabled)
 - [x] **Exit check green:** `yarn install` 7s · `yarn typecheck` 7/7 pass in 2s · `yarn lint` 0 errors · `yarn build` stubs 7/7 pass
 
-### Milestone 2 — Testing + CI (pending)
-- [ ] Vitest config 1: logic tests (Node, `packages/*/src/**/*.test.ts`)
-- [ ] Vitest config 2: web component tests (happy-dom, `**/*.web.test.tsx`)
-- [ ] Jest + `jest-expo` + `@testing-library/react-native` for native tests
-- [ ] Playwright component tests configured
-- [ ] Maestro setup docs (install deferred; it's a CLI tool, not a dev dep)
-- [ ] GitHub Actions fast lane (lint/typecheck/build/Vitest/Jest native/Playwright)
-- [ ] GitHub Actions slow lane (Maestro iOS macOS-14 + Android Ubuntu)
-- [ ] GitHub Actions nightly (Node 20/22 matrix)
-- [ ] Concurrency cancel-in-progress
-- [ ] `@changesets/action` release workflow
-- [ ] **Exit check:** all test scripts run green with zero tests; CI YAML validated
+### Milestone 2 — Testing + CI ✅ (2026-04-16)
+
+- [x] Vitest 4.1.4 with two projects: `logic` (Node) + `web-component` (happy-dom); `vitest.config.ts` + `vitest.setup.web.ts`
+- [x] Jest 30.3.0 + `jest-expo` 55.0.16 + `@react-native/jest-preset` 0.85.1 (RN 0.85 moved preset to its own package — fixed); `jest.config.cjs`
+- [x] Playwright 1.59.1 configured with `playwright.config.ts`; placeholder `_smoke.playwright.test.ts` in `packages/core/src/` because Playwright has no `--passWithNoTests` (delete when real CT specs ship)
+- [x] Maestro setup guide at `docs/maestro-setup.md` (CLI install via curl, iOS/Android prereqs, CI-aware)
+- [x] GitHub Actions fast lane `.github/workflows/ci.yml` — lint, typecheck, build, Vitest, Jest native, Playwright, changeset-check. All on `ubuntu-latest` with Node from `.nvmrc`
+- [x] GitHub Actions slow lane `.github/workflows/ci-e2e.yml` — Maestro iOS on `macos-14` + Maestro Android on Ubuntu via `reactivecircus/android-emulator-runner`. Advisory (does not block merge)
+- [x] GitHub Actions nightly `.github/workflows/nightly.yml` — Node 20/22 × Linux/macOS matrix + full Playwright browser matrix. Cron 0600 UTC + `workflow_dispatch`
+- [x] Concurrency cancel-in-progress on PRs (all workflows except release)
+- [x] `@changesets/action` release workflow `.github/workflows/release.yml` — opens "chore: version packages" PR on main, runs `yarn release` on merge
+- [x] Root `test:vitest` / `test:jest` / `test:playwright` scripts; `yarn test` chains all three
+- [x] React 19.2.5 + react-dom + react-native 0.85.1 installed as devDeps (peer-dep sources for testing)
+- [x] **Exit check green:** `yarn test` passes all three runners with zero real tests · `yarn typecheck` 7/7 · `yarn lint` 0 errors · all 4 workflow YAMLs parse valid
 
 ### Milestone 3 — Package stubs + verify (pending)
+
 - [ ] `@tamagui/build` wired into each `packages/*`
 - [ ] `packages/core`: `createSystem()`, `<SuperStylingProvider>`, base Tamagui config
 - [ ] `packages/icons`: `<Icon>` skeleton
@@ -85,6 +91,7 @@ Status: **Milestone 1 complete; Milestones 2–3 pending**
 ---
 
 ## Phase 2 — Foundation layer (~2–3 weeks)
+
 Status: **not started**
 
 - [ ] Theme token shape (Chakra top-level) + `semanticTokens` layer
@@ -120,6 +127,7 @@ Status: **not started**
 ---
 
 ## Phase 3 — Tier 1 primitives (~3–4 weeks)
+
 Status: **not started**
 
 For each component: implement + docs page + playground entry + tests (web + native).
@@ -139,6 +147,7 @@ For each component: implement + docs page + playground entry + tests (web + nati
 ---
 
 ## Phase 4 — Modal (forcing function) (~2 weeks)
+
 Status: **not started**
 
 - [ ] Integrate Modal with overlay registry
@@ -155,6 +164,7 @@ Status: **not started**
 ---
 
 ## Phase 5 — Tier 1 form components (~3–4 weeks)
+
 Status: **not started**
 
 - [ ] `Input`
@@ -171,6 +181,7 @@ Status: **not started**
 ---
 
 ## Phase 6 — Integration packages (~2 weeks)
+
 Status: **not started**
 
 - [ ] `@superstyling/next`: `<SuperStylingDocument>`, `<ColorModeScript>` auto-injection, Next plugin wrapper, SSR helpers
@@ -181,6 +192,7 @@ Status: **not started**
 ---
 
 ## Phase 7 — Docs, examples, polish (~2–3 weeks)
+
 Status: **not started**
 
 - [ ] Docs page per v0.1 component (16 pages, all with live Sandpack examples)
@@ -199,6 +211,7 @@ Status: **not started**
 ---
 
 ## Phase 8 — Pre-release hardening (~1–2 weeks)
+
 Status: **not started**
 
 - [ ] Manual walkthrough: every component on web (Vite + Next.js)
@@ -216,6 +229,7 @@ Status: **not started**
 ---
 
 ## Phase 9 — Publish v0.1.0 (~1 day)
+
 Status: **not started**
 
 - [ ] Merge the Changesets "Version Packages" PR
