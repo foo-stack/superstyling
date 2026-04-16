@@ -1,0 +1,14 @@
+{
+  "name": "superstyling-docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Superstyling documentation site (One / Vite)",
+  "license": "MIT",
+  "author": "Nathan Irikefe",
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'dev: not yet implemented (Milestone 3)'",
+    "build": "echo 'build: not yet implemented (Milestone 3)'",
+    "typecheck": "tsc --noEmit"
+  }
+}

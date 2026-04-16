@@ -1,0 +1,43 @@
+{
+  "name": "superstyling",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cross-platform UI library combining Chakra UI's developer experience with Tamagui's cross-platform engine",
+  "homepage": "https://github.com/natestack/superstyling",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natestack/superstyling.git"
+  },
+  "license": "MIT",
+  "author": "Nathan Irikefe",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "packageManager": "yarn@4.13.0",
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "dev": "turbo run dev",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build && changeset publish",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.30.0",
+    "lefthook": "^2.1.6",
+    "oxfmt": "^0.45.0",
+    "oxlint": "^1.60.0",
+    "turbo": "^2.9.6",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

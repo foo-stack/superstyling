@@ -1,0 +1,77 @@
+name: Bug report
+description: Report a bug in an @superstyling package
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please fill out the sections below.
+  - type: input
+    id: package
+    attributes:
+      label: Affected package
+      description: Which `@superstyling/*` package is affected?
+      placeholder: "@superstyling/core"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options:
+        - Web (Vite)
+        - Web (Next.js Pages Router)
+        - Web (Next.js App Router)
+        - iOS (Expo)
+        - Android (Expo)
+        - iOS (bare React Native)
+        - Android (bare React Native)
+        - macOS
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: |
+        Link to a minimal repro on StackBlitz, CodeSandbox, or GitHub. Bug reports without a repro are very hard to action.
+      placeholder: "https://..."
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: "Node version, OS, Expo SDK version, bundler, any relevant context."
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error logs / stack trace
+      render: shell
+    validations:
+      required: false

@@ -1,0 +1,36 @@
+{
+  "name": "@superstyling/next",
+  "version": "0.0.0",
+  "description": "Next.js integration for Superstyling — SSR, color mode, plugin wrapper",
+  "license": "MIT",
+  "author": "Nathan Irikefe",
+  "homepage": "https://github.com/natestack/superstyling/tree/main/packages/next",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natestack/superstyling.git",
+    "directory": "packages/next"
+  },
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "echo 'build: not yet implemented (Milestone 3)'",
+    "typecheck": "tsc --noEmit",
+    "test": "echo 'test: not yet implemented (Milestone 2)'"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "nextjs",
+    "ssr",
+    "superstyling",
+    "react"
+  ]
+}

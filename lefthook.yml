@@ -1,0 +1,11 @@
+pre-commit:
+  parallel: true
+  skip:
+    - run: "! git rev-parse --verify HEAD > /dev/null 2>&1"
+  commands:
+    lint:
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs}"
+      run: yarn oxlint {staged_files}
+    format:
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,json,md,yml,yaml}"
+      run: yarn oxfmt --check {staged_files}

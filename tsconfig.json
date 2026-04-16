@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [],
+  "files": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/icons" },
+    { "path": "./packages/next" },
+    { "path": "./packages/expo" },
+    { "path": "./packages/vite" }
+  ]
+}

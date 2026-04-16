@@ -1,0 +1,14 @@
+{
+  "name": "superstyling-playground",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cross-platform dogfooding app for Superstyling (Expo + Expo Router)",
+  "license": "MIT",
+  "author": "Nathan Irikefe",
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'dev: not yet implemented (Milestone 3)'",
+    "build": "echo 'build: not yet implemented (Milestone 3)'",
+    "typecheck": "tsc --noEmit"
+  }
+}

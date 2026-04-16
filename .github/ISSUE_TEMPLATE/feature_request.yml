@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest a new feature, component, or API addition
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Before filing, check `PLAN.md` — the feature may already be planned or explicitly deferred.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that you can't currently do?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How would you like this to work?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New component
+        - New prop on existing component
+        - New hook
+        - New integration package
+        - Docs / examples
+        - Tooling / DX
+        - Other
+    validations:
+      required: true

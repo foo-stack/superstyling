@@ -1,0 +1,28 @@
+name: Question / support
+description: Ask a question about using Superstyling
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For questions about how to use Superstyling, please check the docs and existing issues first. File a question here if you're stuck.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you trying to build? What have you tried?
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: "0.1.0"
+    validations:
+      required: false
