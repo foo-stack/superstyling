@@ -1,7 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "types": ["one", "vite/client", "react", "react-dom"]
   },
-  "include": ["src/**/*"]
+  "include": ["app/**/*", "*.ts", "*.tsx", "vite.config.ts"],
+  "exclude": ["node_modules", "dist"]
 }

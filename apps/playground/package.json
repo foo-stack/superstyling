@@ -5,10 +5,21 @@
   "description": "Cross-platform dogfooding app for Superstyling (Expo + Expo Router)",
   "license": "MIT",
   "author": "Nathan Irikefe",
-  "type": "module",
+  "main": "expo-router/entry",
   "scripts": {
-    "dev": "echo 'dev: not yet implemented (Milestone 3)'",
-    "build": "echo 'build: not yet implemented (Milestone 3)'",
+    "dev": "expo start",
+    "dev:web": "expo start --web",
+    "dev:ios": "expo start --ios",
+    "dev:android": "expo start --android",
+    "build": "echo 'build: apps do not ship; use expo build or EAS for releases'",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@superstyling/core": "workspace:*",
+    "expo": "^54.0.9",
+    "expo-router": "^55.0.12",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-native": "0.83.2"
   }
 }

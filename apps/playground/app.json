@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Superstyling Playground",
+    "slug": "superstyling-playground",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "superstyling-playground",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "dev.natestack.superstyling.playground"
+    },
+    "android": {
+      "package": "dev.natestack.superstyling.playground"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router"]
+  }
+}

@@ -7,8 +7,16 @@
   "author": "Nathan Irikefe",
   "type": "module",
   "scripts": {
-    "dev": "echo 'dev: not yet implemented (Milestone 3)'",
-    "build": "echo 'build: not yet implemented (Milestone 3)'",
+    "dev": "one dev",
+    "build": "one build",
+    "preview": "one serve",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@superstyling/core": "workspace:*",
+    "one": "^1.15.10",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "vite": "^8.0.0"
   }
 }

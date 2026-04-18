@@ -76,17 +76,33 @@ Status: **Milestone 1 complete; Milestones 2–3 pending**
 - [x] React 19.2.5 + react-dom + react-native 0.85.1 installed as devDeps (peer-dep sources for testing)
 - [x] **Exit check green:** `yarn test` passes all three runners with zero real tests · `yarn typecheck` 7/7 · `yarn lint` 0 errors · all 4 workflow YAMLs parse valid
 
-### Milestone 3 — Package stubs + verify (pending)
+### Milestone 3 — Package stubs + verify ✅ (2026-04-18)
 
-- [ ] `@tamagui/build` wired into each `packages/*`
-- [ ] `packages/core`: `createSystem()`, `<SuperStylingProvider>`, base Tamagui config
-- [ ] `packages/icons`: `<Icon>` skeleton
-- [ ] `packages/next`: skeleton
-- [ ] `packages/expo`: skeleton with teleport-host registration
-- [ ] `packages/vite`: skeleton
-- [ ] `apps/docs`: One + MDX + Sandpack + Pagefind "Hello" page
-- [ ] `apps/playground`: Expo + Expo Router "Hello" screen
-- [ ] **Exit check:** `yarn dev` boots both apps; typecheck + build + test all green
+- [~] `@tamagui/build` wired into each `packages/*` — **deferred**. Uses `tsc` for now (`main`/`types` point at `src/index.ts`). Switch to `@tamagui/build` when real native/web-split files land in Phase 2.
+- [x] `packages/core`: `createSystem()` skeleton, `<SuperStylingProvider>` (wraps `TamaguiProvider` + `PortalProvider`), base Tamagui config using `@tamagui/config/v4` default; re-exports `YStack`/`XStack`/`Text`/`H1-H6` from Tamagui v2
+- [x] `packages/icons`: `<Icon>` skeleton with prop shape (`aria-label`, `size`, `color`, children)
+- [x] `packages/next`: skeleton with planned-surface documentation
+- [x] `packages/expo`: skeleton with teleport-host registration noted in doc comment
+- [x] `packages/vite`: skeleton with planned-surface documentation
+- [x] `apps/docs`: One `app/_layout.tsx` wraps `<SuperStylingProvider>` around `<Slot />`; `app/index.tsx` is "Hello from One on the web" page; Vite config with `one()` plugin in SSG mode. **MDX + Sandpack + Pagefind deferred to Phase 7 (docs content).**
+- [x] `apps/playground`: Expo + Expo Router; `app/_layout.tsx` wraps provider; `app/index.tsx` is "Hello from Expo Router" with `<H1>` + `<Text>`; babel.config.js with `react-native-worklets/plugin`; metro.config.js with workspace resolution
+- [x] **Exit check green:**
+  - `yarn typecheck` → 8/8 tasks pass
+  - `yarn lint` → 0 warnings, 0 errors
+  - `yarn test` → Vitest + Jest + Playwright all pass
+  - `yarn one dev` (apps/docs) → Vite dev server on :8081 ✓
+  - `yarn expo start --web` (apps/playground) → Metro bundled 1262 modules ✓
+
+### Downgrade decision (2026-04-18)
+
+Per Q37a/docs framework blocker: One pins `react-native: 0.83.2` exactly. Chose option (B) downgrade across the repo:
+
+- `expo@^54.0.9` (was 55.0.15)
+- `jest-expo@^54.0.9` (was 55.0.16)
+- `react-native@0.83.2` (was 0.85.1)
+- Removed `@react-native/jest-preset` (bundled into RN 0.83.2)
+
+Tamagui uses `2.0.0-rc.41` (the current `latest` tag — v2 ships as RC). Consistent with our pre-1.0-tool posture.
 
 ---
 

@@ -1,7 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "types": ["expo", "react", "react-native"]
   },
-  "include": ["src/**/*"]
+  "include": ["app/**/*", "*.ts", "*.tsx"],
+  "exclude": ["node_modules"]
 }
