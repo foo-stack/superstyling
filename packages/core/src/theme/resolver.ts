@@ -228,12 +228,24 @@ export interface ResolvedTamaguiInput {
 }
 
 export function resolveTheme(theme: Theme): ResolvedTamaguiInput {
+  const space = { ...theme.space } as Record<string, string>;
+  const size = stripNonStringNumberValues(theme.sizes);
+  const radius = { ...theme.radii } as Record<string, string>;
+  // Tamagui requires a `true` key on `space`, `size`, and `radius` tokens —
+  // it's the baseline value used when scaling up/down (e.g. unstyled Button's
+  // default size). Without it, createTamagui() throws at construct time.
+  // Chakra's conventional defaults are "$4" for spacing (1rem), "$md" for
+  // size (28rem), and "md" for radius (0.375rem).
+  if (space.true === undefined) space.true = space["4"] ?? "1rem";
+  if (size.true === undefined) size.true = size.md ?? size["4"] ?? "1rem";
+  if (radius.true === undefined) radius.true = radius.md ?? "0.375rem";
+
   return {
     tokens: {
       color: buildColorTokens(theme.colors),
-      space: { ...theme.space },
-      size: stripNonStringNumberValues(theme.sizes),
-      radius: { ...theme.radii },
+      space,
+      size,
+      radius,
       zIndex: { ...theme.zIndices },
     },
     themes: {

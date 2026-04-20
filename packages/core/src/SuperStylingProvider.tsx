@@ -1,6 +1,5 @@
 import { useMemo, type ReactNode } from "react";
 import { TamaguiProvider } from "tamagui";
-import { PortalProvider } from "@tamagui/portal";
 import { defaultSystem, type System } from "./createSystem";
 import { ColorModeProvider } from "./colorMode/ColorModeProvider";
 import { OverlayRegistryProvider } from "./overlay/OverlayRegistry";
@@ -26,11 +25,14 @@ export interface SuperStylingProviderProps {
  * Root provider for Superstyling.
  *
  * Composition order (outer → inner):
- *   TamaguiProvider (theme + tokens)
+ *   TamaguiProvider (theme + tokens — also contains its own PortalProvider)
  *     → ColorModeProvider (state + Tamagui `<Theme>` wrapper for reactive mode swap)
  *       → OverlayRegistryProvider (dismiss-order policy on top of Tamagui's z-index stack)
- *         → PortalProvider (cross-platform portal mount)
- *           → children
+ *         → children
+ *
+ * Tamagui v2's TamaguiProvider already includes a PortalProvider; we do not
+ * wrap an explicit one here or we get a double-provider SSR crash
+ * ("cannot read properties of null (reading 'useContext')").
  */
 export function SuperStylingProvider({
   children,
@@ -56,9 +58,7 @@ export function SuperStylingProvider({
           initialColorMode={resolvedInitial}
           useSystemColorMode={resolvedUseSystem}
         >
-          <OverlayRegistryProvider>
-            <PortalProvider>{children}</PortalProvider>
-          </OverlayRegistryProvider>
+          <OverlayRegistryProvider>{children}</OverlayRegistryProvider>
         </ColorModeProvider>
       </BreakpointProvider>
     </TamaguiProvider>

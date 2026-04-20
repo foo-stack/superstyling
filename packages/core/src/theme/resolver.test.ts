@@ -117,6 +117,16 @@ describe("resolveTheme", () => {
     expect(resolved.tokens.size["container"]).toBeUndefined();
     expect(resolved.tokens.size.sm).toBe("24rem");
   });
+
+  test("emits a `true` key on space, size, and radius (Tamagui requirement)", () => {
+    // createTamagui() throws at construct time if these are missing; this
+    // test prevents that regression. Seen in the wild when running
+    // `yarn dev` in apps/docs.
+    const resolved = resolveTheme(defaultTheme);
+    expect(resolved.tokens.space.true).toBeDefined();
+    expect(resolved.tokens.size.true).toBeDefined();
+    expect(resolved.tokens.radius.true).toBeDefined();
+  });
 });
 
 describe("buildColorSchemeThemes", () => {

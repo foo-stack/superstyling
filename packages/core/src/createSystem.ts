@@ -73,7 +73,11 @@ export function createSystem(input: ThemeInput = {}): System {
       space: resolved.tokens.space,
       size: resolved.tokens.size,
       radius: resolved.tokens.radius,
-      zIndex: resolved.tokens.zIndex,
+      // Keep v4's default numeric zIndex tokens — Tamagui v2 requires zIndex
+      // keys to be a subset of size keys. Our semantic zIndices (modal,
+      // tooltip, etc.) live on `theme.zIndices` for direct consumer use and
+      // are wired into the OverlayRegistry; they are intentionally not a
+      // Tamagui style-prop surface.
     },
     themes: resolved.themes,
     media: resolved.media,
