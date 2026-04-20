@@ -1,8 +1,9 @@
 import { Heading, Text, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 # Heading
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Semantic heading primitive. On web the `level` prop maps to the matching `h1`–`h6` element; on native it always renders as `Text` with the visual size applied so screen readers announce the correct hierarchy.
 
@@ -63,10 +64,30 @@ import { Heading } from "@superstyling/core";
 
 <PropsTable
   props={[
-    { name: "level", type: "1 | 2 | 3 | 4 | 5 | 6", required: true, description: "Semantic level. On web this becomes the matching heading element; on native it stays a Text but the role is set so screen readers expose the level." },
-    { name: "fontSize", type: "$1 | $2 | … | number", description: "Override the level's default visual size." },
-    { name: "fontWeight", type: `"100"–"900"`, default: `"700"`, description: "Heading weight. Defaults to 700 across all levels." },
-    { name: "color", type: "ColorToken | CSS color", default: "$foreground", description: "Heading colour. Prefer semantic tokens for dark-mode parity." },
+    {
+      name: "level",
+      type: "1 | 2 | 3 | 4 | 5 | 6",
+      required: true,
+      description:
+        "Semantic level. On web this becomes the matching heading element; on native it stays a Text but the role is set so screen readers expose the level.",
+    },
+    {
+      name: "fontSize",
+      type: "$1 | $2 | … | number",
+      description: "Override the level's default visual size.",
+    },
+    {
+      name: "fontWeight",
+      type: `"100"–"900"`,
+      default: `"700"`,
+      description: "Heading weight. Defaults to 700 across all levels.",
+    },
+    {
+      name: "color",
+      type: "ColorToken | CSS color",
+      default: "$foreground",
+      description: "Heading colour. Prefer semantic tokens for dark-mode parity.",
+    },
   ]}
 />
 

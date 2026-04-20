@@ -1,5 +1,16 @@
 import { useState } from "react";
-import { Alert, Box, Button, Checkbox, FormControl, Heading, Input, Link, Text, VStack } from "@superstyling/core";
+import {
+  Alert,
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  Heading,
+  Input,
+  Link,
+  Text,
+  VStack,
+} from "@superstyling/core";
 import { ComponentDemo } from "../../components/ComponentDemo";
 
 export function LoginPreview() {
@@ -30,9 +41,13 @@ export function LoginPreview() {
         <FormControl isRequired>
           <FormControl.Label>Password</FormControl.Label>
           <Input type="password" value={password} onChangeText={setPassword} />
-          <FormControl.HelperText>At least 8 characters. Try "password" to succeed.</FormControl.HelperText>
+          <FormControl.HelperText>
+            At least 8 characters. Try "password" to succeed.
+          </FormControl.HelperText>
         </FormControl>
-        <Checkbox isChecked={remember} onChange={setRemember} colorScheme="blue">Remember me</Checkbox>
+        <Checkbox isChecked={remember} onChange={setRemember} colorScheme="blue">
+          Remember me
+        </Checkbox>
         {error ? (
           <Alert status="error">
             <Alert.Icon />
@@ -42,7 +57,13 @@ export function LoginPreview() {
             </Alert.Content>
           </Alert>
         ) : null}
-        <Button colorScheme="blue" onPress={submit} isLoading={submitting} loadingText="Signing in" isDisabled={!valid}>
+        <Button
+          colorScheme="blue"
+          onPress={submit}
+          isLoading={submitting}
+          loadingText="Signing in"
+          isDisabled={!valid}
+        >
           Sign in
         </Button>
         <Text fontSize="$3" color="$color10">
@@ -65,61 +86,61 @@ export function LoginForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const emailInvalid = email.length > 0 && !email.includes("@");
-  const valid = email.includes("@") && password.length >= 8;
+const emailInvalid = email.length > 0 && !email.includes("@");
+const valid = email.includes("@") && password.length >= 8;
 
-  async function submit() {
-    setError(null);
-    setSubmitting(true);
-    try {
-      // call your auth endpoint here
-    } catch (e) {
-      setError("Invalid email or password.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
+async function submit() {
+setError(null);
+setSubmitting(true);
+try {
+// call your auth endpoint here
+} catch (e) {
+setError("Invalid email or password.");
+} finally {
+setSubmitting(false);
+}
+}
 
-  return (
-    <VStack gap="$4" maxWidth={360}>
-      <Heading level={2}>Log in</Heading>
-      <FormControl isRequired isInvalid={emailInvalid}>
-        <FormControl.Label>Email</FormControl.Label>
-        <Input type="email" value={email} onChangeText={setEmail}
+return (
+<VStack gap="$4" maxWidth={360}>
+<Heading level={2}>Log in</Heading>
+<FormControl isRequired isInvalid={emailInvalid}>
+<FormControl.Label>Email</FormControl.Label>
+<Input type="email" value={email} onChangeText={setEmail}
           placeholder="you@example.com" />
-        <FormControl.ErrorMessage>Must contain @.</FormControl.ErrorMessage>
-      </FormControl>
-      <FormControl isRequired>
-        <FormControl.Label>Password</FormControl.Label>
-        <Input type="password" value={password} onChangeText={setPassword} />
-        <FormControl.HelperText>At least 8 characters.</FormControl.HelperText>
-      </FormControl>
-      <Checkbox isChecked={remember} onChange={setRemember} colorScheme="blue">
-        Remember me
-      </Checkbox>
-      {error ? (
-        <Alert status="error">
-          <Alert.Icon />
-          <Alert.Content>
-            <Alert.Title>Sign-in failed</Alert.Title>
-            <Alert.Description>{error}</Alert.Description>
-          </Alert.Content>
-        </Alert>
-      ) : null}
-      <Button
+<FormControl.ErrorMessage>Must contain @.</FormControl.ErrorMessage>
+</FormControl>
+<FormControl isRequired>
+<FormControl.Label>Password</FormControl.Label>
+<Input type="password" value={password} onChangeText={setPassword} />
+<FormControl.HelperText>At least 8 characters.</FormControl.HelperText>
+</FormControl>
+<Checkbox isChecked={remember} onChange={setRemember} colorScheme="blue">
+Remember me
+</Checkbox>
+{error ? (
+<Alert status="error">
+<Alert.Icon />
+<Alert.Content>
+<Alert.Title>Sign-in failed</Alert.Title>
+<Alert.Description>{error}</Alert.Description>
+</Alert.Content>
+</Alert>
+) : null}
+<Button
         colorScheme="blue"
         onPress={submit}
         isLoading={submitting}
         loadingText="Signing in"
         isDisabled={!valid}
       >
-        Sign in
-      </Button>
-      <Text fontSize="$3" color="$color10">
-        Forgot your password? <Link href="/reset">Reset it</Link>
-      </Text>
-    </VStack>
-  );
+Sign in
+</Button>
+<Text fontSize="$3" color="$color10">
+Forgot your password? <Link href="/reset">Reset it</Link>
+</Text>
+</VStack>
+);
 }`;
 
 # Example — Login

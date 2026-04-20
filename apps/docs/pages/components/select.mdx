@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { Select } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 export function BasicSelectDemo() {
   const [role, setRole] = useState("");
   return (
     <Select value={role} onChange={setRole} placeholder="Choose role">
-      <Select.Option value="eng" index={0}>Engineer</Select.Option>
-      <Select.Option value="design" index={1}>Designer</Select.Option>
-      <Select.Option value="pm" index={2}>Product manager</Select.Option>
+      <Select.Option value="eng" index={0}>
+        Engineer
+      </Select.Option>
+      <Select.Option value="design" index={1}>
+        Designer
+      </Select.Option>
+      <Select.Option value="pm" index={2}>
+        Product manager
+      </Select.Option>
     </Select>
   );
 }
@@ -19,8 +24,12 @@ export function SizeSelectDemo() {
     <>
       {["sm", "md", "lg"].map((s) => (
         <Select key={s} size={s} placeholder={`Size=${s}`}>
-          <Select.Option value="a" index={0}>Option A</Select.Option>
-          <Select.Option value="b" index={1}>Option B</Select.Option>
+          <Select.Option value="a" index={0}>
+            Option A
+          </Select.Option>
+          <Select.Option value="b" index={1}>
+            Option B
+          </Select.Option>
         </Select>
       ))}
     </>
@@ -28,6 +37,8 @@ export function SizeSelectDemo() {
 }
 
 # Select
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Exclusive choice from a known list. Uses Tamagui's `Adapt`+`Sheet` pattern: a traditional dropdown on wider viewports, a bottom-sheet picker on phones. `Select.Option` is the item wrapper.
 
@@ -68,11 +79,29 @@ import { Select } from "@superstyling/core";
   props={[
     { name: "value", type: "string", description: "Controlled value." },
     { name: "defaultValue", type: "string", description: "Uncontrolled initial value." },
-    { name: "onChange", type: "(value: string) => void", description: "Fires when selection changes." },
+    {
+      name: "onChange",
+      type: "(value: string) => void",
+      description: "Fires when selection changes.",
+    },
     { name: "placeholder", type: "string", description: "Text shown when no value is selected." },
-    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Trigger height + font." },
-    { name: "colorScheme", type: "string", default: `"gray"`, description: "Palette applied to the trigger + selected-item indicator." },
-    { name: "isInvalid", type: "boolean", description: "Visual invalid state. Auto-synced from FormControl." },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg"`,
+      default: `"md"`,
+      description: "Trigger height + font.",
+    },
+    {
+      name: "colorScheme",
+      type: "string",
+      default: `"gray"`,
+      description: "Palette applied to the trigger + selected-item indicator.",
+    },
+    {
+      name: "isInvalid",
+      type: "boolean",
+      description: "Visual invalid state. Auto-synced from FormControl.",
+    },
     { name: "isDisabled", type: "boolean", description: "Disable + dim." },
   ]}
 />
@@ -82,7 +111,12 @@ import { Select } from "@superstyling/core";
 <PropsTable
   props={[
     { name: "value", type: "string", required: true, description: "Value this item represents." },
-    { name: "index", type: "number", description: "Positional index required by Tamagui's Select internals. Use the array position." },
+    {
+      name: "index",
+      type: "number",
+      description:
+        "Positional index required by Tamagui's Select internals. Use the array position.",
+    },
     { name: "isDisabled", type: "boolean", description: "Disable this specific item." },
   ]}
 />

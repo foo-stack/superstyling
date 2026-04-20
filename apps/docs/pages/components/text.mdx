@@ -1,8 +1,9 @@
 import { Text, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 # Text
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 The primary inline-text primitive. Maps to a platform-appropriate text element (a plain `<span>` on web, RN `<Text>` on native) and accepts every typography token and style prop the system knows.
 
@@ -84,9 +85,29 @@ import { Text } from "@superstyling/core";
 
 <PropsTable
   props={[
-    { name: "fontSize", type: "$1 | $2 | $3 | … | number", default: "$3", description: "Token or raw pixel size. Tokens preserve responsive scaling." },
-    { name: "fontWeight", type: `"100"–"900"`, default: `"400"`, description: "Weight string. Use numeric values to match the design system." },
-    { name: "color", type: "ColorToken | CSS color", default: "$foreground", description: "Text color. Prefer semantic tokens so dark mode works automatically." },
-    { name: "numberOfLines", type: "number", description: "Caps line count. Adds ellipsis on overflow. Use with maxWidth/flex to control where the cut happens." },
+    {
+      name: "fontSize",
+      type: "$1 | $2 | $3 | … | number",
+      default: "$3",
+      description: "Token or raw pixel size. Tokens preserve responsive scaling.",
+    },
+    {
+      name: "fontWeight",
+      type: `"100"–"900"`,
+      default: `"400"`,
+      description: "Weight string. Use numeric values to match the design system.",
+    },
+    {
+      name: "color",
+      type: "ColorToken | CSS color",
+      default: "$foreground",
+      description: "Text color. Prefer semantic tokens so dark mode works automatically.",
+    },
+    {
+      name: "numberOfLines",
+      type: "number",
+      description:
+        "Caps line count. Adds ellipsis on overflow. Use with maxWidth/flex to control where the cut happens.",
+    },
   ]}
 />

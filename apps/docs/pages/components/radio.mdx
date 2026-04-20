@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Radio, RadioGroup, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 export function BasicRadioDemo() {
   const [plan, setPlan] = useState("free");
@@ -15,6 +14,8 @@ export function BasicRadioDemo() {
 }
 
 # Radio · RadioGroup
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Exclusive-select pattern. `RadioGroup` owns the selected value; `Radio` items consume it by matching their `value` prop. Size and invalid state propagate from the group down via context.
 
@@ -69,11 +70,24 @@ import { Radio, RadioGroup } from "@superstyling/core";
   props={[
     { name: "value", type: "string", description: "Controlled selected value." },
     { name: "defaultValue", type: "string", description: "Uncontrolled initial value." },
-    { name: "onChange", type: "(value: string) => void", description: "Fires whenever selection changes." },
-    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Propagates to every Radio child." },
+    {
+      name: "onChange",
+      type: "(value: string) => void",
+      description: "Fires whenever selection changes.",
+    },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg"`,
+      default: `"md"`,
+      description: "Propagates to every Radio child.",
+    },
     { name: "colorScheme", type: "string", default: `"gray"`, description: "Palette." },
     { name: "isDisabled", type: "boolean", description: "Disable the whole group." },
-    { name: "isInvalid", type: "boolean", description: "Invalid state. Auto-synced from FormControl." },
+    {
+      name: "isInvalid",
+      type: "boolean",
+      description: "Invalid state. Auto-synced from FormControl.",
+    },
   ]}
 />
 
@@ -81,7 +95,12 @@ import { Radio, RadioGroup } from "@superstyling/core";
 
 <PropsTable
   props={[
-    { name: "value", type: "string", required: true, description: "Value this item represents. Required." },
+    {
+      name: "value",
+      type: "string",
+      required: true,
+      description: "Value this item represents. Required.",
+    },
     { name: "isDisabled", type: "boolean", description: "Disable this specific item." },
     { name: "children", type: "ReactNode", description: "Label text." },
   ]}

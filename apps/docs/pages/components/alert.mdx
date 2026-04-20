@@ -1,6 +1,5 @@
 import { Alert, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 export const STATUSES = ["info", "success", "warning", "error", "loading"];
 export const VARIANTS = ["subtle", "solid", "left-accent", "top-accent"];
@@ -10,6 +9,8 @@ export function titleCase(s) {
 }
 
 # Alert
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Callout for communicating status. Compound shape: `Alert.Icon`, `Alert.Content` with `Alert.Title` + `Alert.Description` inside. Five statuses × four visual variants.
 
@@ -96,7 +97,17 @@ import { Alert } from "@superstyling/core";
 
 <PropsTable
   props={[
-    { name: "status", type: `"info" | "success" | "warning" | "error" | "loading"`, default: `"info"`, description: "Semantic status — drives the icon and colour scheme." },
-    { name: "variant", type: `"subtle" | "solid" | "left-accent" | "top-accent"`, default: `"subtle"`, description: "Visual treatment." },
+    {
+      name: "status",
+      type: `"info" | "success" | "warning" | "error" | "loading"`,
+      default: `"info"`,
+      description: "Semantic status — drives the icon and colour scheme.",
+    },
+    {
+      name: "variant",
+      type: `"subtle" | "solid" | "left-accent" | "top-accent"`,
+      default: `"subtle"`,
+      description: "Visual treatment.",
+    },
   ]}
 />

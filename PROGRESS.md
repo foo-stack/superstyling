@@ -439,6 +439,197 @@ Status: **complete — code tracks done; manual-device walkthroughs remain on Na
 
 ---
 
+## Phase 8.5 — Polish the Vocs docs site (~2–3 days)
+
+Status: **complete**
+
+### Shipped
+
+- **P8.5.1 — CSS variable tuning.** `apps/docs/styles.css` overrides 20+ Vocs CSS vars: accent ramp (blue.500 light / blue.400 dark), font-family defaults (system stack + JetBrains Mono), heading sizes (h1 32px etc), body root 15px, sidebar width 280px, code-block colors matched to our `$color1`/`$color2` neutrals, border radii (8/10), blockquote accent. Verified overrides land in built CSS (5 different values per key in cascade, mine wins last).
+- **P8.5.2 — Docs-component barrel.** `apps/docs/components/index.ts` re-exports `ComponentDemo`, `PropsTable`, `StatusRow` (new), `ComponentDocsFrame` (new). MDX pages import everything from one specifier. Vocs has no MDX-provider hook; per-page imports stay but overhead reduced.
+- **P8.5.3 — Hand-rolled landing.** `pages/index.mdx` now composes `<Hero>` + `<QuickInstall>` + `<FeatureGrid>` + `<FooterCTA>` — all built from `@superstyling/core` primitives, replacing Vocs's `HomePage.*`. Tabs for yarn/npm/pnpm/bun install, 6-card feature grid, CTA band with platform buttons.
+- **P8.5.4 — ComponentDemo v2.** Preview/Code tab pills replace the show/hide toggle. Status badge slot, language pill (outline Badge), Copy button only on the Code pane. Theme-aware preview background. Shiki highlighting deferred (async init awkward in SSR; follow-up).
+- **P8.5.5 — PropsTable v2.** Filter input appears above tables with >10 rows, `group` field groups rows under uppercase subheadings, required asterisk is red+bold, sticky header, alt-row hover state, fallback "No props match" message when filter empties the list.
+- **P8.5.6 — Component-page frame.** `<StatusRow>` + `<ComponentDocsFrame>` introduced. All 19 component pages now carry `<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />` under the h1 (bulk-inserted via perl). ComponentDocsFrame additionally supports Anatomy/A11y/See also sections for pages that opt in.
+- **P8.5.7 — Sidebar + top-nav polish.** CSS: sidebar active item gets a 3px left-accent stripe via `[data-active="true"]::before` + bolder font. Section headers are uppercase pill-styled at 11px/0.08em letterspacing. `layout.tsx` now exports a `TopNavEnd` component — a live GitHub star-count badge fetched from the GitHub API on mount; falls back to plain "GitHub" when rate-limited or offline.
+- **P8.5.8 — Dark-mode parity.** New `<ColorModeBridge>` in `components/ColorModeBridge.tsx` observes `html.dark` via MutationObserver and calls our `setColorMode("dark" | "light")`. Without it, clicking Vocs's theme toggle updates chrome vars but leaves live component previews stuck — the two systems are independent. Bridge mounts inside `SuperStylingProvider` in `layout.tsx`.
+- **P8.5.9 — Verify.** `yarn build` → 28 prerendered HTML files, landing contains all signature strings, every component page has the status row. `yarn typecheck` → 12/12 tasks cached + passing. `yarn test:vitest` → 150/150 green. Build warnings (`value`/`pressTheme`) are pre-existing Tamagui forwarding issues tracked elsewhere.
+
+### Known issues
+
+- **`yarn dev` SSR broken under RNW.** Vite's dev-mode SSR runner trips over `react-native-web/dist/modules/prefixStyles/index.js` (CJS default-import interop). Not reproducible in production build; workaround for local authoring is `yarn preview` after a build. Proper fix tracked with the v0.2 rebuild (which uses One's SSR pipeline instead).
+
+### Motivation
+
+The Vocs-based docs site shipped in Phase 7.5 works end-to-end but looks generic — default Vocs typography, default sidebar chrome, default landing page. The user wants visual polish at Tamagui-docs-level quality. A full rebuild onto Tamagui's own stack (One + `@vxrn/mdx` + `mdx-bundler` + `refractor` + hand-rolled docs components) would get us there but carries a hard blocker: the One+Tamagui SSR dual-React crash that drove Phase 7.5's migration. Tamagui's own docs site evidently has a fix, but reproducing it in our monorepo is a research spike with unknown odds of landing in ≤1 day.
+
+Polishing Vocs is a lower-risk path to ~85% of the visual win without risking the v0.1.0 release timeline. The full Tamagui-stack rebuild is preserved in the **v0.2 roadmap** section below for a future un-timeboxed pass.
+
+### Target: 2–3 days of focused polish
+
+Vocs exposes ~80 CSS variables, a `MDXComponents` override map, custom `layout.tsx` slots, and component-level props on every built-in. That's enough surface to make the site distinctly ours without leaving the framework.
+
+### Sub-tasks
+
+#### P8.5.1 — Theme tokens + CSS variable tuning
+
+Write `apps/docs/styles.css` that overrides Vocs's built-in CSS vars: accent-color ramp (primary + hover + active), body + heading font stacks (prefer Inter / system for body, JetBrains Mono / SF Mono for code), sidebar width, content max-width, border-radius defaults, code-block colors (match our `$color1`/`$color2` palette so code blocks feel native), link hover underline style. All in one file so future tweaks are one grep away.
+
+**Deliverable:** distinctive visual identity without any custom React code.
+
+#### P8.5.2 — Custom MDX components map
+
+Drop a `mdxComponents` override into Vocs's config that maps raw MDX tags to styled versions using `@superstyling/core` primitives:
+
+- `h1`/`h2`/`h3` → our `Heading` with appropriate level
+- `p` → our `Text` with body font-size
+- `code` (inline) → our `Text` with mono font + subtle background pill
+- `pre` → Vocs's `CodeBlock` (already Shiki-highlighted) but with our border tokens
+- `table`/`th`/`td` → our `Table`-like compound (new, small — 3 components)
+- `blockquote` → bordered `Box` with left accent
+
+Every MDX page inherits these automatically.
+
+#### P8.5.3 — Hand-rolled landing page
+
+Replace `pages/index.mdx`'s use of Vocs's `HomePage.*` components with a bespoke landing composed from our own primitives:
+
+- **Hero:** oversized headline ("Chakra on Tamagui"), subhead, CTA row (Get Started → Next.js + GitHub + npm)
+- **Code sample** showcasing `<Button>`, `<FormControl>`, `<Modal>` — live, interactive
+- **Feature grid** (3×2): One API three platforms / Compile-time extraction / Type-safe theme / Chakra ergonomics / Every component / Built on Tamagui
+- **Testimonial slot** (placeholder for now)
+- **Footer** with links, logo treatment, social icons
+
+All with our primitives, not Vocs's HomePage. This is where first impressions happen.
+
+#### P8.5.4 — `ComponentDemo` v2
+
+Rebuild on top of Vocs's built-in `<CodeBlock>` (Shiki + copy button + line highlights already). Changes:
+
+- Replace the current inline `<pre>` with a proper Vocs CodeBlock — Shiki-highlighted, matches the rest of the docs visually
+- Add a "preview" / "code" tab pair (Vocs `<CodeGroup>`-like) as an alternative to the show/hide toggle; keep both as option
+- Optional caption + status badge slot (`"a11y verified"`, `"Tier 1"`)
+- Theme-aware preview background (light/dark swap with the rest of the page)
+
+#### P8.5.5 — `PropsTable` v2
+
+Keep the current API (array of row objects) but upgrade visuals:
+
+- Monospace prop names + types with subtle hover background
+- Required asterisk in `$red9` instead of inline text
+- Group by category: `Props`, `Pseudo-props`, `Ref + identity`, `Accessibility`
+- Optional filter input above large tables (threshold: > 10 rows)
+- Sticky header row when the table scrolls
+
+#### P8.5.6 — Component page layout polish
+
+Every `/components/*` page gets a consistent frame without changing content:
+
+- **Status row** at top of page: `Tier 1` · `Cross-platform` · `v0.1.0` badges
+- **Anatomy diagram** (just a code block labeled "Anatomy") showing compound slots: `<Modal>`, `<Modal.Overlay>`, `<Modal.Content>`, etc.
+- **Accessibility section** template with checklist (role, keyboard, screen-reader announcement)
+- **"See also"** footer linking to related components
+
+Add these via a `<ComponentDocsFrame>` wrapper that every page imports. Doesn't break existing MDX content.
+
+#### P8.5.7 — Sidebar + top nav polish
+
+Vocs gives us the skeleton; refine visuals via CSS vars + a `layout.tsx` override:
+
+- Custom logo treatment in top nav (wordmark + icon)
+- Sidebar section headers styled as pills with subtle bg
+- Active item has a left-accent stripe instead of just colour change
+- Mobile drawer: add a close button in the top-right corner
+- GitHub star count badge in top-right (fetched from GitHub API at build time)
+
+#### P8.5.8 — Dark mode polish
+
+Vocs ships a dark toggle; make sure:
+
+- Our custom MDX components swap colors correctly (test every component page in both modes)
+- `ComponentDemo` preview background respects the mode
+- Code-block theme switches (Vocs handles this; verify it applies to our tuning)
+- Hero section gradient/illustrations (if any) adapt
+
+#### P8.5.9 — Verify + commit
+
+- `yarn dev` → every page renders cleanly in both light and dark
+- `yarn build` → 28 prerendered HTML files (unchanged from Phase 7.5)
+- Spot-check 320px / 768px / 1280px breakpoints
+- Commit with narrative message + update PROGRESS.md exit check
+
+### Exit check
+
+- Landing, every `/components/*` page, every `/examples/*` page, and every `/getting-started/*` page all render with the new chrome, new typography, and styled MDX components.
+- Dark mode parity on every page.
+- Custom landing has no Vocs `HomePage.*` usage.
+- `ComponentDemo` renders Shiki-highlighted code + theme-aware preview background.
+- No regressions: 150 Vitest tests + 3 Maestro flows still green; `yarn typecheck` clean.
+
+### Deferred to v0.2
+
+See **v0.2 roadmap — docs rebuild on Tamagui's stack** below. Full rebuild with `DocsPage` / `DocsCodeBlock` / `MDXProvider` in the Tamagui-docs style, requires the dual-React spike and uninterrupted time that v0.1.0 release doesn't afford.
+
+---
+
+## v0.2 roadmap — docs rebuild on Tamagui's stack
+
+Recorded here so the plan doesn't get lost. Not on the v0.1.0 critical path.
+
+### Why
+
+The user's eventual target is docs polished to the level of `tamagui/tamagui/code/tamagui.dev`. That site is built by hand on top of One + their own `features/docs/*` components — not a docs framework. Matching it means:
+
+- Every pixel of docs chrome (sidebar, top nav, code blocks, layout) renders through our own library + Tamagui — the ultimate dogfood.
+- Custom components beyond what Vocs lends itself to (live animated demos, version switcher, prop playground, pricing page if ever needed).
+- No framework lock-in to Vocs's layout choices.
+
+### Target stack (verified against `tamagui/tamagui/code/tamagui.dev@main`, 2026-04-20)
+
+- **Framework:** `one@^1.15.10`
+- **MDX pipeline:** `@vxrn/mdx` + `mdx-bundler`
+- **Syntax highlighting:** `refractor` (Prism-family)
+- **Docs components — hand-rolled.** `DocsPage`, `DocsCodeBlock` (copy button + refractor + line highlights), `DocsMenuContents`, `MDXProvider`, `PropsTable`, `InlineTabs`, `VersionSwitcher`
+- **Content:** `data/docs/{category}/*.mdx` loaded by dynamic `app/(site)/(docs)/docs/[category]/[slug].tsx` via `mdx-bundler`
+- **Search:** `@leeoniya/ufuzzy` (local) → optional `@docsearch/react` (Algolia) later
+
+### Hard blocker: One+Tamagui SSR dual-React crash
+
+Phase 7.5 root cause (see decision log, 2026-04-20). Tamagui's own docs don't hit it — they've solved it via some combo of:
+
+1. Workspace linking that resolves Tamagui as source (vxrn never pre-bundles).
+2. `ssr.optimizeDeps.include: ["tamagui", "@tamagui/*"]` forcing every Tamagui subpath through one pipeline.
+3. `resolve.dedupe: ["react", "react-dom"]` explicitly.
+4. Possibly something in `tamagui.build.ts`.
+
+v0.2 kickoff starts with a proper un-timeboxed spike to replicate the fix in our monorepo.
+
+### Ordered sub-tasks (locked in, not actionable yet)
+
+1. **Spike** — reproduce `<Button>Hello</Button>` rendering on One in our monorepo without the dual-React crash (no time limit this time).
+2. **Scaffold `apps/docs-next/`** — new workspace alongside the Vocs `apps/docs/` until everything's green.
+3. **Port docs components** — `DocsPage`, `DocsCodeBlock`, `DocsMenuContents`, `MDXProvider`, `PropsTable`, `InlineTabs`, as close to Tamagui's originals as our surface allows.
+4. **Wire `mdx-bundler` + dynamic routes** — `[category]/[slug].tsx` loads `data/docs/{category}/{slug}.mdx`, runs it through `MDXProvider`, renders in `DocsPage`.
+5. **Port 24 MDX files** — from `apps/docs/pages/**/*.mdx` into `apps/docs-next/data/docs/{category}/{slug}.mdx`.
+6. **Local search via ufuzzy** — build-time index over MDX frontmatter + headings + first-paragraph summaries.
+7. **Cutover** — rename `apps/docs` → `apps/docs-vocs`, `apps/docs-next` → `apps/docs`. Delete `apps/docs-vocs` after 1 week of stable use.
+8. **Decision-log reversal** — append a new entry explaining how the crash was solved and why docs returned to One.
+
+### Risks preserved from prior plan
+
+- Dual-React spike may not land even un-timeboxed (low probability given Tamagui solved it in production).
+- `mdx-bundler` may interact badly with Tamagui's style extraction (unknown until P8.5-v0.2 step 4).
+- Our `@superstyling/core` may be missing primitives that Tamagui's docs rely on (e.g., they have a `Paragraph` as a first-class token-aware text; we don't).
+
+### What stays the same at v0.2 cutover
+
+- `apps/playground` — untouched
+- `apps/todo-example` — untouched
+- All `@superstyling/*` packages — untouched; docs is a consumer
+- All tests + Maestro flows — still green
+
+---
+
 ## Phase 9 — Publish v0.1.0 (~1 day)
 
 Status: **not started**

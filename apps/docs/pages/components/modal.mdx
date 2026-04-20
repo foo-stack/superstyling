@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, HStack, Modal, Text } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 export function BasicModalDemo() {
   const [open, setOpen] = useState(false);
@@ -11,12 +10,20 @@ export function BasicModalDemo() {
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         <Modal.Overlay />
         <Modal.Content>
-          <Modal.Header><Modal.Title>Example modal</Modal.Title></Modal.Header>
+          <Modal.Header>
+            <Modal.Title>Example modal</Modal.Title>
+          </Modal.Header>
           <Modal.CloseButton />
-          <Modal.Body><Text>Body content goes here.</Text></Modal.Body>
+          <Modal.Body>
+            <Text>Body content goes here.</Text>
+          </Modal.Body>
           <Modal.Footer>
-            <Button variant="ghost" onPress={() => setOpen(false)}>Cancel</Button>
-            <Button colorScheme="blue" onPress={() => setOpen(false)}>OK</Button>
+            <Button variant="ghost" onPress={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button colorScheme="blue" onPress={() => setOpen(false)}>
+              OK
+            </Button>
           </Modal.Footer>
         </Modal.Content>
       </Modal>
@@ -29,14 +36,20 @@ export function SizeModalDemo() {
   return (
     <HStack gap="$2" flexWrap="wrap">
       {["sm", "md", "lg", "full"].map((s) => (
-        <Button key={s} onPress={() => setSize(s)}>{s.toUpperCase()}</Button>
+        <Button key={s} onPress={() => setSize(s)}>
+          {s.toUpperCase()}
+        </Button>
       ))}
       <Modal isOpen={size !== null} onClose={() => setSize(null)} size={size ?? "md"}>
         <Modal.Overlay />
         <Modal.Content>
-          <Modal.Header><Modal.Title>Size: {size}</Modal.Title></Modal.Header>
+          <Modal.Header>
+            <Modal.Title>Size: {size}</Modal.Title>
+          </Modal.Header>
           <Modal.CloseButton />
-          <Modal.Body><Text>Body for size {size}.</Text></Modal.Body>
+          <Modal.Body>
+            <Text>Body for size {size}.</Text>
+          </Modal.Body>
         </Modal.Content>
       </Modal>
     </HStack>
@@ -48,14 +61,24 @@ export function MotionModalDemo() {
   return (
     <HStack gap="$2" flexWrap="wrap">
       {["scale", "slideInBottom", "slideInTop"].map((m) => (
-        <Button key={m} onPress={() => setMotion(m)} variant="outline">{m}</Button>
+        <Button key={m} onPress={() => setMotion(m)} variant="outline">
+          {m}
+        </Button>
       ))}
-      <Modal isOpen={motion !== null} onClose={() => setMotion(null)} motionPreset={motion ?? "scale"}>
+      <Modal
+        isOpen={motion !== null}
+        onClose={() => setMotion(null)}
+        motionPreset={motion ?? "scale"}
+      >
         <Modal.Overlay />
         <Modal.Content>
-          <Modal.Header><Modal.Title>Motion: {motion}</Modal.Title></Modal.Header>
+          <Modal.Header>
+            <Modal.Title>Motion: {motion}</Modal.Title>
+          </Modal.Header>
           <Modal.CloseButton />
-          <Modal.Body><Text>Motion preset {motion}.</Text></Modal.Body>
+          <Modal.Body>
+            <Text>Motion preset {motion}.</Text>
+          </Modal.Body>
         </Modal.Content>
       </Modal>
     </HStack>
@@ -63,6 +86,8 @@ export function MotionModalDemo() {
 }
 
 # Modal
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Modal dialog with an overlay, focus trap, and body scroll lock. Cross-platform: Tamagui `Dialog` under the hood, so native gets a native-feeling overlay and web gets a portaled fixed-position layer.
 
@@ -122,11 +147,41 @@ import { Modal } from "@superstyling/core";
 <PropsTable
   props={[
     { name: "isOpen", type: "boolean", required: true, description: "Controlled open state." },
-    { name: "onClose", type: "() => void", required: true, description: "Called when the user requests close (overlay click, close button, ESC)." },
-    { name: "size", type: `"sm" | "md" | "lg" | "xl" | "2xl" | … | "full"`, default: `"md"`, description: "Width preset. full stretches edge to edge." },
-    { name: "motionPreset", type: `"scale" | "slideInBottom" | "slideInTop" | "slideInLeft" | "slideInRight" | "none"`, default: `"scale"`, description: "Enter/exit animation." },
-    { name: "scrollBehavior", type: `"inside" | "outside"`, default: `"outside"`, description: "Whether the body scrolls inside the modal or outside with the whole content." },
-    { name: "closeOnOverlayClick", type: "boolean", default: "true", description: "Dismiss on overlay click." },
-    { name: "closeOnEsc", type: "boolean", default: "true", description: "Dismiss on ESC key (web)." },
+    {
+      name: "onClose",
+      type: "() => void",
+      required: true,
+      description: "Called when the user requests close (overlay click, close button, ESC).",
+    },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg" | "xl" | "2xl" | … | "full"`,
+      default: `"md"`,
+      description: "Width preset. full stretches edge to edge.",
+    },
+    {
+      name: "motionPreset",
+      type: `"scale" | "slideInBottom" | "slideInTop" | "slideInLeft" | "slideInRight" | "none"`,
+      default: `"scale"`,
+      description: "Enter/exit animation.",
+    },
+    {
+      name: "scrollBehavior",
+      type: `"inside" | "outside"`,
+      default: `"outside"`,
+      description: "Whether the body scrolls inside the modal or outside with the whole content.",
+    },
+    {
+      name: "closeOnOverlayClick",
+      type: "boolean",
+      default: "true",
+      description: "Dismiss on overlay click.",
+    },
+    {
+      name: "closeOnEsc",
+      type: "boolean",
+      default: "true",
+      description: "Dismiss on ESC key (web).",
+    },
   ]}
 />

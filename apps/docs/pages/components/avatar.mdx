@@ -1,8 +1,9 @@
 import { Avatar, HStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 # Avatar
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 User-image primitive with a fallback slot. Mirrors Tamagui's `Avatar` compound structure — `Avatar.Image` + `Avatar.Fallback` — so the fallback renders whenever the image fails to load.
 
@@ -73,6 +74,11 @@ import { Avatar } from "@superstyling/core";
 <PropsTable
   props={[
     { name: "size", type: "$token | number", default: "$5", description: "Overall square size." },
-    { name: "circular", type: "boolean", default: "false", description: "Round corners fully. Leave off for a square avatar." },
+    {
+      name: "circular",
+      type: "boolean",
+      default: "false",
+      description: "Round corners fully. Leave off for a square avatar.",
+    },
   ]}
 />

@@ -1,5 +1,21 @@
 import { useState } from "react";
-import { Alert, Avatar, Box, Button, Divider, FormControl, HStack, Heading, Input, Radio, RadioGroup, Select, Switch, Text, VStack } from "@superstyling/core";
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  HStack,
+  Heading,
+  Input,
+  Radio,
+  RadioGroup,
+  Select,
+  Switch,
+  Text,
+  VStack,
+} from "@superstyling/core";
 import { ComponentDemo } from "../../components/ComponentDemo";
 
 export function SettingsSection({ title, children }) {
@@ -28,7 +44,9 @@ export function SettingsPreview() {
           </Avatar>
           <VStack gap="$1" flex={1}>
             <Text fontWeight="600">{displayName}</Text>
-            <Text fontSize="$2" color="$color10">ada@superstyling.dev</Text>
+            <Text fontSize="$2" color="$color10">
+              ada@superstyling.dev
+            </Text>
           </VStack>
         </HStack>
         <FormControl>
@@ -38,17 +56,29 @@ export function SettingsPreview() {
         <FormControl>
           <FormControl.Label>Role</FormControl.Label>
           <Select value={role} onChange={setRole} placeholder="Choose role">
-            <Select.Option value="eng" index={0}>Engineer</Select.Option>
-            <Select.Option value="design" index={1}>Designer</Select.Option>
-            <Select.Option value="pm" index={2}>Product manager</Select.Option>
+            <Select.Option value="eng" index={0}>
+              Engineer
+            </Select.Option>
+            <Select.Option value="design" index={1}>
+              Designer
+            </Select.Option>
+            <Select.Option value="pm" index={2}>
+              Product manager
+            </Select.Option>
           </Select>
         </FormControl>
       </SettingsSection>
       <Divider />
       <SettingsSection title="Notifications">
-        <Switch isChecked={emailNotif} onChange={setEmailNotif} colorScheme="blue">Email notifications</Switch>
-        <Switch isChecked={pushNotif} onChange={setPushNotif} colorScheme="blue">Push notifications</Switch>
-        <Switch isChecked={weeklyDigest} onChange={setWeeklyDigest} colorScheme="blue">Weekly digest</Switch>
+        <Switch isChecked={emailNotif} onChange={setEmailNotif} colorScheme="blue">
+          Email notifications
+        </Switch>
+        <Switch isChecked={pushNotif} onChange={setPushNotif} colorScheme="blue">
+          Push notifications
+        </Switch>
+        <Switch isChecked={weeklyDigest} onChange={setWeeklyDigest} colorScheme="blue">
+          Weekly digest
+        </Switch>
       </SettingsSection>
       <Divider />
       <SettingsSection title="Appearance">
@@ -67,12 +97,16 @@ export function SettingsPreview() {
           <Alert.Icon />
           <Alert.Content>
             <Alert.Title>Delete account</Alert.Title>
-            <Alert.Description>This permanently removes your profile and all content. Cannot be undone.</Alert.Description>
+            <Alert.Description>
+              This permanently removes your profile and all content. Cannot be undone.
+            </Alert.Description>
           </Alert.Content>
         </Alert>
         <HStack>
           <Box flex={1} />
-          <Button colorScheme="red" variant="outline">Delete account</Button>
+          <Button colorScheme="red" variant="outline">
+            Delete account
+          </Button>
         </HStack>
       </SettingsSection>
     </VStack>

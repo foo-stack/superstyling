@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { Alert, Box, Button, FormControl, Heading, Input, Text, Textarea, VStack } from "@superstyling/core";
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Input,
+  Text,
+  Textarea,
+  VStack,
+} from "@superstyling/core";
 import { ComponentDemo } from "../../components/ComponentDemo";
 
 export function validate(values) {
@@ -13,13 +23,24 @@ export function validate(values) {
 
 export function FormPreview() {
   const [values, setValues] = useState({ name: "", email: "", password: "", bio: "" });
-  const [touched, setTouched] = useState({ name: false, email: false, password: false, bio: false });
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    password: false,
+    bio: false,
+  });
   const [submitted, setSubmitted] = useState(false);
   const errors = validate(values);
   const allValid = Object.keys(errors).length === 0;
-  function set(k, v) { setValues((p) => ({ ...p, [k]: v })); }
-  function touch(k) { setTouched((p) => ({ ...p, [k]: true })); }
-  function show(k) { return touched[k] && !!errors[k]; }
+  function set(k, v) {
+    setValues((p) => ({ ...p, [k]: v }));
+  }
+  function touch(k) {
+    setTouched((p) => ({ ...p, [k]: true }));
+  }
+  function show(k) {
+    return touched[k] && !!errors[k];
+  }
   if (submitted) {
     return (
       <Alert status="success">
@@ -37,23 +58,45 @@ export function FormPreview() {
         <Heading level={2}>Sign up</Heading>
         <FormControl isRequired isInvalid={show("name")}>
           <FormControl.Label>Name</FormControl.Label>
-          <Input value={values.name} onChangeText={(v) => set("name", v)} onBlur={() => touch("name")} placeholder="Ada Lovelace" />
+          <Input
+            value={values.name}
+            onChangeText={(v) => set("name", v)}
+            onBlur={() => touch("name")}
+            placeholder="Ada Lovelace"
+          />
           <FormControl.ErrorMessage>{errors.name}</FormControl.ErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={show("email")}>
           <FormControl.Label>Email</FormControl.Label>
-          <Input type="email" value={values.email} onChangeText={(v) => set("email", v)} onBlur={() => touch("email")} placeholder="you@example.com" />
+          <Input
+            type="email"
+            value={values.email}
+            onChangeText={(v) => set("email", v)}
+            onBlur={() => touch("email")}
+            placeholder="you@example.com"
+          />
           <FormControl.ErrorMessage>{errors.email}</FormControl.ErrorMessage>
         </FormControl>
         <FormControl isRequired isInvalid={show("password")}>
           <FormControl.Label>Password</FormControl.Label>
-          <Input type="password" value={values.password} onChangeText={(v) => set("password", v)} onBlur={() => touch("password")} />
+          <Input
+            type="password"
+            value={values.password}
+            onChangeText={(v) => set("password", v)}
+            onBlur={() => touch("password")}
+          />
           <FormControl.HelperText>At least 8 characters.</FormControl.HelperText>
           <FormControl.ErrorMessage>{errors.password}</FormControl.ErrorMessage>
         </FormControl>
         <FormControl isInvalid={show("bio")}>
           <FormControl.Label>Bio</FormControl.Label>
-          <Textarea value={values.bio} onChangeText={(v) => set("bio", v)} onBlur={() => touch("bio")} rows={3} placeholder="Tell us about yourself" />
+          <Textarea
+            value={values.bio}
+            onChangeText={(v) => set("bio", v)}
+            onBlur={() => touch("bio")}
+            rows={3}
+            placeholder="Tell us about yourself"
+          />
           <FormControl.HelperText>{values.bio.length}/280</FormControl.HelperText>
           <FormControl.ErrorMessage>{errors.bio}</FormControl.ErrorMessage>
         </FormControl>

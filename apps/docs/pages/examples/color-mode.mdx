@@ -14,7 +14,9 @@ export function LiveToggle() {
         {colorMode === "dark" ? "Light mode" : "Dark mode"}
       </Button>
       <Box paddingHorizontal="$3" paddingVertical="$2" backgroundColor="$color2" borderRadius={6}>
-        <Text fontSize="$2" fontFamily="$mono">current: {colorMode}</Text>
+        <Text fontSize="$2" fontFamily="$mono">
+          current: {colorMode}
+        </Text>
       </Box>
     </HStack>
   );
@@ -55,12 +57,12 @@ export function ColorModeToggle() {
 import { ColorModeProvider } from "@superstyling/core";
 
 <ColorModeProvider
-  initialColorMode="system"     // "light" | "dark" | "system"
-  useSystemColorMode              // follow OS setting
+  initialColorMode="system" // "light" | "dark" | "system"
+  useSystemColorMode // follow OS setting
   storageKey="@my-app/color-mode" // override localStorage key
 >
   {children}
-</ColorModeProvider>
+</ColorModeProvider>;
 ```
 
 ## Preventing FOUC on SSR
@@ -73,7 +75,7 @@ On SSR'd platforms (Next, Vite+SSR), a small blocking script reads the persisted
 // Next (App Router): app/layout.tsx
 import { ColorModeScript } from "@superstyling/next/app";
 // In <head>:
-<ColorModeScript initialMode="light" />
+<ColorModeScript initialMode="light" />;
 
 // Vite: index.html
 // Inject the output of colorModeScriptSnippet() into <head>.

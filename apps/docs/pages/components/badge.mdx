@@ -1,11 +1,12 @@
 import { Badge, HStack, Text, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 export const COLOR_SCHEMES = ["gray", "blue", "red", "green", "purple"];
 export const VARIANTS = ["solid", "subtle", "outline"];
 
 # Badge
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Compact status or count indicator. Supports three visual variants and the full `colorScheme` palette.
 
@@ -29,9 +30,13 @@ import { Badge } from "@superstyling/core";
     <VStack gap="$3">
       {VARIANTS.map((variant) => (
         <HStack key={variant} gap="$2" alignItems="center">
-          <Text width={70} fontSize="$2" fontWeight="600">{variant}</Text>
+          <Text width={70} fontSize="$2" fontWeight="600">
+            {variant}
+          </Text>
           {COLOR_SCHEMES.map((cs) => (
-            <Badge key={cs} variant={variant} colorScheme={cs}>{cs}</Badge>
+            <Badge key={cs} variant={variant} colorScheme={cs}>
+              {cs}
+            </Badge>
           ))}
         </HStack>
       ))}
@@ -60,8 +65,23 @@ import { Badge } from "@superstyling/core";
 
 <PropsTable
   props={[
-    { name: "variant", type: `"solid" | "subtle" | "outline"`, default: `"subtle"`, description: "Visual treatment." },
-    { name: "colorScheme", type: "string", default: `"gray"`, description: "Which palette to use. Must be a key on your theme's colorScheme set." },
-    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Overall size (padding + font)." },
+    {
+      name: "variant",
+      type: `"solid" | "subtle" | "outline"`,
+      default: `"subtle"`,
+      description: "Visual treatment.",
+    },
+    {
+      name: "colorScheme",
+      type: "string",
+      default: `"gray"`,
+      description: "Which palette to use. Must be a key on your theme's colorScheme set.",
+    },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg"`,
+      default: `"md"`,
+      description: "Overall size (padding + font).",
+    },
   ]}
 />

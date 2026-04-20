@@ -1,8 +1,9 @@
 import { Divider, HStack, Text, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 # Divider
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 A thin separator line with horizontal and vertical variants. Use it to split sections within a stack, or inline between items in a row.
 
@@ -50,6 +51,11 @@ import { Divider } from "@superstyling/core";
 
 <PropsTable
   props={[
-    { name: "orientation", type: `"horizontal" | "vertical"`, default: `"horizontal"`, description: "Axis the divider sits on. Vertical requires a parent with a set height." },
+    {
+      name: "orientation",
+      type: `"horizontal" | "vertical"`,
+      default: `"horizontal"`,
+      description: "Axis the divider sits on. Vertical requires a parent with a set height.",
+    },
   ]}
 />

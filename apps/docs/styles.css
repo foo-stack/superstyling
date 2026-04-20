@@ -1,0 +1,124 @@
+/**
+ * Superstyling docs — theme override.
+ *
+ * Vocs exposes ~195 CSS variables covering color, font, spacing, border
+ * radius, sidebar/content layout. This file overrides the ones that carry
+ * our visual identity; the rest inherit Vocs's defaults.
+ *
+ * Scope priority (highest wins):
+ *   1. `:root` — global defaults (light mode)
+ *   2. `:root.dark` — dark-mode overrides (Vocs toggles this class on <html>)
+ *
+ * All override targets are verified against the Vocs 1.4.1 CSS-var inventory.
+ */
+
+:root {
+  /* ─── Brand accent ramp ───────────────────────────────────────────── */
+  /* Blue 500 aligns with our theme's $primary in light mode. */
+  --vocs-color_backgroundAccent: #3182ce;
+  --vocs-color_backgroundAccentHover: #2b6cb0;
+  --vocs-color_borderAccent: #3182ce;
+  --vocs-color_textAccent: #3182ce;
+  --vocs-color_textAccentHover: #2b6cb0;
+
+  /* Links pick up the accent */
+  --vocs-color_link: #3182ce;
+  --vocs-color_linkHover: #2b6cb0;
+
+  /* ─── Typography ──────────────────────────────────────────────────── */
+  /* Match our theme's body + mono font stacks. */
+  --vocs-fontFamily_default:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif;
+  --vocs-fontFamily_mono:
+    "JetBrains Mono", "Fira Code", "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
+  /* Slightly tighter heading sizes than Vocs default — more room for
+     prop tables and code blocks on component pages. */
+  --vocs-fontSize_h1: 32px;
+  --vocs-fontSize_h2: 24px;
+  --vocs-fontSize_h3: 19px;
+  --vocs-fontSize_h4: 16px;
+
+  /* Body text: 15px reads better with our font stack than the default 16px. */
+  --vocs-fontSize_root: 15px;
+
+  /* ─── Layout ──────────────────────────────────────────────────────── */
+  /* Wider sidebar to comfortably fit "Stack · HStack · VStack" etc. */
+  --vocs-sidebar_width: 280px;
+
+  /* ─── Code blocks ─────────────────────────────────────────────────── */
+  /* Match our theme's $color1 / $color2 neutrals for code chrome. */
+  --vocs-color_codeBlockBackground: #f7fafc;
+  --vocs-color_codeInlineBackground: rgba(99, 110, 128, 0.1);
+  --vocs-color_codeInlineBorder: rgba(99, 110, 128, 0.15);
+  --vocs-color_codeInlineText: #1a202c;
+  --vocs-color_codeTitleBackground: #edf2f7;
+  --vocs-color_codeCharacterHighlightBackground: rgba(49, 130, 206, 0.08);
+  --vocs-color_codeCharacterHighlightBorder: rgba(49, 130, 206, 0.2);
+
+  /* ─── Borders + radii ─────────────────────────────────────────────── */
+  --vocs-color_border: #e2e8f0;
+  --vocs-color_border2: #cbd5e0;
+  --vocs-borderRadius_8: 10px;
+  --vocs-borderRadius_6: 8px;
+
+  /* ─── Blockquote / callout accents ────────────────────────────────── */
+  --vocs-color_blockquoteBorder: #3182ce;
+}
+
+/* ─── Sidebar polish ──────────────────────────────────────────────── */
+
+/* Left-accent stripe on the active sidebar item. */
+.vocs_Sidebar_item[data-active="true"] {
+  position: relative;
+  font-weight: 600;
+}
+
+.vocs_Sidebar_item[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 3px;
+  bottom: 3px;
+  width: 3px;
+  border-radius: 2px;
+  background-color: var(--vocs-color_textAccent);
+}
+
+/* Section-header pill styling — more distinct grouping. */
+.vocs_Sidebar_sectionHeader {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vocs-color_text3) !important;
+  padding-top: var(--vocs-space_8);
+  padding-bottom: var(--vocs-space_4);
+}
+
+/* Dark-mode overrides. Vocs toggles class="dark" on <html>. */
+:root.dark {
+  --vocs-color_backgroundAccent: #4299e1;
+  --vocs-color_backgroundAccentHover: #3182ce;
+  --vocs-color_borderAccent: #4299e1;
+  --vocs-color_textAccent: #63b3ed;
+  --vocs-color_textAccentHover: #4299e1;
+
+  --vocs-color_link: #63b3ed;
+  --vocs-color_linkHover: #90cdf4;
+
+  --vocs-color_codeBlockBackground: #1a202c;
+  --vocs-color_codeInlineBackground: rgba(226, 232, 240, 0.08);
+  --vocs-color_codeInlineBorder: rgba(226, 232, 240, 0.12);
+  --vocs-color_codeInlineText: #e2e8f0;
+  --vocs-color_codeTitleBackground: #2d3748;
+  --vocs-color_codeCharacterHighlightBackground: rgba(99, 179, 237, 0.12);
+  --vocs-color_codeCharacterHighlightBorder: rgba(99, 179, 237, 0.25);
+
+  --vocs-color_border: #2d3748;
+  --vocs-color_border2: #4a5568;
+
+  --vocs-color_blockquoteBorder: #63b3ed;
+}

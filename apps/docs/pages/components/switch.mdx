@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { HStack, Switch, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 export function BasicSwitchDemo() {
   const [on, setOn] = useState(true);
@@ -13,6 +12,8 @@ export function BasicSwitchDemo() {
 }
 
 # Switch
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Boolean toggle rendered as a sliding thumb. Three sizes, full `colorScheme` palette, label slot, `FormControl`-aware.
 
@@ -44,9 +45,15 @@ import { Switch } from "@superstyling/core";
 <Switch size="lg">Large</Switch>`}
   preview={
     <HStack gap="$4" alignItems="center">
-      <Switch size="sm" colorScheme="blue">Small</Switch>
-      <Switch size="md" colorScheme="blue">Medium</Switch>
-      <Switch size="lg" colorScheme="blue">Large</Switch>
+      <Switch size="sm" colorScheme="blue">
+        Small
+      </Switch>
+      <Switch size="md" colorScheme="blue">
+        Medium
+      </Switch>
+      <Switch size="lg" colorScheme="blue">
+        Large
+      </Switch>
     </HStack>
   }
 />
@@ -58,8 +65,12 @@ import { Switch } from "@superstyling/core";
 <Switch isDisabled defaultIsChecked>On, disabled</Switch>`}
   preview={
     <VStack gap="$2" alignItems="flex-start">
-      <Switch isDisabled colorScheme="blue">Off, disabled</Switch>
-      <Switch isDisabled defaultIsChecked colorScheme="blue">On, disabled</Switch>
+      <Switch isDisabled colorScheme="blue">
+        Off, disabled
+      </Switch>
+      <Switch isDisabled defaultIsChecked colorScheme="blue">
+        On, disabled
+      </Switch>
     </VStack>
   }
 />
@@ -69,10 +80,25 @@ import { Switch } from "@superstyling/core";
 <PropsTable
   props={[
     { name: "isChecked", type: "boolean", description: "Controlled on/off state." },
-    { name: "defaultIsChecked", type: "boolean", default: "false", description: "Uncontrolled initial state." },
+    {
+      name: "defaultIsChecked",
+      type: "boolean",
+      default: "false",
+      description: "Uncontrolled initial state.",
+    },
     { name: "onChange", type: "(checked: boolean) => void", description: "Change handler." },
-    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Track + thumb size." },
-    { name: "colorScheme", type: "string", default: `"gray"`, description: "Palette applied when on." },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg"`,
+      default: `"md"`,
+      description: "Track + thumb size.",
+    },
+    {
+      name: "colorScheme",
+      type: "string",
+      default: `"gray"`,
+      description: "Palette applied when on.",
+    },
     { name: "isDisabled", type: "boolean", description: "Disable + dim." },
     { name: "children", type: "ReactNode", description: "Label text rendered beside the switch." },
   ]}

@@ -1,8 +1,9 @@
 import { Link, VStack } from "@superstyling/core";
-import { ComponentDemo } from "../../components/ComponentDemo";
-import { PropsTable } from "../../components/PropsTable";
+import { ComponentDemo, PropsTable, StatusRow } from "../../components";
 
 # Link
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
 
 Anchor primitive. Renders a real `<a>` on web so the browser handles keyboard, middle-click, and copy-link. On native it falls back to a pressable that invokes the Linking API.
 
@@ -20,7 +21,9 @@ import { Link } from "@superstyling/core";
   preview={
     <VStack gap="$2" alignItems="flex-start">
       <Link href="/">Internal link</Link>
-      <Link href="https://tamagui.dev" isExternal>External link (opens in new tab)</Link>
+      <Link href="https://tamagui.dev" isExternal>
+        External link (opens in new tab)
+      </Link>
     </VStack>
   }
 />
@@ -29,8 +32,18 @@ import { Link } from "@superstyling/core";
 
 <PropsTable
   props={[
-    { name: "href", type: "string", required: true, description: "Destination URL. Absolute or relative." },
-    { name: "isExternal", type: "boolean", default: "false", description: `On web adds target="_blank" + rel="noopener noreferrer". On native uses Linking.openURL.` },
+    {
+      name: "href",
+      type: "string",
+      required: true,
+      description: "Destination URL. Absolute or relative.",
+    },
+    {
+      name: "isExternal",
+      type: "boolean",
+      default: "false",
+      description: `On web adds target="_blank" + rel="noopener noreferrer". On native uses Linking.openURL.`,
+    },
   ]}
 />
 
