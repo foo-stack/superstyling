@@ -209,21 +209,54 @@ Status: **All six sub-milestones complete ✅**
 
 ## Phase 3 — Tier 1 primitives (~3–4 weeks)
 
-Status: **not started**
+Status: **All five sub-milestones complete ✅ (2026-04-20)**
 
-For each component: implement + docs page + playground entry + tests (web + native).
+### P3.0 — @superstyling/icons ✅
 
-- [ ] `Button`
-- [ ] `IconButton`
-- [ ] `Link`
-- [ ] `Divider`
-- [ ] `Spinner`
-- [ ] `Badge`
-- [ ] `Alert`
-- [ ] `Avatar`
-- [ ] `@superstyling/icons` initial icon set (~30–50 icons)
-- [ ] `<Icon>` component + SVG path children API
-- [ ] **Exit check:** all 8 components pass on Tier A; each has a docs page with Sandpack
+- [x] Web `<Icon>` (`Icon.tsx`) + Native `<Icon>` (`Icon.native.tsx`) — platform-split SVG container
+- [x] `createIcon` factory (platform-split): web emits `<path>`, native emits `<Path>` from `react-native-svg`
+- [x] 21-icon initial set: chevrons, arrows, close/check/plus/minus, status icons (info/success/warning/error), common UI (search/menu/settings/more/edit/trash/external-link/sun/moon)
+- [x] Peer deps declared: `react` (required), `react-native-svg` (optional)
+- [x] 14 unit tests (Icon rendering, createIcon factory, spot-checks on specific icons)
+
+### P3.1 — Presentational primitives ✅
+
+- [x] `Divider` — wraps Tamagui `Separator`; `orientation` prop
+- [x] `Spinner` — wraps Tamagui `Spinner`
+- [x] `Badge` — 3 variants (solid/subtle/outline) × 3 sizes × arbitrary colorScheme via `<Theme>`
+- [x] `Avatar` — dot-namespaced with `Avatar.Image`, `Avatar.Fallback` (Tamagui compound preserved)
+- [x] 7 unit tests (smoke + variant/size/colorScheme)
+
+### P3.2 — Interactive primitives ✅
+
+- [x] `Button` — 4 variants × 4 sizes × colorScheme, `leftIcon`/`rightIcon` slots, `isLoading` + `loadingText` + `spinnerPlacement`, `isDisabled`, `isActive`
+- [x] `IconButton` — square Button, requires `icon` + `aria-label`
+- [x] `Link` — wraps Tamagui `Anchor`, `isExternal` → `target="_blank"` + `rel="noopener noreferrer"`
+- [x] 10 unit tests (onPress, variants, sizes, loading, disabled, external)
+
+### P3.3 — Alert (composite) ✅
+
+- [x] Dot-namespaced: `Alert` root + `Alert.Icon` + `Alert.Title` + `Alert.Description` + `Alert.Content`
+- [x] 5 statuses: info / success / warning / error / loading (each auto-picks icon + colorScheme)
+- [x] 4 variants: subtle / solid / left-accent / top-accent
+- [x] `@superstyling/icons` added as workspace dep of `@superstyling/core` for status icons
+- [x] User-override via `<Alert.Icon>{custom}</Alert.Icon>`
+- [x] Context-gated subcomponents throw if rendered outside `<Alert>`
+- [x] 5 unit tests (status × variant × custom icon × context enforcement)
+
+### P3.4 — Showcase pages ✅
+
+- [x] `apps/docs/app/components.tsx` — single showcase page rendering every primitive (typography, layout, feedback, media, interactive sections)
+- [x] `apps/playground/app/components.tsx` — native mirror with `ScrollView` wrapping
+- [x] Home pages in both apps link to `/components`
+- [x] Per-component docs pages with Sandpack are deferred to Phase 7 (content polish) — the one-page showcase is sufficient for dogfooding Tier 1 primitives
+
+### Phase 3 exit check (2026-04-20)
+
+- `yarn typecheck` → 9/9 tasks pass (added `@superstyling/icons` workspace)
+- `yarn lint` → 0 warnings, 0 errors
+- `yarn test` → 102/102 tests pass (was 70 after Phase 2; +32 for icons + primitives + interactive + Alert)
+- Both apps boot and render the full showcase
 
 ---
 

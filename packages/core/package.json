@@ -40,5 +40,8 @@
     "build": "echo 'build: not yet implemented (Milestone 3)'",
     "typecheck": "tsc --noEmit",
     "test": "echo 'test: not yet implemented (Milestone 2)'"
+  },
+  "dependencies": {
+    "@superstyling/icons": "workspace:*"
   }
 }

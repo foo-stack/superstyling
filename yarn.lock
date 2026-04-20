@@ -5008,6 +5008,8 @@ __metadata:
 "@superstyling/core@workspace:*, @superstyling/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@superstyling/core@workspace:packages/core"
+  dependencies:
+    "@superstyling/icons": "workspace:*"
   bin:
     superstyling: ./cli.mjs
   languageName: unknown
@@ -5019,9 +5021,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@superstyling/icons@workspace:packages/icons":
+"@superstyling/icons@workspace:*, @superstyling/icons@workspace:packages/icons":
   version: 0.0.0-use.local
   resolution: "@superstyling/icons@workspace:packages/icons"
+  peerDependencies:
+    react: ">=18"
+    react-native-svg: ">=15"
+  peerDependenciesMeta:
+    react-native-svg:
+      optional: true
   languageName: unknown
   linkType: soft
 

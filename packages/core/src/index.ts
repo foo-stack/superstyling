@@ -64,7 +64,7 @@ export {
   type SpaceKey,
 } from "./theme";
 
-// Primitives (authored in P2.5 with Chakra-shaped pseudo/sx/responsive props)
+// Primitives (P2.5 + P3.1 + P3.2)
 export {
   Box,
   Stack,
@@ -72,12 +72,36 @@ export {
   VStack,
   Text,
   Heading,
+  Divider,
+  Spinner,
+  Badge,
+  Avatar,
+  Button,
+  IconButton,
+  Link,
+  Alert,
   type BoxProps,
   type StackProps,
   type StackDirection,
   type TextProps,
   type HeadingProps,
   type HeadingLevel,
+  type DividerProps,
+  type SpinnerProps,
+  type BadgeProps,
+  type BadgeVariant,
+  type BadgeSize,
+  type AvatarProps,
+  type AvatarImageProps,
+  type AvatarFallbackProps,
+  type ButtonProps,
+  type ButtonVariant,
+  type ButtonSize,
+  type IconButtonProps,
+  type LinkProps,
+  type AlertProps,
+  type AlertStatus,
+  type AlertVariant,
 } from "./components";
 
 // Breakpoint context (for custom components that want theme-aware responsive parsing)
