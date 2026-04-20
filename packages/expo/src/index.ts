@@ -1,19 +1,21 @@
 /**
- * `@superstyling/expo` — Expo integration skeleton.
+ * `@superstyling/expo` — Expo integration (barrel + type re-exports).
  *
- * Planned surface (Phase 6 per PLAN.md §3.13 + PROGRESS.md Phase 0 decision
- * log: "must ensure teleport host is registered at native app root so the
- * Gorhom silent-context-loss fallback never fires"):
+ * The six subpath entries are the real surface:
  *
- *   - registerSuperStylingTeleportHost(): registers a "root" teleport host
- *     via @tamagui/native so Tamagui's native Portal uses teleport mode
- *     (context-preserving) instead of falling back to the Gorhom JS path
- *     that loses React context.
- *   - withSuperStyling(expoConfig): Expo config plugin that wires the
- *     Reanimated Babel plugin and Metro transformer for Tamagui.
- *   - metroConfigHelper: drop-in Metro config mutator for Tamagui resolution.
+ * | entry                              | what it does                              |
+ * | ---------------------------------- | ----------------------------------------- |
+ * | `@superstyling/expo/setup`         | Side-effect import: required native setup |
+ * | `@superstyling/expo/setup-all`     | Side-effect import: setup + optionals     |
+ * | `@superstyling/expo/babel-plugin`  | `babelPreset()` helper for babel.config   |
+ * | `@superstyling/expo/metro-config`  | `withSuperStylingMetro(config)` helper    |
+ * | `@superstyling/expo/app-plugin`    | Expo config plugin (default export)       |
  *
- * v0.1 ships this skeleton only. Real implementations land in Phase 6.
+ * This barrel only re-exports the non-side-effect helpers so users who want
+ * a single import can still access `babelPreset`, `withSuperStylingMetro`,
+ * and the config plugin without pulling in the setup side-effects.
  */
 
-export const SUPERSTYLING_EXPO_VERSION = "0.0.0";
+export { babelPreset, type BabelPresetOptions } from "./babel-plugin";
+export { withSuperStylingMetro, type SuperStylingMetroOptions } from "./metro-config";
+export { default as withSuperStyling } from "./app-plugin";

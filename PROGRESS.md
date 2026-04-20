@@ -325,12 +325,12 @@ Status: **complete**
 
 ## Phase 6 — Integration packages (~2 weeks)
 
-Status: **not started**
+Status: **complete** (order shipped: vite → next → expo)
 
-- [ ] `@superstyling/next`: `<SuperStylingDocument>`, `<ColorModeScript>` auto-injection, Next plugin wrapper, SSR helpers
-- [ ] `@superstyling/expo`: Expo config plugin, Metro/Babel helper (including Reanimated), SDK compat
-- [ ] `@superstyling/vite`: Vite plugin wrapper, `index.html` mode-script snippet, SSG helpers for Vike/One
-- [ ] **Exit check:** fresh `create-next-app`, `create-expo-app`, `create-vite` each achieve working setup in <5 minutes
+- [x] `@superstyling/vite`: full wrapper around `@tamagui/vite-plugin@2.0.0-rc.41` — `superstylingVitePlugin()` composes alias plugin + dev-deps `optimizeDeps` hints + the Tamagui plugin; re-exports `superstylingAliases` for manual ordering; `colorModeScriptSnippet({storageKey, initialMode})` returns FOUC-prevention `<script>` for `index.html`. 9 new tests in `packages/vite/src/index.test.ts`.
+- [x] `@superstyling/next`: dual-router support via subpath exports. Main entry exposes `withSuperStyling()` (lazy-requires `@tamagui/next-plugin` so the module loads outside a webpack toolchain) + `buildColorModeScript()`. `@superstyling/next/app` ships a React `ColorModeScript` server component. `@superstyling/next/pages` ships `SuperStylingDocument` (drop-in `_document.tsx`) plus a `ColorModeScript` component. 10 new tests (logic + SSR renderToStaticMarkup parity between routers).
+- [x] `@superstyling/expo`: six subpath exports — `/setup` (required Tamagui native setup-teleport/gesture-handler/worklets/safe-area/keyboard), `/setup-all` (adds linear-gradient, burnt, zeego), `/babel-plugin` (`babelPreset()` with `@tamagui/babel-plugin` + worklets-last ordering), `/metro-config` (`withSuperStylingMetro()` sets symlink/package-exports/requireContext flags AND composes `@tamagui/metro-plugin`'s `withTamagui` for CSS/extractor wiring), `/app-plugin` (Expo config plugin via `createRunOncePlugin`, shell today), main barrel re-exports non-side-effect helpers. 10 new tests in `packages/expo/src/index.test.ts` (incl. tamagui metro-composition path). Playground dogfoods `@superstyling/expo/setup` at app entry. Deps: `@tamagui/native`, `@tamagui/babel-plugin`, `@tamagui/metro-plugin`.
+- [ ] **Exit check:** fresh `create-next-app`, `create-expo-app`, `create-vite` each achieve working setup in <5 minutes (validated in Phase 7/8 fixture apps)
 
 ---
 

@@ -25,6 +25,11 @@
   "sideEffects": false,
   "main": "./src/index.ts",
   "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./app": "./src/app.tsx",
+    "./pages": "./src/pages.tsx"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -32,5 +37,16 @@
     "build": "echo 'build: not yet implemented (Milestone 3)'",
     "typecheck": "tsc --noEmit",
     "test": "echo 'test: not yet implemented (Milestone 2)'"
+  },
+  "dependencies": {
+    "@tamagui/next-plugin": "2.0.0-rc.41"
+  },
+  "devDependencies": {
+    "next": "^15"
+  },
+  "peerDependencies": {
+    "next": "^14.0.0 || ^15.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   }
 }
