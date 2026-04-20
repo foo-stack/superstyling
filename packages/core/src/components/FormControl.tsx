@@ -1,4 +1,5 @@
 import { createContext, useContext, useId, useMemo, type ReactNode } from "react";
+import { Platform } from "react-native";
 import { Text as TamaguiText, YStack } from "tamagui";
 
 /**
@@ -109,7 +110,10 @@ function FormLabel({ children }: { children?: ReactNode }) {
   const field = useFormControl();
   return (
     <TamaguiText
-      nativeID={field?.labelId}
+      // `id` is the web-canonical attr; Tamagui Text translates to
+      // `nativeID` on native automatically. Using `id` here avoids the
+      // "unknown DOM attribute nativeID" warning in SSG output.
+      id={field?.labelId}
       fontSize={14}
       fontWeight="500"
       color={field?.isDisabled ? "$color10" : "$foreground"}
@@ -133,7 +137,7 @@ function FormHelperText({ children }: { children?: ReactNode }) {
     return null;
   }
   return (
-    <TamaguiText nativeID={field?.helperTextId} fontSize={13} color="$color10">
+    <TamaguiText id={field?.helperTextId} fontSize={13} color="$color10">
       {children}
     </TamaguiText>
   );
@@ -145,10 +149,14 @@ function FormErrorMessage({ children }: { children?: ReactNode }) {
   if (!field?.isInvalid) return null;
   return (
     <TamaguiText
-      nativeID={field.errorMessageId}
+      id={field.errorMessageId}
       fontSize={13}
       color="$red9"
-      accessibilityLiveRegion="polite"
+      // Web uses `aria-live`; React Native uses `accessibilityLiveRegion`.
+      // Tamagui Text doesn't cross-translate on web, so we branch on
+      // Platform.OS to avoid an "unknown DOM attr" warning in SSG output.
+      aria-live="polite"
+      {...(Platform.OS === "web" ? {} : { accessibilityLiveRegion: "polite" as const })}
     >
       {children}
     </TamaguiText>

@@ -1,4 +1,5 @@
 import { forwardRef, type ComponentType, type ElementRef } from "react";
+import { Platform } from "react-native";
 import { H1, H2, H3, H4, H5, H6, type TextProps as TamaguiTextProps } from "tamagui";
 import { useTranslatedProps, type PseudoPropsMixin, type SxPropMixin } from "./common";
 
@@ -40,8 +41,11 @@ export const Heading = forwardRef<HeadingElement, HeadingProps>(function Heading
   // Merge a11y attrs into the translated bag first so the final spread carries
   // them. Going through JSX attributes directly fights Tamagui's augmented
   // TextProps index signature.
+  // On web, H1-H6 carry their semantic role inherently; passing
+  // `accessibilityRole="header"` would reach the DOM as an unknown attribute.
+  // Apply it only on native.
   const merged: Record<string, unknown> = {
-    accessibilityRole: "header",
+    ...(Platform.OS === "web" ? {} : { accessibilityRole: "header" }),
     "aria-level": level,
     ...translated,
   };

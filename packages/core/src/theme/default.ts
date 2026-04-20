@@ -359,6 +359,11 @@ export const defaultSemanticTokens: ThemeSemanticTokens = {
   colors: {
     background: { default: "white", _dark: "gray.900" },
     foreground: { default: "gray.900", _dark: "white" },
+    // `borderColor` matches Tamagui's prop name so `$borderColor` resolves the
+    // same way on every component that sets `borderColor="$borderColor"`.
+    // Keep `border` as an alias for backward-compat with anything referencing
+    // `$border`.
+    borderColor: { default: "gray.200", _dark: "gray.700" },
     border: { default: "gray.200", _dark: "gray.700" },
     muted: { default: "gray.100", _dark: "gray.800" },
     primary: { default: "blue.500", _dark: "blue.400" },
