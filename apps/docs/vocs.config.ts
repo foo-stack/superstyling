@@ -91,6 +91,17 @@ const config: Config = {
   theme: {
     accentColor: "#3182CE",
   },
+  vite: {
+    resolve: {
+      alias: {
+        // Our components use `import { Platform } from "react-native"` for
+        // Platform.OS branches in cross-platform-aware code (Heading,
+        // FormControl). The raw react-native package is Flow-typed and can't
+        // be parsed by Vocs/Vite's bundler; alias to react-native-web.
+        "react-native": "react-native-web",
+      },
+    },
+  },
 };
 
 // Vocs's `defineConfig` returns a promise with a non-portable inferred type;
