@@ -1,29 +1,66 @@
-import type { ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
 import { TamaguiProvider } from "tamagui";
 import { PortalProvider } from "@tamagui/portal";
-import { defaultSuperStylingConfig, type SuperStylingConfig } from "./config";
+import { defaultSystem, type System } from "./createSystem";
+import { ColorModeProvider } from "./colorMode/ColorModeProvider";
+import { OverlayRegistryProvider } from "./overlay/OverlayRegistry";
+import { BreakpointProvider } from "./system/BreakpointContext";
 
 export interface SuperStylingProviderProps {
   children: ReactNode;
-  config?: SuperStylingConfig;
-  defaultTheme?: "light" | "dark" | (string & {});
+  /**
+   * A system produced by `createSystem()`. Omit to use the zero-config default
+   * (Chakra-default theme).
+   */
+  system?: System;
+  /**
+   * Initial color mode. Falls back to `system.theme.config.initialColorMode`
+   * if omitted (which itself defaults to `"light"`).
+   */
+  initialColorMode?: "light" | "dark" | "system";
+  /** Follow OS color-scheme changes after mount. Default: theme config value. */
+  useSystemColorMode?: boolean;
 }
 
 /**
- * Root provider for Superstyling. Wraps TamaguiProvider (theme + tokens) and
- * PortalProvider (cross-platform portal mount) so consumers only need one.
+ * Root provider for Superstyling.
  *
- * v0.1 skeleton — Phase 2 adds color mode plumbing, overlay registry,
- * and the createSystem-generated config path.
+ * Composition order (outer → inner):
+ *   TamaguiProvider (theme + tokens)
+ *     → ColorModeProvider (state + Tamagui `<Theme>` wrapper for reactive mode swap)
+ *       → OverlayRegistryProvider (dismiss-order policy on top of Tamagui's z-index stack)
+ *         → PortalProvider (cross-platform portal mount)
+ *           → children
  */
 export function SuperStylingProvider({
   children,
-  config = defaultSuperStylingConfig,
-  defaultTheme = "light",
+  system = defaultSystem,
+  initialColorMode,
+  useSystemColorMode,
 }: SuperStylingProviderProps) {
+  const resolvedInitial = initialColorMode ?? system.theme.config.initialColorMode;
+  const resolvedUseSystem = useSystemColorMode ?? system.theme.config.useSystemColorMode;
+  // TamaguiProvider's defaultTheme is the fallback *before* hydration — the
+  // ColorModeProvider's `<Theme>` wrapper drives the runtime theme once React
+  // is mounted.
+  const tamaguiDefaultTheme: "light" | "dark" = resolvedInitial === "dark" ? "dark" : "light";
+  const breakpointNames = useMemo(
+    () => Object.keys(system.theme.breakpoints).filter((name) => name !== "base"),
+    [system.theme.breakpoints],
+  );
+
   return (
-    <TamaguiProvider config={config} defaultTheme={defaultTheme}>
-      <PortalProvider>{children}</PortalProvider>
+    <TamaguiProvider config={system.config} defaultTheme={tamaguiDefaultTheme}>
+      <BreakpointProvider names={breakpointNames}>
+        <ColorModeProvider
+          initialColorMode={resolvedInitial}
+          useSystemColorMode={resolvedUseSystem}
+        >
+          <OverlayRegistryProvider>
+            <PortalProvider>{children}</PortalProvider>
+          </OverlayRegistryProvider>
+        </ColorModeProvider>
+      </BreakpointProvider>
     </TamaguiProvider>
   );
 }

@@ -4146,6 +4146,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-async-storage/async-storage@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@react-native-async-storage/async-storage@npm:3.0.2"
+  dependencies:
+    idb: "npm:8.0.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/afcc9805d15c644a0390e806a2d663bd9ce44f73f15d279b707581677d3a51b985e93a7bb64e301c6f970c3dae531ac7a40bb94e5773bc3515ae54afe59d9d77
+  languageName: node
+  linkType: hard
+
 "@react-native-masked-view/masked-view@npm:^0.3.2":
   version: 0.3.2
   resolution: "@react-native-masked-view/masked-view@npm:0.3.2"
@@ -4996,6 +5008,8 @@ __metadata:
 "@superstyling/core@workspace:*, @superstyling/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@superstyling/core@workspace:packages/core"
+  bin:
+    superstyling: ./cli.mjs
   languageName: unknown
   linkType: soft
 
@@ -11432,6 +11446,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"idb@npm:8.0.3":
+  version: 8.0.3
+  resolution: "idb@npm:8.0.3"
+  checksum: 10c0/421cd9a3281b7564528857031cc33fd9e95753f8191e483054cb25d1ceea7303a0d1462f4f69f5b41606f0f066156999e067478abf2460dfcf9cab80dae2a2b2
+  languageName: node
+  linkType: hard
+
 "ieee754@npm:^1.1.13":
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
@@ -16761,6 +16782,7 @@ __metadata:
   dependencies:
     "@changesets/cli": "npm:^2.30.0"
     "@playwright/test": "npm:^1.59.1"
+    "@react-native-async-storage/async-storage": "npm:^3.0.2"
     "@react-navigation/native": "npm:^7.2.2"
     "@tamagui/animations-css": "npm:2.0.0-rc.41"
     "@tamagui/animations-moti": "npm:2.0.0-rc.41"

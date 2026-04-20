@@ -1,12 +1,14 @@
-import { YStack, Text, H1 } from "@superstyling/core";
+import { Box, Heading, Text } from "@superstyling/core";
+
+const textHover = { color: "$color10" } as const;
 
 export default function Home() {
   return (
-    <YStack flex={1} alignItems="center" justifyContent="center" padding="$4">
-      <H1>Superstyling Docs</H1>
-      <Text fontSize="$4" marginTop="$4">
+    <Box flex={1} alignItems="center" justifyContent="center" padding="$4">
+      <Heading level={1}>Superstyling Docs</Heading>
+      <Text fontSize="$4" marginTop="$4" _hover={textHover}>
         Hello from One on the web.
       </Text>
-    </YStack>
+    </Box>
   );
 }

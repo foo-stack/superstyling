@@ -20,9 +20,13 @@
     "url": "git+https://github.com/natestack/superstyling.git",
     "directory": "packages/core"
   },
+  "bin": {
+    "superstyling": "./cli.mjs"
+  },
   "files": [
     "dist",
     "src",
+    "cli.mjs",
     "README.md"
   ],
   "type": "module",

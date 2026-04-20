@@ -108,20 +108,85 @@ Tamagui uses `2.0.0-rc.41` (the current `latest` tag — v2 ships as RC). Consis
 
 ## Phase 2 — Foundation layer (~2–3 weeks)
 
-Status: **not started**
+Status: **All six sub-milestones complete ✅**
 
-- [ ] Theme token shape (Chakra top-level) + `semanticTokens` layer
-- [ ] Token resolver: Chakra-style → Tamagui tokens translation
-- [ ] Color mode: `useColorMode`, `useColorModeValue`, `<ColorModeScript/>`
-- [ ] Color mode: system-preference following + persistence (AsyncStorage native, localStorage+cookie web)
-- [ ] Color mode: Tamagui theme provider integration
-- [ ] Register full Chakra shortcut set in Tamagui `shorthands`
-- [ ] Pseudo-prop translation: cross-platform set (`_hover`, `_focus`, etc.)
-- [ ] Pseudo-prop translation: web-only set, typed accordingly
-- [ ] Restricted `sx` prop (flat style objects + pseudo-props, no CSS selectors)
-- [ ] Responsive object-form expander with Chakra breakpoints (`base/sm/md/lg/xl/2xl`, `em`)
-- [ ] `colorScheme` prop → nested `<Theme>` sugar
-- [ ] Auto-register each `theme.colors.*` scale as a Tamagui theme
+### P2.1 — Theme + createSystem foundation ✅ (2026-04-18)
+
+- [x] Theme type definitions at `packages/core/src/theme/types.ts` (Theme, ThemeInput, ColorScale, AlphaScale, SemanticTokenValue, plus per-category types + `SuperStylingCustomTheme` empty interface for Q18 declaration merging)
+- [x] Default Chakra theme at `theme/default.ts` — full 10-scale palette, space (px+0–96), sizes, fonts, fontSizes, fontWeights, lineHeights, letterSpacings, radii, shadows, zIndices, breakpoints (em-based), 6 semantic tokens with \_dark variants
+- [x] Theme merger at `theme/merge.ts` — two-level shallow merge onto defaults
+- [x] Token resolver at `theme/resolver.ts` — Chakra theme → Tamagui config shape (tokens, themes, media)
+- [x] `createSystem(input)` at `createSystem.ts` — accepts ThemeInput, returns `{ config, theme }`; `defaultSystem` exported for zero-config use
+- [x] 17 unit tests covering resolver and merger
+
+### P2.2 — Style-props engine ✅ (2026-04-20)
+
+- [x] `shortcuts.ts` — full Chakra v2 shortcut map registered into Tamagui `shorthands` via createSystem
+- [x] `pseudoProps.ts` — cross-platform + web-only + ARIA-state pseudo maps combined into `pseudoPropMap`
+- [x] `translateProps.ts` — runtime translator handling sx (spread), pseudo-props (recursive), responsive object expansion
+- [x] 18 unit tests covering all three translation paths
+
+### P2.3 — Color mode ✅ (2026-04-20)
+
+- [x] `colorMode/types.ts` — shared types (ColorMode, ColorModeStorage, SystemSchemeWatcher)
+- [x] `colorMode/storage.ts` (web) + `storage.native.ts` (AsyncStorage); platform-split via Metro resolution
+- [x] `colorMode/systemScheme.ts` (matchMedia) + `systemScheme.native.ts` (RN Appearance)
+- [x] `ColorModeProvider` — state + useMemo'd context + subscribes to system changes (conditional) + persists toggles; wraps children in Tamagui `<Theme>` for reactive mode swap
+- [x] `useColorMode()` + `useColorModeValue(light, dark)` hooks
+- [x] `ColorModeScript` — SSR FOUC-prevention script; exported `buildColorModeScript` for custom injection
+- [x] 6 unit tests covering script generation
+- [x] `@react-native-async-storage/async-storage` 3.0.2 added as a dep
+
+### P2.4 — colorScheme themes ✅ (2026-04-20)
+
+- [x] `buildColorSchemeThemes` in resolver — auto-generates per-scale themes (`blue`, `light_blue`, `dark_blue` for each of gray/red/orange/yellow/green/teal/blue/cyan/purple/pink)
+- [x] Tamagui nested theme resolution picks `light_blue` / `dark_blue` automatically based on outer `<Theme name="dark">` context
+- [x] Primary-token mapping: light uses shades 500/600/700/50/white/500 for primary/Hover/Active/Muted/Contrast/Border; dark uses 400/300/500/900/gray.900/400
+- [x] 6 unit tests covering scheme theme generation
+- [x] Wired into `resolveTheme` so createSystem ships these themes
+
+### P2.5 — Primitive components + overlay registry ✅ (2026-04-20)
+
+- [x] `overlay/OverlayRegistry.tsx` — context + stack with `register`/`isTopmost`/`getTopmost`/`dismissTopmost`/`size`. Sits on top of Tamagui's `@tamagui/z-index-stack` (visual stacking); adds dismiss-order policy only
+- [x] 4 unit tests for register/unregister/stacking/dismiss propagation
+- [x] `components/Box.tsx` — wraps Tamagui YStack, runs translateProps; accepts all pseudos + sx
+- [x] `components/Stack.tsx` — polymorphic YStack/XStack with `direction` prop (`row`/`column`/`-reverse`); Omit<YStackProps, "direction"> to avoid Tamagui's ltr/rtl clash. Plus `HStack` + `VStack` specializations
+- [x] `components/Text.tsx` — wraps Tamagui Text with translation
+- [x] `components/Heading.tsx` — `level={1..6}` prop maps to H1..H6 on web; on native emits `accessibilityRole="header"` + `aria-level={level}` for VoiceOver/TalkBack
+- [x] `SuperStylingProvider` updated: now composes TamaguiProvider → ColorModeProvider → OverlayRegistryProvider → PortalProvider
+- [x] Both apps (`apps/docs`, `apps/playground`) updated to dogfood Box/Heading/Text
+
+### P2.6 — CLI init-types ✅ (2026-04-20)
+
+- [x] `packages/core/cli.mjs` — ESM entry; `bin: { superstyling: "./cli.mjs" }` in package.json; uses Node's `parseArgs`; detects conventional system file paths (`./superstyling.config.ts`, `./system.ts`, `./src/system.ts`, `./app/system.ts`, etc.)
+- [x] `packages/core/src/cli/generate.ts` — pure generator exposed for tests + programmatic use
+- [x] 9 unit tests on the generator (default path, user system path, export-name variants, candidate-path ordering)
+- [x] Verified `yarn superstyling --help` works from a workspace
+- [x] Verified `yarn superstyling init-types` writes a correct `superstyling.d.ts` augmenting Tamagui's `TamaguiCustomConfig`
+
+**Follow-up flagged:** the generated augmentation works but activating it in a consumer app surfaces a Tamagui v2 typing edge case — the augmented `TextProps` includes an index signature that JSX `children: string` doesn't satisfy. The CLI itself is correct; the consumer-side DX win (shorthand autocomplete via `p="$4"` instead of `padding="$4"`) requires more Tamagui-specific augmentation work. Deferred to a dedicated Tamagui-integration task; doesn't block Phase 2.
+
+### Exit check as of 2026-04-20 (Phase 2 complete + cleanups)
+
+- `yarn typecheck` → 8/8 tasks pass
+- `yarn lint` → 0 warnings, 0 errors
+- `yarn test` → 70/70 tests pass (17 resolver + 6 scheme + 18 translator + 6 colorMode + 4 overlay + 9 CLI + 10 bindComponent)
+- Both apps (`apps/docs`, `apps/playground`) dogfood `Box`/`Heading`/`Text` from our wrappers
+
+### Phase 2 cleanups — fixed 2026-04-20
+
+**Tackled 4 of 6 carried-over items in a dedicated cleanup sprint:**
+
+1. ✅ **Fonts derived from theme.** `packages/core/src/theme/fonts.ts` builds Tamagui `createFont` configs from `theme.fonts.{body,heading,mono}` + `theme.fontSizes` + `theme.fontWeights` + `theme.lineHeights` + `theme.letterSpacings`. Includes `remPxToNumber` for rem/em→px conversion at 16px base. Wired into `createSystem`.
+2. ✅ **Breakpoint names from context.** New `packages/core/src/system/BreakpointContext.tsx` provides a `BreakpointProvider` + `useBreakpointNames` hook. `components/common.ts` converted from `translateComponentProps` function to a `useTranslatedProps` hook that reads context. `SuperStylingProvider` wires the provider from `system.theme.breakpoints` (excluding `base`).
+3. ✅ **`theme.components.*` build-time expansion.** New `packages/core/src/components/bindComponent.tsx` wraps any base component with a `ComponentOverride` (`baseStyle`, `sizes[size]`, `variants[variant]`, `defaultProps`). Merge precedence: defaultProps < baseStyle < sizes < variants < user props. Returns base component by reference when override is undefined (no re-render perf hit). `System` now exposes bound `Box`/`Stack`/`HStack`/`VStack`/`Text`/`Heading`. Added `ThemeComponents` + `ComponentOverride` types. 10 unit tests with `@testing-library/react`.
+4. ✅ **Ref-as-prop typing.** Components switched from ref-as-prop (React 19 style) to `React.forwardRef` — Tamagui v2-rc.41's prop types don't model `ref` as a prop. The Heading case needed a single `@ts-expect-error` directive at the JSX seam (documented) because Tamagui's H1–H6 types reject ref entirely. Kept `as unknown as` narrowing for the translated-prop spread.
+
+### Still deferred (intentional)
+
+3. **Cookie-based SSR mode persistence** — blocked on `@superstyling/next` integration harness (Phase 6). Premature to build without a Next.js SSR app to test against end-to-end.
+4. **Tamagui-side shorthand typing via module augmentation** — the CLI (P2.6) generates a correct `.d.ts`; activating it surfaces an index-signature collision with JSX `children`. **Spike plan drafted:** see [`docs/spikes/shorthand-typing-plan.md`](./docs/spikes/shorthand-typing-plan.md) (phases A–E, 8–14 hr expected, 16 hr hard stop). Not scheduled yet.
+
 - [ ] `createSystem(theme)` build-time component-override expansion
 - [ ] Zero-config default re-export when no overrides passed
 - [ ] `asChild` prop handling
