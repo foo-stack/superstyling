@@ -1,0 +1,25 @@
+# Maestro flow: Modal open + close.
+# Exercises <Modal>, <Modal.Overlay>, <Modal.Content>, <Modal.CloseButton>
+# on the native playground.
+#
+# Path: launch → /components → scroll to Modal section → Open → assert visible →
+# OK → assert gone.
+#
+# Run locally:
+#   cd apps/playground
+#   maestro test .maestro/modal-open-close.yaml
+
+appId: dev.natestack.superstyling.playground
+---
+- launchApp:
+    clearState: true
+- tapOn: "→ Components showcase"
+- scrollUntilVisible:
+    element:
+      text: "Open Modal"
+    direction: DOWN
+- tapOn: "Open Modal"
+- assertVisible: "Dialog"
+- assertVisible: "This is a native-rendered modal via Tamagui Dialog."
+- tapOn: "OK"
+- assertNotVisible: "Dialog"

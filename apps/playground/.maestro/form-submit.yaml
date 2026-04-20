@@ -1,0 +1,29 @@
+# Maestro flow: Form submission with validation.
+# Exercises <FormControl>, <Input>, <FormControl.ErrorMessage>, <Button isDisabled>
+# on the native playground's FormDemo section.
+#
+# Path: launch → /components → scroll to Form section → type invalid email →
+# assert error → type valid email + long password → Submit becomes enabled → tap.
+#
+# Run locally:
+#   cd apps/playground
+#   maestro test .maestro/form-submit.yaml
+
+appId: dev.natestack.superstyling.playground
+---
+- launchApp:
+    clearState: true
+- tapOn: "→ Components showcase"
+- scrollUntilVisible:
+    element:
+      text: "you@example.com"
+    direction: DOWN
+- tapOn:
+    id: ".*email.*"
+    optional: true
+- tapOn: "you@example.com"
+- inputText: "nate"
+- assertVisible: "Must contain @."
+- eraseText: 4
+- inputText: "nate@example.com"
+- assertNotVisible: "Must contain @."

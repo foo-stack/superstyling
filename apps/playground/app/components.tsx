@@ -24,8 +24,17 @@ import {
   Text,
   Textarea,
   VStack,
+  useColorMode,
 } from "@superstyling/core";
-import { CheckIcon, ChevronDownIcon, CloseIcon, PlusIcon, SearchIcon } from "@superstyling/icons";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  CloseIcon,
+  MoonIcon,
+  PlusIcon,
+  SearchIcon,
+  SunIcon,
+} from "@superstyling/icons";
 
 const COLOR_SCHEMES = ["gray", "blue", "red", "green", "purple"] as const;
 const BUTTON_VARIANTS = ["solid", "outline", "ghost", "link"] as const;
@@ -41,6 +50,7 @@ export default function Components() {
         <VStack gap="$2">
           <Heading level={1}>Superstyling Playground</Heading>
           <Text color="$color10">Native showcase for every primitive.</Text>
+          <ColorModeToggle />
         </VStack>
 
         <Section title="Typography">
@@ -283,4 +293,18 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function titleCase(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function ColorModeToggle() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onPress={toggleColorMode}
+      leftIcon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+    >
+      {colorMode === "dark" ? "Light mode" : "Dark mode"}
+    </Button>
+  );
 }

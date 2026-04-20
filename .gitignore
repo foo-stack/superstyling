@@ -21,7 +21,6 @@ coverage/
 playwright-report/
 playwright/.cache/
 test-results/
-.maestro/
 
 # IDE
 .vscode/*

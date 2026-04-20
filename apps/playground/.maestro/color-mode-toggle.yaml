@@ -1,0 +1,20 @@
+# Maestro flow: Color-mode toggle.
+# Exercises useColorMode() + the ColorModeProvider state swap.
+#
+# Path: launch (default mode is light) → /components → assert "Dark mode"
+# button visible → tap → assert "Light mode" button visible (mode flipped).
+#
+# Run locally:
+#   cd apps/playground
+#   maestro test .maestro/color-mode-toggle.yaml
+
+appId: dev.natestack.superstyling.playground
+---
+- launchApp:
+    clearState: true
+- tapOn: "→ Components showcase"
+- assertVisible: "Dark mode"
+- tapOn: "Dark mode"
+- assertVisible: "Light mode"
+- tapOn: "Light mode"
+- assertVisible: "Dark mode"
