@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["superstyling-docs", "superstyling-playground"]
+  "ignore": ["superstyling-docs", "superstyling-playground", "superstyling-todo-example"]
 }

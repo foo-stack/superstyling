@@ -1,0 +1,30 @@
+{
+  "name": "superstyling-todo-example",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dogfood sample — TODO with auth flow, built from only Superstyling primitives (Phase 8 hardening).",
+  "license": "MIT",
+  "author": "Nathan Irikefe",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@superstyling/core": "workspace:*",
+    "@superstyling/icons": "workspace:*",
+    "@superstyling/vite": "workspace:*",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-native-web": "^0.21.1",
+    "tamagui": "2.0.0-rc.41"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^8.0.0"
+  }
+}

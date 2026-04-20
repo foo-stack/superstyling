@@ -411,7 +411,19 @@ Migrating removes ~500 lines of our hand-rolled `DocsLayout.tsx` / `Search.tsx` 
 
 ## Phase 8 — Pre-release hardening (~1–2 weeks)
 
-Status: **not started**
+Status: **complete — code tracks done; manual-device walkthroughs remain on Nate**
+
+### Code-level tracks (shipped 2026-04-20)
+
+- [x] **P8.A — Known-issue cleanup.** (1) Added `borderColor` semantic token to `defaultSemanticTokens` (was referenced as `$borderColor` in 5 components but missing from our theme map; Tamagui warned on every docs-page render). `border` kept as alias for backward compat. (2) Switched `nativeID` → `id` on every `FormControl.*` `<TamaguiText>` (Tamagui Text translates `id → nativeID` on native, so `id` is safe cross-platform while avoiding "unknown DOM attr" warnings on web). (3) Moved `accessibilityLiveRegion` and `accessibilityRole` behind `Platform.OS !== "web"` guards in `FormErrorMessage` + `Heading` — web already carries the semantic role through the underlying HTML element. (4) Added `"react-native": "react-native-web"` alias to `vitest.config.ts` (both `logic` and `web-component` projects) so the new `Platform` imports parse cleanly during test runs. Still 150/150 tests green. `pressTheme` warning left deferred — originates inside Tamagui, not fixable from our side.
+- [x] **P8.C — Maestro E2E flows.** Three flow files in `apps/playground/.maestro/`: `modal-open-close.yaml` (launch → components showcase → scroll to Open Modal → assert visible → OK → assert gone), `form-submit.yaml` (composer → type invalid email → assert error → retype valid → assert cleared), `color-mode-toggle.yaml` (launch → assert Dark mode button → tap → assert Light mode button flipped). Added a `ColorModeToggle` control to `apps/playground/app/components.tsx` so the last flow has something to exercise. CI slow lane (`ci-e2e.yml`) picks these up automatically via its `hashFiles('apps/playground/.maestro/*.yaml')` gate.
+- [x] **P8.B — Dogfood sample app.** New `apps/todo-example/` — a TODO-with-auth Vite app built from only Superstyling primitives. Structure: `LoginScreen` (email/password, validation, loading state, error Alert) → `TodoScreen` (header with Avatar + greeting + color-mode IconButton + Settings Button, add-todo composer, RadioGroup filter, list of Switch + Text + Badge + IconButton rows, Clear/Sign out footer, Settings Modal with 3 Switches, destructive-action confirm Modal). Consumes `@superstyling/vite`'s `superstylingVitePlugin` end-to-end. **3 rough-edge findings captured in its README's "Rough edges" section** — they're candidate v0.2 issues:
+  - **Finding 1:** `declare module "tamagui" { interface TamaguiCustomConfig extends typeof system.config {} }` (as our Getting Started guides instruct) triggers 30+ strict-type errors across `@superstyling/core` (Alert, Badge, Avatar, Heading). Tamagui v2's inferred types tighten once the config is concrete; our components have latent strict-mode gaps masked by the loose default.
+  - **Finding 2:** `react-native-web` must be installed as a direct dep in the host Vite app; not mentioned in our Vite Getting Started guide.
+  - **Finding 3:** `<Switch defaultIsChecked>` renders "off" for the first paint before committing the default in SSR; likely an uncontrolled-initialisation quirk.
+- [x] **P8.D — CHANGELOG + Changesets sweep.** Root `CHANGELOG.md` with narrative release notes for v0.1.0 (every package, every component group, every integration, every quality gate, deferred-to-v0.2 list, breaking-change policy). Single changeset at `.changeset/initial-release.md` covering all 5 `@superstyling/*` packages with `minor` bump (fixed versioning means they all bump together). Updated `.changeset/config.json` `ignore` list to add `superstyling-todo-example`.
+
+### Manual tracks (still Nate's — device-dependent)
 
 - [ ] Manual walkthrough: every component on web (Vite + Next.js)
 - [ ] Manual walkthrough: every component on iOS (Expo)
