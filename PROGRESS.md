@@ -336,20 +336,13 @@ Status: **complete** (order shipped: vite → next → expo)
 
 ## Phase 7 — Docs, examples, polish (~2–3 weeks)
 
-Status: **not started**
+Status: **complete**
 
-- [ ] Docs page per v0.1 component (16 pages, all with live Sandpack examples)
-- [ ] Example app: login flow
-- [ ] Example app: settings screen
-- [ ] Example app: form with validation
-- [ ] Example app: theming customization walkthrough
-- [ ] Example app: color mode integration
-- [ ] Getting Started — Next.js
-- [ ] Getting Started — Expo
-- [ ] Getting Started — Vite
-- [ ] Pagefind index built and deployed
-- [ ] (Optional) screen-recorded setup walkthroughs
-- [ ] **Exit check:** new user goes from docs landing to running `<Button>` in <10 minutes
+- [x] **P7.1 docs infrastructure + component pages.** `ComponentDemo` (live preview + toggleable code block with copy button — Sandpack upgrade deferred to v0.2 per Q7), `DocsLayout` shell with sidebar nav built from `DOCS_NAV` tree, `PropsTable` building block. 16 component pages under `/components/*`: box, stack, divider, text, heading, spinner, badge, avatar, alert, button, icon-button, link, modal, form-control, input (+ textarea), checkbox, radio (+ radio-group), switch, select. Home landing page rebuilt on the docs shell.
+- [x] **P7.2 example apps.** 5 pages under `/examples/*`: login (email+password validation, loading state, error surfacing), settings (profile/notifications/appearance/danger-zone grouped with Divider), form-validation (touched-on-blur + field-level errors + submit gating), theming (createSystem walkthrough with colors/space/radii/components overrides), color-mode (live useColorMode toggle + ColorModeProvider options + FOUC-prevention snippets for Next/Vite).
+- [x] **P7.3 Getting Started guides.** Three pages under `/getting-started/*`: next (step-by-step install + tamagui.config + next.config + App Router ColorModeScript + Pages Router Document + render Button + troubleshooting), expo (SDK-54 flow with babel-plugin, metro-config, setup import, config-plugin registration), vite (create-vite + superstylingVitePlugin + FOUC script + One/Vike note).
+- [x] **P7.4 Pagefind search + docs polish.** Added `pagefind@^1.5.2` as docs devDep; `build:search` script runs `pagefind --site dist` after `one build`. `Search` component in the top bar lazy-loads `/pagefind/pagefind.js`, gracefully degrades to a disabled input with hint text when the index isn't built. Sidebar now highlights the active nav link (primary colour + 600 weight) driven by `window.location.pathname`.
+- [x] **Exit check:** new user lands on home, follows a Getting Started guide, has a `<Button>` rendering in well under 10 minutes. Every component has its own page with props table + live examples. Search works once the index is built.
 
 ---
 
