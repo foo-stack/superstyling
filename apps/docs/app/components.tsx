@@ -1,4 +1,5 @@
-/* oxlint-disable react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-object-as-prop -- showcase page; perf irrelevant */
+/* oxlint-disable react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-new-function-as-prop -- showcase page; perf irrelevant */
+import { useState } from "react";
 import {
   Alert,
   Avatar,
@@ -10,6 +11,7 @@ import {
   Heading,
   IconButton,
   Link,
+  Modal,
   Spinner,
   Stack,
   Text,
@@ -191,12 +193,91 @@ export default function Components() {
         </VStack>
       </Section>
 
+      <Section title="Modal">
+        <ModalDemo />
+      </Section>
+
       <Box paddingVertical="$6">
         <Text color="$color10" fontSize="$2">
           End of showcase · {new Date().getFullYear()} Superstyling
         </Text>
       </Box>
     </Box>
+  );
+}
+
+function ModalDemo() {
+  const [openSize, setOpenSize] = useState<null | "sm" | "md" | "lg" | "full">(null);
+  const [openMotion, setOpenMotion] = useState<null | "scale" | "slideInBottom" | "slideInTop">(
+    null,
+  );
+  return (
+    <VStack gap="$3" alignItems="flex-start">
+      <Text fontWeight="600">Sizes</Text>
+      <HStack gap="$2" flexWrap="wrap">
+        <Button colorScheme="blue" onPress={() => setOpenSize("sm")}>
+          Open SM
+        </Button>
+        <Button colorScheme="blue" onPress={() => setOpenSize("md")}>
+          Open MD
+        </Button>
+        <Button colorScheme="blue" onPress={() => setOpenSize("lg")}>
+          Open LG
+        </Button>
+        <Button colorScheme="blue" onPress={() => setOpenSize("full")}>
+          Open Full
+        </Button>
+      </HStack>
+      <Modal isOpen={openSize !== null} onClose={() => setOpenSize(null)} size={openSize ?? "md"}>
+        <Modal.Overlay />
+        <Modal.Content>
+          <Modal.Header>
+            <Modal.Title>Modal — {openSize?.toUpperCase() ?? ""}</Modal.Title>
+          </Modal.Header>
+          <Modal.CloseButton />
+          <Modal.Body>
+            <Text>Modal body content. Size: {openSize}.</Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="ghost" onPress={() => setOpenSize(null)}>
+              Cancel
+            </Button>
+            <Button colorScheme="blue" onPress={() => setOpenSize(null)}>
+              Confirm
+            </Button>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+
+      <Text fontWeight="600">Motion presets</Text>
+      <HStack gap="$2" flexWrap="wrap">
+        <Button variant="outline" onPress={() => setOpenMotion("scale")}>
+          Scale
+        </Button>
+        <Button variant="outline" onPress={() => setOpenMotion("slideInBottom")}>
+          Slide bottom
+        </Button>
+        <Button variant="outline" onPress={() => setOpenMotion("slideInTop")}>
+          Slide top
+        </Button>
+      </HStack>
+      <Modal
+        isOpen={openMotion !== null}
+        onClose={() => setOpenMotion(null)}
+        motionPreset={openMotion ?? "scale"}
+      >
+        <Modal.Overlay />
+        <Modal.Content>
+          <Modal.Header>
+            <Modal.Title>Motion: {openMotion}</Modal.Title>
+          </Modal.Header>
+          <Modal.CloseButton />
+          <Modal.Body>
+            <Text>Enter/exit uses the {openMotion} preset.</Text>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
+    </VStack>
   );
 }
 

@@ -1,4 +1,5 @@
-/* oxlint-disable react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-object-as-prop -- showcase page; perf irrelevant */
+/* oxlint-disable react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-new-function-as-prop -- showcase page; perf irrelevant */
+import { useState } from "react";
 import { ScrollView } from "react-native";
 import {
   Alert,
@@ -10,6 +11,7 @@ import {
   HStack,
   Heading,
   IconButton,
+  Modal,
   Spinner,
   Stack,
   Text,
@@ -154,8 +156,43 @@ export default function Components() {
             <IconButton aria-label="More" icon={<ChevronDownIcon />} variant="ghost" />
           </HStack>
         </Section>
+
+        <Section title="Modal">
+          <ModalDemo />
+        </Section>
       </Box>
     </ScrollView>
+  );
+}
+
+function ModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <VStack gap="$2" alignItems="flex-start">
+      <Button colorScheme="blue" onPress={() => setOpen(true)}>
+        Open Modal
+      </Button>
+      <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <Modal.Overlay />
+        <Modal.Content>
+          <Modal.Header>
+            <Modal.Title>Dialog</Modal.Title>
+          </Modal.Header>
+          <Modal.CloseButton />
+          <Modal.Body>
+            <Text>This is a native-rendered modal via Tamagui Dialog.</Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="ghost" onPress={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button colorScheme="blue" onPress={() => setOpen(false)}>
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    </VStack>
   );
 }
 

@@ -80,6 +80,7 @@ export {
   IconButton,
   Link,
   Alert,
+  Modal,
   type BoxProps,
   type StackProps,
   type StackDirection,
@@ -102,6 +103,12 @@ export {
   type AlertProps,
   type AlertStatus,
   type AlertVariant,
+  type ModalProps,
+  type ModalSize,
+  type ModalMotionPreset,
+  type ModalScrollBehavior,
+  type ModalOverlayProps,
+  type ModalContentProps,
 } from "./components";
 
 // Breakpoint context (for custom components that want theme-aware responsive parsing)

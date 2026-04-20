@@ -15,3 +15,12 @@ export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from ".
 export { IconButton, type IconButtonProps } from "./IconButton";
 export { Link, type LinkProps } from "./Link";
 export { Alert, type AlertProps, type AlertStatus, type AlertVariant } from "./Alert";
+export {
+  Modal,
+  type ModalProps,
+  type ModalSize,
+  type ModalMotionPreset,
+  type ModalScrollBehavior,
+  type ModalOverlayProps,
+  type ModalContentProps,
+} from "./Modal";
