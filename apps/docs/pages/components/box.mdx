@@ -1,0 +1,103 @@
+import { Box, HStack, Text } from "@superstyling/core";
+import { ComponentDemo } from "../../components/ComponentDemo";
+import { PropsTable } from "../../components/PropsTable";
+
+# Box
+
+The most basic layout primitive. Renders a Tamagui `YStack` under the hood, so it stretches its children vertically by default and accepts every style prop the design system understands.
+
+## Import
+
+```tsx
+import { Box } from "@superstyling/core";
+```
+
+## Basic usage
+
+<ComponentDemo
+  code={`<Box padding="$4" backgroundColor="$primary" borderRadius={8}>
+  <Text color="$primaryContrast">Hello, Box.</Text>
+</Box>`}
+  preview={
+    <Box padding="$4" backgroundColor="$primary" borderRadius={8}>
+      <Text color="$primaryContrast">Hello, Box.</Text>
+    </Box>
+  }
+/>
+
+## Composing with pseudo-props
+
+<ComponentDemo
+  code={`<Box
+  padding="$4"
+  backgroundColor="$color2"
+  borderRadius={8}
+  _hover={{ backgroundColor: "$primaryMuted" }}
+>
+  Hover me
+</Box>`}
+  preview={
+    <Box
+      padding="$4"
+      backgroundColor="$color2"
+      borderRadius={8}
+      _hover={{ backgroundColor: "$primaryMuted" }}
+    >
+      <Text>Hover me</Text>
+    </Box>
+  }
+/>
+
+## Responsive style props
+
+<ComponentDemo
+  code={`<Box
+  padding={{ base: "$2", md: "$6" }}
+  backgroundColor="$color3"
+  borderRadius={8}
+>
+  Padding grows at the md breakpoint.
+</Box>`}
+  preview={
+    <Box
+      padding={{ base: "$2", md: "$6" }}
+      backgroundColor="$color3"
+      borderRadius={8}
+    >
+      <Text>Padding grows at the md breakpoint.</Text>
+    </Box>
+  }
+/>
+
+## Row layout via flexDirection
+
+<ComponentDemo
+  code={`<Box flexDirection="row" gap="$2">
+  <Box width={32} height={32} backgroundColor="$primary" borderRadius={4} />
+  <Box width={32} height={32} backgroundColor="$primary" borderRadius={4} />
+  <Box width={32} height={32} backgroundColor="$primary" borderRadius={4} />
+</Box>`}
+  preview={
+    <HStack gap="$2">
+      <Box width={32} height={32} backgroundColor="$primary" borderRadius={4} />
+      <Box width={32} height={32} backgroundColor="$primary" borderRadius={4} />
+      <Box width={32} height={32} backgroundColor="$primary" borderRadius={4} />
+    </HStack>
+  }
+/>
+
+## Props
+
+Box accepts every Tamagui `YStack` prop plus the Chakra-style pseudo-prop mixins (`_hover`, `_focus`, `_active`, …) and the `sx` escape hatch.
+
+<PropsTable
+  props={[
+    { name: "sx", type: "Partial<BoxProps>", description: "Escape hatch for style overrides. Merged onto the underlying element after props, so it wins any conflict." },
+    { name: "_hover", type: "Partial<BoxProps>", description: "Styles applied on pointer hover (web-only). On native this is treated as a no-op." },
+    { name: "_focus", type: "Partial<BoxProps>", description: "Styles applied when the element is focused." },
+    { name: "_focusVisible", type: "Partial<BoxProps>", description: "Styles applied when the element receives keyboard-triggered focus (web-only)." },
+    { name: "_active", type: "Partial<BoxProps>", description: "Styles applied while the element is being pressed/activated." },
+    { name: "_pressed", type: "Partial<BoxProps>", description: "Alias for the native pressed state. Same semantics as _active cross-platform." },
+    { name: "_disabled", type: "Partial<BoxProps>", description: "Styles applied when the element carries aria-disabled or its disabled prop is true." },
+  ]}
+/>

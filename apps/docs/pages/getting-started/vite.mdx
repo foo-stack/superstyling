@@ -1,0 +1,84 @@
+# Getting Started — Vite
+
+Zero to `<Button>` on a fresh `create-vite` React project. Works with plain Vite, Vike (for SSR/SSG), or One.
+
+## 1. Install
+
+```bash
+yarn add @superstyling/core @superstyling/vite @superstyling/icons tamagui react-native-web
+```
+
+## 2. Create `tamagui.config.ts`
+
+```tsx
+// tamagui.config.ts
+import { createSystem } from "@superstyling/core";
+export const system = createSystem({});
+export default system.config;
+declare module "tamagui" {
+  interface TamaguiCustomConfig extends typeof system.config {}
+}
+```
+
+## 3. Wire the Vite plugin
+
+```tsx
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { superstylingVitePlugin } from "@superstyling/vite";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    ...superstylingVitePlugin({
+      config: "./tamagui.config.ts",
+    }),
+  ],
+});
+```
+
+`superstylingVitePlugin` returns an array of three plugins (aliases, dev-deps hints, Tamagui's own plugin). Spread it into your `plugins` array.
+
+## 4. Add the FOUC-prevention script to `index.html`
+
+```html
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My App</title>
+    <!--SUPERSTYLING-COLOR-MODE-SCRIPT-->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
+Replace the marker at build time via a Vite `transformIndexHtml` hook, or paste the output of `colorModeScriptSnippet()` statically.
+
+## 5. Wrap your root and render
+
+```tsx
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { SuperStylingProvider, Button } from "@superstyling/core";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <SuperStylingProvider>
+      <Button colorScheme="blue">Hello from Superstyling</Button>
+    </SuperStylingProvider>
+  </StrictMode>
+);
+```
+
+## Using One or Vike?
+
+:::info[One already bundles Tamagui]
+If you're on One (onestack.dev), its own `one()` Vite plugin already includes Tamagui integration — don't add `superstylingVitePlugin` on top. Point One at your `tamagui.config.ts` and use the rest of this library as-is.
+:::

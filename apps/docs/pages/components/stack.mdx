@@ -1,0 +1,91 @@
+import { Box, HStack, Stack, Text, VStack } from "@superstyling/core";
+import { ComponentDemo } from "../../components/ComponentDemo";
+import { PropsTable } from "../../components/PropsTable";
+
+export const swatch = { width: 40, height: 40, backgroundColor: "$primary", borderRadius: 4 };
+
+# Stack · HStack · VStack
+
+Layout primitives that arrange children in a row (`HStack`) or column (`VStack`). `Stack` itself is the direction-aware base — use it when the axis is a prop; use `HStack`/`VStack` when you know the axis at design time.
+
+## Import
+
+```tsx
+import { Stack, HStack, VStack } from "@superstyling/core";
+```
+
+## HStack — row layout
+
+<ComponentDemo
+  code={`<HStack gap="$3">
+  <Box {...swatch} />
+  <Box {...swatch} />
+  <Box {...swatch} />
+</HStack>`}
+  preview={
+    <HStack gap="$3">
+      <Box {...swatch} />
+      <Box {...swatch} />
+      <Box {...swatch} />
+    </HStack>
+  }
+/>
+
+## VStack — column layout
+
+<ComponentDemo
+  code={`<VStack gap="$2" alignItems="flex-start">
+  <Text>First</Text>
+  <Text>Second</Text>
+  <Text>Third</Text>
+</VStack>`}
+  preview={
+    <VStack gap="$2" alignItems="flex-start">
+      <Text>First</Text>
+      <Text>Second</Text>
+      <Text>Third</Text>
+    </VStack>
+  }
+/>
+
+## Stack with dynamic direction
+
+<ComponentDemo
+  code={`<Stack direction="row" gap="$2" alignItems="center">
+  <Box {...swatch} />
+  <Text>Switch to column</Text>
+</Stack>`}
+  preview={
+    <Stack direction="row" gap="$2" alignItems="center">
+      <Box {...swatch} />
+      <Text>Switch to column</Text>
+    </Stack>
+  }
+/>
+
+## Wrapping rows
+
+<ComponentDemo
+  code={`<HStack gap="$2" flexWrap="wrap">
+  {Array.from({ length: 10 }).map((_, i) => <Box key={i} {...swatch} />)}
+</HStack>`}
+  preview={
+    <HStack gap="$2" flexWrap="wrap">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <Box key={i} {...swatch} />
+      ))}
+    </HStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "direction", type: `"row" | "column"`, default: `"column"`, description: "Axis children are laid out along. Only on <Stack>; HStack/VStack hard-code this." },
+    { name: "gap", type: "SpaceToken | number", description: "Gap between children. Accepts $-tokens or raw pixel numbers." },
+    { name: "alignItems", type: "FlexAlign", description: "Cross-axis alignment (e.g., center, flex-start). Same semantics as CSS flexbox." },
+    { name: "justifyContent", type: "FlexJustify", description: "Main-axis alignment (e.g., space-between, center)." },
+    { name: "flexWrap", type: `"wrap" | "nowrap" | "wrap-reverse"`, default: `"nowrap"`, description: "Whether overflowing children wrap to a new line." },
+  ]}
+/>

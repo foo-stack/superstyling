@@ -219,9 +219,9 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 ### 5.1 Docs site
 
 - **Custom Vite-based app** in `apps/docs`.
-- **One (onestack.dev)** as the universal React framework — dogfoods our library on web + iOS + Android from a single codebase.
-- MDX for content, Sandpack for live code (web), Expo Snack embeds for native previews (fallback where One-native isn't ideal), Pagefind for search.
-- Pre-1.0 risk accepted; fallback plan if One proves unworkable is to swap to Vike or Astro Starlight.
+- **Vocs (vocs.dev)** as the docs framework — React + Vite SSG built specifically for technical documentation. MDX pages + Shiki syntax highlighting + built-in `Callout`, `Steps`, `Tabs`, `CodeGroup`, `Button`, and local/Algolia search.
+- Live component previews rendered via a custom MDX component (`<ComponentDemo>`) that wraps our Superstyling components in `<SuperStylingProvider>` at Vocs's layout level — no Sandpack or CodeSandbox dep. The plain code + live preview pattern stays (per Q7, Phase 7).
+- **Prior decision reversed (2026-04-20):** Initially planned to use One (onestack.dev) so one codebase could dogfood on web + iOS + Android. In practice, One's vxrn bundler and Tamagui have a dual-React-instance crash during SSR (`useRef is null` in `@tamagui/web/src/views/Theme.tsx`) that is not solvable from our side. Switched to Vocs because it uses a standard React/react-dom pipeline, not a vendored one. Native dogfooding moves fully to `apps/playground`.
 
 ### 5.2 Playground
 

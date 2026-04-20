@@ -1,0 +1,37 @@
+---
+title: Superstyling — a Chakra-shaped React component library on Tamagui
+---
+
+import { HomePage } from "vocs/components";
+
+<HomePage.Root>
+  <HomePage.Tagline>Chakra-UI ergonomics on top of Tamagui.</HomePage.Tagline>
+  <HomePage.Description>
+    A React component library that renders the same code to web, iOS, and Android —
+    compile-time styles, type-safe theme, Chakra-style API.
+  </HomePage.Description>
+  <HomePage.InstallPackage name="@superstyling/core" />
+  <HomePage.Buttons>
+    <HomePage.Button href="/getting-started/next" variant="accent">Get started</HomePage.Button>
+    <HomePage.Button href="/components/button">Browse components</HomePage.Button>
+    <HomePage.Button href="https://github.com/natestack/superstyling" variant="link">GitHub</HomePage.Button>
+  </HomePage.Buttons>
+</HomePage.Root>
+
+## Why
+
+**One API, three platforms.** Ship the same component code to web, iOS, and Android. Tamagui handles the renderer; Superstyling gives you Chakra-style ergonomics on top.
+
+**Compile-time extraction.** Style props compile to atomic CSS on the web and flat StyleSheet objects on native — no runtime parser.
+
+**Type-safe theme.** Your palette, spacing, breakpoints, and semantic tokens are typed end to end, so every color prop autocompletes.
+
+## Getting started
+
+- [Next.js](/getting-started/next)
+- [Expo](/getting-started/expo)
+- [Vite](/getting-started/vite)
+
+## Components
+
+Every v0.1 primitive has a docs page with live examples, variants, and the full props table. Start with [Button](/components/button) or browse the sidebar.

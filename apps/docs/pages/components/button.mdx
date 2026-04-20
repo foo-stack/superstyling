@@ -1,0 +1,97 @@
+import { Button, HStack } from "@superstyling/core";
+import { CheckIcon, CloseIcon, PlusIcon } from "@superstyling/icons";
+import { ComponentDemo } from "../../components/ComponentDemo";
+import { PropsTable } from "../../components/PropsTable";
+
+export const VARIANTS = ["solid", "outline", "ghost", "link"];
+export const SIZES = ["xs", "sm", "md", "lg"];
+
+# Button
+
+Primary interactive primitive. Four variants × four sizes × full `colorScheme` palette, with slots for left/right icons and a built-in loading state.
+
+## Import
+
+```tsx
+import { Button } from "@superstyling/core";
+```
+
+## Variants
+
+<ComponentDemo
+  code={`<Button variant="solid" colorScheme="blue">Solid</Button>
+<Button variant="outline" colorScheme="blue">Outline</Button>
+<Button variant="ghost" colorScheme="blue">Ghost</Button>
+<Button variant="link" colorScheme="blue">Link</Button>`}
+  preview={
+    <HStack gap="$2" flexWrap="wrap" alignItems="center">
+      {VARIANTS.map((v) => (
+        <Button key={v} variant={v} colorScheme="blue">{v}</Button>
+      ))}
+    </HStack>
+  }
+/>
+
+## Sizes
+
+<ComponentDemo
+  code={`<Button size="xs">XS</Button>
+<Button size="sm">SM</Button>
+<Button size="md">MD</Button>
+<Button size="lg">LG</Button>`}
+  preview={
+    <HStack gap="$2" alignItems="center">
+      {SIZES.map((s) => (
+        <Button key={s} size={s} colorScheme="blue">{s.toUpperCase()}</Button>
+      ))}
+    </HStack>
+  }
+/>
+
+## With icons
+
+<ComponentDemo
+  code={`<Button leftIcon={<PlusIcon />} colorScheme="blue">Add</Button>
+<Button rightIcon={<CheckIcon />} colorScheme="green">Confirm</Button>
+<Button leftIcon={<CloseIcon />} variant="outline" colorScheme="red">Remove</Button>`}
+  preview={
+    <HStack gap="$2" flexWrap="wrap" alignItems="center">
+      <Button leftIcon={<PlusIcon />} colorScheme="blue">Add</Button>
+      <Button rightIcon={<CheckIcon />} colorScheme="green">Confirm</Button>
+      <Button leftIcon={<CloseIcon />} variant="outline" colorScheme="red">Remove</Button>
+    </HStack>
+  }
+/>
+
+## Loading / disabled
+
+<ComponentDemo
+  code={`<Button isLoading>Saving…</Button>
+<Button isLoading loadingText="Submitting" colorScheme="blue">Submit</Button>
+<Button isDisabled>Disabled</Button>`}
+  preview={
+    <HStack gap="$2" flexWrap="wrap" alignItems="center">
+      <Button isLoading>Saving…</Button>
+      <Button isLoading loadingText="Submitting" colorScheme="blue">Submit</Button>
+      <Button isDisabled>Disabled</Button>
+    </HStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "variant", type: `"solid" | "outline" | "ghost" | "link"`, default: `"solid"`, description: "Visual treatment." },
+    { name: "size", type: `"xs" | "sm" | "md" | "lg"`, default: `"md"`, description: "Overall size (height, padding, font)." },
+    { name: "colorScheme", type: "string", default: `"gray"`, description: "Which palette the button is themed with." },
+    { name: "leftIcon", type: "ReactElement", description: "Icon element rendered before the label." },
+    { name: "rightIcon", type: "ReactElement", description: "Icon element rendered after the label." },
+    { name: "isLoading", type: "boolean", default: "false", description: "Swap the content for a spinner (or the spinner + loadingText)." },
+    { name: "loadingText", type: "string", description: "Label shown beside the spinner while loading." },
+    { name: "spinnerPlacement", type: `"start" | "end"`, default: `"start"`, description: "Which side the spinner sits when loadingText is set." },
+    { name: "isDisabled", type: "boolean", default: "false", description: "Disable pointer + a11y interaction." },
+    { name: "isActive", type: "boolean", default: "false", description: "Apply the pressed visual state programmatically." },
+    { name: "onPress", type: "() => void", description: "Fires on click (web) or press (native)." },
+  ]}
+/>

@@ -4,8 +4,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "moduleResolution": "Bundler",
-    "types": ["one", "vite/client", "react", "react-dom"]
+    "types": ["vite/client", "react", "react-dom"]
   },
-  "include": ["app/**/*", "*.ts", "*.tsx", "vite.config.ts"],
+  "include": ["pages/**/*", "components/**/*", "app/**/*", "src/**/*", "*.ts", "*.tsx", "*.mdx"],
   "exclude": ["node_modules", "dist"]
 }

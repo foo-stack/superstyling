@@ -1,0 +1,79 @@
+import { useState } from "react";
+import { HStack, Switch, VStack } from "@superstyling/core";
+import { ComponentDemo } from "../../components/ComponentDemo";
+import { PropsTable } from "../../components/PropsTable";
+
+export function BasicSwitchDemo() {
+  const [on, setOn] = useState(true);
+  return (
+    <Switch isChecked={on} onChange={setOn} colorScheme="green">
+      Email notifications
+    </Switch>
+  );
+}
+
+# Switch
+
+Boolean toggle rendered as a sliding thumb. Three sizes, full `colorScheme` palette, label slot, `FormControl`-aware.
+
+## Import
+
+```tsx
+import { Switch } from "@superstyling/core";
+```
+
+## Basic usage
+
+<ComponentDemo
+  code={`function Example() {
+  const [on, setOn] = useState(true);
+  return (
+    <Switch isChecked={on} onChange={setOn} colorScheme="green">
+      Email notifications
+    </Switch>
+  );
+}`}
+  preview={<BasicSwitchDemo />}
+/>
+
+## Sizes
+
+<ComponentDemo
+  code={`<Switch size="sm">Small</Switch>
+<Switch size="md">Medium</Switch>
+<Switch size="lg">Large</Switch>`}
+  preview={
+    <HStack gap="$4" alignItems="center">
+      <Switch size="sm" colorScheme="blue">Small</Switch>
+      <Switch size="md" colorScheme="blue">Medium</Switch>
+      <Switch size="lg" colorScheme="blue">Large</Switch>
+    </HStack>
+  }
+/>
+
+## Disabled
+
+<ComponentDemo
+  code={`<Switch isDisabled>Off, disabled</Switch>
+<Switch isDisabled defaultIsChecked>On, disabled</Switch>`}
+  preview={
+    <VStack gap="$2" alignItems="flex-start">
+      <Switch isDisabled colorScheme="blue">Off, disabled</Switch>
+      <Switch isDisabled defaultIsChecked colorScheme="blue">On, disabled</Switch>
+    </VStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "isChecked", type: "boolean", description: "Controlled on/off state." },
+    { name: "defaultIsChecked", type: "boolean", default: "false", description: "Uncontrolled initial state." },
+    { name: "onChange", type: "(checked: boolean) => void", description: "Change handler." },
+    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Track + thumb size." },
+    { name: "colorScheme", type: "string", default: `"gray"`, description: "Palette applied when on." },
+    { name: "isDisabled", type: "boolean", description: "Disable + dim." },
+    { name: "children", type: "ReactNode", description: "Label text rendered beside the switch." },
+  ]}
+/>

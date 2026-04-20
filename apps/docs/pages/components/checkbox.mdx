@@ -1,0 +1,80 @@
+import { useState } from "react";
+import { Checkbox, HStack, VStack } from "@superstyling/core";
+import { ComponentDemo } from "../../components/ComponentDemo";
+import { PropsTable } from "../../components/PropsTable";
+
+export function BasicCheckboxDemo() {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Checkbox isChecked={checked} onChange={setChecked} colorScheme="blue">
+      I agree to the terms
+    </Checkbox>
+  );
+}
+
+# Checkbox
+
+Boolean toggle with a label slot. Three sizes, full `colorScheme` palette, `FormControl`-aware.
+
+## Import
+
+```tsx
+import { Checkbox } from "@superstyling/core";
+```
+
+## Basic usage
+
+<ComponentDemo
+  code={`function Example() {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Checkbox isChecked={checked} onChange={setChecked} colorScheme="blue">
+      I agree to the terms
+    </Checkbox>
+  );
+}`}
+  preview={<BasicCheckboxDemo />}
+/>
+
+## Sizes
+
+<ComponentDemo
+  code={`<Checkbox size="sm">Small</Checkbox>
+<Checkbox size="md">Medium</Checkbox>
+<Checkbox size="lg">Large</Checkbox>`}
+  preview={
+    <HStack gap="$4" alignItems="center">
+      <Checkbox size="sm" colorScheme="blue">Small</Checkbox>
+      <Checkbox size="md" colorScheme="blue">Medium</Checkbox>
+      <Checkbox size="lg" colorScheme="blue">Large</Checkbox>
+    </HStack>
+  }
+/>
+
+## Disabled
+
+<ComponentDemo
+  code={`<Checkbox isDisabled>Disabled unchecked</Checkbox>
+<Checkbox isDisabled defaultIsChecked>Disabled checked</Checkbox>`}
+  preview={
+    <VStack gap="$2" alignItems="flex-start">
+      <Checkbox isDisabled>Disabled unchecked</Checkbox>
+      <Checkbox isDisabled defaultIsChecked>Disabled checked</Checkbox>
+    </VStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "isChecked", type: "boolean", description: "Controlled checked state." },
+    { name: "defaultIsChecked", type: "boolean", default: "false", description: "Uncontrolled initial state." },
+    { name: "onChange", type: "(checked: boolean) => void", description: "Change handler." },
+    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Box and label size." },
+    { name: "colorScheme", type: "string", default: `"gray"`, description: "Palette applied when checked." },
+    { name: "isDisabled", type: "boolean", description: "Disable + dim." },
+    { name: "isInvalid", type: "boolean", description: "Invalid visual state. Auto-synced from FormControl." },
+    { name: "children", type: "ReactNode", description: "Label. Strings/numbers wrapped in a Text automatically." },
+  ]}
+/>

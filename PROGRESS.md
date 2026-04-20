@@ -339,10 +339,73 @@ Status: **complete** (order shipped: vite → next → expo)
 Status: **complete**
 
 - [x] **P7.1 docs infrastructure + component pages.** `ComponentDemo` (live preview + toggleable code block with copy button — Sandpack upgrade deferred to v0.2 per Q7), `DocsLayout` shell with sidebar nav built from `DOCS_NAV` tree, `PropsTable` building block. 16 component pages under `/components/*`: box, stack, divider, text, heading, spinner, badge, avatar, alert, button, icon-button, link, modal, form-control, input (+ textarea), checkbox, radio (+ radio-group), switch, select. Home landing page rebuilt on the docs shell.
-- [x] **P7.2 example apps.** 5 pages under `/examples/*`: login (email+password validation, loading state, error surfacing), settings (profile/notifications/appearance/danger-zone grouped with Divider), form-validation (touched-on-blur + field-level errors + submit gating), theming (createSystem walkthrough with colors/space/radii/components overrides), color-mode (live useColorMode toggle + ColorModeProvider options + FOUC-prevention snippets for Next/Vite).
+- [x] **P7.2 example apps** _(shipped as in-docs pages, not standalone apps — see deferred note)_. 5 pages under `/examples/*`: login (email+password validation, loading state, error surfacing), settings (profile/notifications/appearance/danger-zone grouped with Divider), form-validation (touched-on-blur + field-level errors + submit gating), theming (createSystem walkthrough with colors/space/radii/components overrides), color-mode (live useColorMode toggle + ColorModeProvider options + FOUC-prevention snippets for Next/Vite).
+  - **Deferred:** PLAN.md originally called for standalone example _apps_ (clonable starters with their own package.json, config, dev/build scripts). Current implementation is in-docs interactive pages. Standalone apps deferred to Phase 8 or a follow-up milestone; scope decisions (one-app-per-example vs combined workspace, web-only vs cross-platform) to be made at that time.
 - [x] **P7.3 Getting Started guides.** Three pages under `/getting-started/*`: next (step-by-step install + tamagui.config + next.config + App Router ColorModeScript + Pages Router Document + render Button + troubleshooting), expo (SDK-54 flow with babel-plugin, metro-config, setup import, config-plugin registration), vite (create-vite + superstylingVitePlugin + FOUC script + One/Vike note).
 - [x] **P7.4 Pagefind search + docs polish.** Added `pagefind@^1.5.2` as docs devDep; `build:search` script runs `pagefind --site dist` after `one build`. `Search` component in the top bar lazy-loads `/pagefind/pagefind.js`, gracefully degrades to a disabled input with hint text when the index isn't built. Sidebar now highlights the active nav link (primary colour + 600 weight) driven by `window.location.pathname`.
 - [x] **Exit check:** new user lands on home, follows a Getting Started guide, has a `<Button>` rendering in well under 10 minutes. Every component has its own page with props table + live examples. Search works once the index is built.
+
+### Post-commit bug fixes (surfaced running the docs dev server)
+
+- [x] **`createTamagui()` missing `$true` token.** Tamagui v2 requires `true` keys on `space`, `size`, and `radius` tokens (used as scaling baselines). `packages/core/src/theme/resolver.ts` now injects `true` matching the Chakra default (`$4` for space/1rem, `$md` for size/28rem, `md` for radius/0.375rem). Regression test added in `resolver.test.ts`.
+- [x] **`createTamagui()` invalid `tokens.zIndex`.** Tamagui v2 requires zIndex keys to be a subset of size keys. Our semantic Chakra z-indices (`modal`, `tooltip`, etc.) broke this. `createSystem.ts` now inherits v4's default numeric zIndex tokens from `@tamagui/config`; our semantic z-indices stay on `theme.zIndices` for the OverlayRegistry and direct consumer use, not as a Tamagui style-prop surface.
+- [x] **Double `PortalProvider` wrap crashing SSR.** Tamagui v2's `TamaguiProvider` already includes a `PortalProvider`; our `SuperStylingProvider` wrapped another one inside it, causing a null-context error during Tamagui's Gorhom fallback path. Removed the explicit `@tamagui/portal` wrapper.
+
+### Deferred (Phase 8 follow-up)
+
+- [x] **One + Tamagui SSG dual-React crash — resolved by migrating off One.** See Phase 7.5. Pre-migration workaround was `defaultRenderMode: "spa"`; Phase 7.5 replaces One with Vocs, which eliminates the problem.
+
+---
+
+## Phase 7.5 — Migrate docs from One to Vocs (~3–5 days)
+
+Status: **complete**
+
+### Motivation
+
+The Phase 7 docs site (built on One + vxrn) has an unresolvable dual-React-instance crash with Tamagui during SSR (`useRef is null` inside `@tamagui/web/src/views/Theme.tsx`). The workaround — switching to `defaultRenderMode: "spa"` — gives up SEO, first-paint performance, Pagefind indexing, and proper `<Button>`-in-<10-min onboarding (the Phase 7 exit check). Root cause lives in vxrn's vendored React pipeline, not in our library; it is not fixable from our side without a deep integration inside vxrn.
+
+**Vocs** (vocs.dev, by wevm — authors of wagmi/viem) is a React + Vite SSG built specifically for technical documentation. Verified on npm at `vocs@1.4.1`. Ships:
+
+- MDX pages + Shiki syntax highlighting
+- Built-in `Callout`, `Steps`, `Tabs`, `CodeGroup`, `Button`, `Sponsors`, `HomePage` components
+- Local search (no Pagefind dep needed)
+- Standard `react` + `react-dom` runtime — no vendored React, no dual-instance risk
+
+Migrating removes ~500 lines of our hand-rolled `DocsLayout.tsx` / `Search.tsx` / `nav.ts` / Pagefind wiring in exchange for a config file.
+
+### Open decisions (resolve at kickoff)
+
+- **Q10 — Directory layout.** Keep the workspace name `apps/docs` with Vocs's `rootDir` pointing at `apps/docs/docs/`, or flatten to a top-level `docs/` per Vocs's default? (Keeping `apps/docs` preserves monorepo symmetry with `apps/playground`.)
+- **Q11 — URL schema.** Preserve the current `/components/button`, `/examples/login`, `/getting-started/next` routes, or adopt Vocs's default `/docs/...` prefix? (Preserving keeps inbound links in existing commits + any exploratory shares stable.)
+- **Q12 — Live previews.** Render live Superstyling components inside MDX pages (requires wrapping Vocs's `layout.tsx` in `<SuperStylingProvider>`) vs static screenshots. Live previews are a much better DX; cost is one extra provider wrap and verifying Tamagui + Vocs SSR compat.
+- **Q13 — Code display.** Let Vocs's Shiki handle every example without our show/hide toggle, or keep a Vocs-idiomatic version of our `ComponentDemo` show/hide UI on top of Vocs's `<CodeBlock>`?
+
+### Sub-tasks
+
+- [x] **P7.5.1 — Install + configure Vocs.** `apps/docs/package.json` swapped from One (+ Pagefind) to `vocs@^1.4.1`. `vocs.config.ts` at workspace root with `rootDir: "."` (Q10 = keep `apps/docs` workspace, pages at top-level), full sidebar tree, brand accent `#3182CE`, GitHub social link, editLink. Scripts: `vocs dev` / `vocs build` / `vocs preview`.
+- [x] **P7.5.2 — Layout + providers.** `apps/docs/layout.tsx` wraps every page in `<SuperStylingProvider>`. Smoke page renders live Tamagui `<Button>` variants in SSG output — no `useRef` crash, no vendored-React issue. Standard-React SSR path confirmed working with Tamagui.
+- [x] **P7.5.3 — Port `ComponentDemo` primitive.** `apps/docs/components/ComponentDemo.tsx` reimplemented for Vocs. Preview in a framed Box + show/hide toggle (Q13 = keep) + copy button + language label. Uses inline `<pre>` for code display since the prop-passed string can't round-trip through Vocs's MDX Shiki pipeline; fenced markdown blocks elsewhere still get Shiki highlighting. `PropsTable.tsx` also ported.
+- [x] **P7.5.4 — Port 16 component pages to `.mdx`.** box, stack, divider, text, heading, spinner, badge, avatar, alert, button, icon-button, link, modal, form-control, input (+ textarea), checkbox, radio (+ radio-group), switch, select. Every page: MDX imports at top, lead paragraph, fenced-code Import section (Shiki-highlighted), multiple `<ComponentDemo>` sections for variants, `<PropsTable>` for API. Q11 = preserve URLs (`/components/button`, not `/docs/...`). Vocs `:::tip` / `:::info` / `:::warning` blocks replace Alert JSX for a11y notes.
+- [x] **P7.5.5 — Port 5 example pages + 3 Getting Started guides to `.mdx`.** `/examples/{login, settings, form-validation, theming, color-mode}` — interactive demos via exported MDX sub-components that hold state with `useState`. `/getting-started/{next, expo, vite}` — pure MDX with Shiki-highlighted install/config snippets.
+- [x] **P7.5.6 — Port landing page to Vocs `<HomePage>`.** `pages/index.mdx` uses `HomePage.Root`, `HomePage.Tagline`, `HomePage.Description`, `HomePage.InstallPackage`, `HomePage.Buttons` for the Vocs-idiomatic landing feel. Why/Getting-started/Components sections follow.
+- [x] **P7.5.7 — Remove legacy docs scaffolding.** Deleted `apps/docs/app/` (24 .tsx route pages), `apps/docs/src/` (DocsLayout, Search, nav.ts, old ComponentDemo), `apps/docs/vite.config.ts`, `apps/docs/dist/`. `apps/docs/package.json` no longer references `one`, `vxrn`, or `pagefind`.
+- [x] **P7.5.8 — Active-path highlighting.** Free from Vocs's sidebar — no code needed.
+- [x] **P7.5.9 — Verify.** `yarn dev` → 28/28 routes return 200, no SSR errors, live Superstyling components render in MDX. `yarn build` → 28 prerendered static HTML files under `dist/`, plus `llms.txt` + `llms-full.txt` generated for free. Build warnings are benign Tamagui-forwarding-RN-props-to-DOM messages (`nativeID`, `accessibilityRole`, `pressTheme`); not blockers but worth a prop-filter pass in Phase 8.
+
+### Known risks / unknowns
+
+- **Tamagui + Vocs SSR compat.** Vocs uses standard `react-dom/server`, not vendored React. Standard-React Tamagui SSR is a supported path (Next integration uses it). Expect it to work; smoke-test in P7.5.2 before committing to full migration.
+- **`useInsertionEffect` during SSG.** If Tamagui emits `useInsertionEffect` calls during static rendering, Vocs may warn. Mitigation: mark the affected components as client-only via dynamic import.
+- **Sidebar expressiveness.** Vocs sidebars support groups + collapsibles. Our current 9-section nav should port 1-to-1.
+
+### Exit check
+
+- `yarn dev` in `apps/docs` boots, serves every page without SSR errors (no more SPA workaround).
+- `yarn build` produces a `dist/` of static HTML, each page pre-rendered.
+- Superstyling components render live inside MDX pages.
+- Search finds results from every page.
+- `apps/docs/package.json` no longer depends on `one`, `vxrn`, `pagefind`.
 
 ---
 
@@ -382,4 +445,14 @@ Status: **not started**
 
 All architectural decisions from the planning session (Q1–Q42a) live in [`PLAN.md`](./PLAN.md). When a decision is revisited or reversed during implementation, record it here with a date and the reason.
 
-_(No revisions yet — planning complete 2026-04-16.)_
+### 2026-04-20 — Docs framework: One → Vocs
+
+Original decision (§5.1): docs site runs on **One** so it can dogfood Superstyling on web + iOS + Android from one codebase.
+
+Reversed to: docs site runs on **Vocs** (vocs.dev). `apps/playground` remains on Expo Router for native dogfooding.
+
+**Reason:** One's vxrn bundler pre-bundles Tamagui into `.vite/deps_ssr/tamagui.js` but loads `@tamagui/web` transitives from source at SSR time with a different React context than vxrn's vendored React. Result: `useRef is null` inside `@tamagui/web/src/views/Theme.tsx` on every page render. The crash surfaces through `TamaguiProvider`'s internal `<Theme>` component; it is not triggered by any of our code and not fixable from our side without patching vxrn or Tamagui internals. Shipped Phase 7 with `defaultRenderMode: "spa"` as a workaround, but SPA-only gives up SEO, first-paint perf, static indexability, and the Phase 7 exit check (`<Button>` in under 10 minutes from a cold visitor).
+
+Vocs is a React + Vite SSG framework from wevm (wagmi/viem), using standard `react-dom/server` — no vendored React, no dual-instance class of bug. Migration plan lives in Phase 7.5.
+
+Native cross-platform dogfooding (the original motivation for One) has been happening on `apps/playground` all along and continues there. No loss of coverage.

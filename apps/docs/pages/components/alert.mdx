@@ -1,0 +1,102 @@
+import { Alert, VStack } from "@superstyling/core";
+import { ComponentDemo } from "../../components/ComponentDemo";
+import { PropsTable } from "../../components/PropsTable";
+
+export const STATUSES = ["info", "success", "warning", "error", "loading"];
+export const VARIANTS = ["subtle", "solid", "left-accent", "top-accent"];
+
+export function titleCase(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+# Alert
+
+Callout for communicating status. Compound shape: `Alert.Icon`, `Alert.Content` with `Alert.Title` + `Alert.Description` inside. Five statuses × four visual variants.
+
+## Import
+
+```tsx
+import { Alert } from "@superstyling/core";
+```
+
+## Basic usage
+
+<ComponentDemo
+  code={`<Alert status="success">
+  <Alert.Icon />
+  <Alert.Content>
+    <Alert.Title>Saved</Alert.Title>
+    <Alert.Description>Your changes have been persisted.</Alert.Description>
+  </Alert.Content>
+</Alert>`}
+  preview={
+    <Alert status="success">
+      <Alert.Icon />
+      <Alert.Content>
+        <Alert.Title>Saved</Alert.Title>
+        <Alert.Description>Your changes have been persisted.</Alert.Description>
+      </Alert.Content>
+    </Alert>
+  }
+/>
+
+## All statuses (subtle variant)
+
+<ComponentDemo
+  code={`{STATUSES.map((s) => (
+  <Alert key={s} status={s}>
+    <Alert.Icon />
+    <Alert.Content>
+      <Alert.Title>{titleCase(s)}</Alert.Title>
+      <Alert.Description>A {s} alert.</Alert.Description>
+    </Alert.Content>
+  </Alert>
+))}`}
+  preview={
+    <VStack gap="$2">
+      {STATUSES.map((s) => (
+        <Alert key={s} status={s}>
+          <Alert.Icon />
+          <Alert.Content>
+            <Alert.Title>{titleCase(s)}</Alert.Title>
+            <Alert.Description>A {s} alert.</Alert.Description>
+          </Alert.Content>
+        </Alert>
+      ))}
+    </VStack>
+  }
+/>
+
+## Variants
+
+<ComponentDemo
+  code={`{VARIANTS.map((variant) => (
+  <Alert key={variant} status="info" variant={variant}>
+    <Alert.Icon />
+    <Alert.Content>
+      <Alert.Title>variant={variant}</Alert.Title>
+    </Alert.Content>
+  </Alert>
+))}`}
+  preview={
+    <VStack gap="$2">
+      {VARIANTS.map((variant) => (
+        <Alert key={variant} status="info" variant={variant}>
+          <Alert.Icon />
+          <Alert.Content>
+            <Alert.Title>variant={variant}</Alert.Title>
+          </Alert.Content>
+        </Alert>
+      ))}
+    </VStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "status", type: `"info" | "success" | "warning" | "error" | "loading"`, default: `"info"`, description: "Semantic status — drives the icon and colour scheme." },
+    { name: "variant", type: `"subtle" | "solid" | "left-accent" | "top-accent"`, default: `"subtle"`, description: "Visual treatment." },
+  ]}
+/>
