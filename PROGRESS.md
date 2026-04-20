@@ -304,18 +304,22 @@ Status: **Complete ✅ (2026-04-20)**
 
 ## Phase 5 — Tier 1 form components (~3–4 weeks)
 
-Status: **not started**
+Status: **complete**
 
-- [ ] `Input`
-- [ ] `Textarea`
-- [ ] `Checkbox`
-- [ ] `Radio`
-- [ ] `Switch`
-- [ ] `Select` (native picker on iOS/Android, styled native-feel on web)
-- [ ] `FormControl.Root` / `FormControl.Label` / `FormControl.HelperText` / `FormControl.ErrorMessage`
-- [ ] Integrate Zag `field` machine
-- [ ] Per-component screen-reader verification
-- [ ] **Exit check:** login + settings screen in playground using only these components feels natural and a11y-correct
+- [x] `Input` (4 variants × 4 sizes; type=password → secureTextEntry on native)
+- [x] `Textarea` (same variants, rows prop)
+- [x] `Checkbox` (3 sizes, colorScheme, label slot)
+- [x] `Radio` + `RadioGroup` (size context, invalid state propagates to items)
+- [x] `Switch` (3 sizes, colorScheme, label slot)
+- [x] `Select` via Tamagui Select + Adapt+Sheet on `maxMd` (mobile), `Select.Option` compound
+- [x] `FormControl` with `.Label` / `.HelperText` / `.ErrorMessage` — auto-wires `id`, `aria-invalid`, `aria-required`, `aria-readonly`, `aria-describedby`, `aria-labelledby`, `disabled`, `readOnly`, `required` via `useFormControlProps`
+- [x] Added `@tamagui/{input,checkbox,switch,radio-group,select,adapt,sheet,label}@2.0.0-rc.41` as explicit core deps
+- [x] 12 new web tests (form.web.test.tsx) — `yarn test:vitest` → 121/121
+- [x] Login/settings-style `FormDemo` dogfooded on both docs and playground showcases
+- [ ] ~~Integrate Zag `field` machine~~ (deferred — Zag is web-only, Q25 revised to hand-rolled; FormControl context covers v0.1 needs)
+- [ ] Per-component screen-reader verification (deferred to Phase 8 manual walkthrough)
+
+**Exit check:** ✅ login + settings form renders naturally on both apps with full ARIA wiring via FormControl.
 
 ---
 

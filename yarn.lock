@@ -5010,6 +5010,14 @@ __metadata:
   resolution: "@superstyling/core@workspace:packages/core"
   dependencies:
     "@superstyling/icons": "workspace:*"
+    "@tamagui/adapt": "npm:2.0.0-rc.41"
+    "@tamagui/checkbox": "npm:2.0.0-rc.41"
+    "@tamagui/input": "npm:2.0.0-rc.41"
+    "@tamagui/label": "npm:2.0.0-rc.41"
+    "@tamagui/radio-group": "npm:2.0.0-rc.41"
+    "@tamagui/select": "npm:2.0.0-rc.41"
+    "@tamagui/sheet": "npm:2.0.0-rc.41"
+    "@tamagui/switch": "npm:2.0.0-rc.41"
   bin:
     superstyling: ./cli.mjs
   languageName: unknown

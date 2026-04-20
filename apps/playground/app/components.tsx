@@ -7,14 +7,22 @@ import {
   Badge,
   Box,
   Button,
+  Checkbox,
   Divider,
+  FormControl,
   HStack,
   Heading,
   IconButton,
+  Input,
   Modal,
+  Radio,
+  RadioGroup,
+  Select,
   Spinner,
   Stack,
+  Switch,
   Text,
+  Textarea,
   VStack,
 } from "@superstyling/core";
 import { CheckIcon, ChevronDownIcon, CloseIcon, PlusIcon, SearchIcon } from "@superstyling/icons";
@@ -160,8 +168,67 @@ export default function Components() {
         <Section title="Modal">
           <ModalDemo />
         </Section>
+
+        <Section title="Form">
+          <FormDemo />
+        </Section>
       </Box>
     </ScrollView>
+  );
+}
+
+function FormDemo() {
+  const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
+  const [agree, setAgree] = useState(false);
+  const [notify, setNotify] = useState(true);
+  const [plan, setPlan] = useState("free");
+  const [role, setRole] = useState("");
+  const emailInvalid = email.length > 0 && !email.includes("@");
+  return (
+    <VStack gap="$3">
+      <FormControl isRequired isInvalid={emailInvalid}>
+        <FormControl.Label>Email</FormControl.Label>
+        <Input placeholder="you@example.com" value={email} onChangeText={setEmail} />
+        <FormControl.HelperText>We'll never share.</FormControl.HelperText>
+        <FormControl.ErrorMessage>Must contain @.</FormControl.ErrorMessage>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Bio</FormControl.Label>
+        <Textarea placeholder="Tell us about yourself" value={bio} onChangeText={setBio} rows={3} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Role</FormControl.Label>
+        <Select value={role} onChange={setRole} placeholder="Choose role">
+          <Select.Option value="eng" index={0}>
+            Engineer
+          </Select.Option>
+          <Select.Option value="design" index={1}>
+            Designer
+          </Select.Option>
+          <Select.Option value="pm" index={2}>
+            Product manager
+          </Select.Option>
+        </Select>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Plan</FormControl.Label>
+        <RadioGroup value={plan} onChange={setPlan}>
+          <Radio value="free">Free</Radio>
+          <Radio value="pro">Pro</Radio>
+          <Radio value="team">Team</Radio>
+        </RadioGroup>
+      </FormControl>
+      <Checkbox isChecked={agree} onChange={setAgree} colorScheme="blue">
+        I agree
+      </Checkbox>
+      <Switch isChecked={notify} onChange={setNotify} colorScheme="green">
+        Notifications
+      </Switch>
+      <Button colorScheme="blue" isDisabled={!agree || emailInvalid || email.length === 0}>
+        Submit
+      </Button>
+    </VStack>
   );
 }
 

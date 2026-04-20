@@ -42,6 +42,14 @@
     "test": "echo 'test: not yet implemented (Milestone 2)'"
   },
   "dependencies": {
-    "@superstyling/icons": "workspace:*"
+    "@superstyling/icons": "workspace:*",
+    "@tamagui/adapt": "2.0.0-rc.41",
+    "@tamagui/checkbox": "2.0.0-rc.41",
+    "@tamagui/input": "2.0.0-rc.41",
+    "@tamagui/label": "2.0.0-rc.41",
+    "@tamagui/radio-group": "2.0.0-rc.41",
+    "@tamagui/select": "2.0.0-rc.41",
+    "@tamagui/sheet": "2.0.0-rc.41",
+    "@tamagui/switch": "2.0.0-rc.41"
   }
 }
