@@ -18,29 +18,54 @@
   },
   "files": [
     "dist",
-    "src",
     "README.md"
   ],
   "type": "module",
   "sideEffects": [
-    "./src/setup.ts",
-    "./src/setup-all.ts"
+    "./dist/setup.js",
+    "./dist/setup-all.js"
   ],
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./setup": "./src/setup.ts",
-    "./setup-all": "./src/setup-all.ts",
-    "./babel-plugin": "./src/babel-plugin.ts",
-    "./metro-config": "./src/metro-config.ts",
-    "./app-plugin": "./src/app-plugin.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./setup": {
+      "types": "./dist/setup.d.ts",
+      "import": "./dist/setup.js",
+      "default": "./dist/setup.js"
+    },
+    "./setup-all": {
+      "types": "./dist/setup-all.d.ts",
+      "import": "./dist/setup-all.js",
+      "default": "./dist/setup-all.js"
+    },
+    "./babel-plugin": {
+      "types": "./dist/babel-plugin.d.ts",
+      "import": "./dist/babel-plugin.js",
+      "default": "./dist/babel-plugin.js"
+    },
+    "./metro-config": {
+      "types": "./dist/metro-config.d.ts",
+      "import": "./dist/metro-config.js",
+      "default": "./dist/metro-config.js"
+    },
+    "./app-plugin": {
+      "types": "./dist/app-plugin.d.ts",
+      "import": "./dist/app-plugin.js",
+      "default": "./dist/app-plugin.js"
+    },
+    "./package.json": "./package.json"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "echo 'build: not yet implemented (Milestone 3)'",
+    "build": "tsc -p tsconfig.build.json && node ../../scripts/add-js-extensions.mjs dist",
     "typecheck": "tsc --noEmit",
     "test": "echo 'test: not yet implemented (Milestone 2)'"
   },

@@ -6979,6 +6979,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@superstyling/next@workspace:packages/next"
   dependencies:
+    "@superstyling/core": "workspace:*"
     "@tamagui/next-plugin": "npm:2.0.0-rc.41"
     next: "npm:^15"
   peerDependencies:
@@ -6992,6 +6993,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@superstyling/vite@workspace:packages/vite"
   dependencies:
+    "@superstyling/core": "workspace:*"
     "@tamagui/vite-plugin": "npm:2.0.0-rc.41"
   peerDependencies:
     react-native-web: ">=0.19.0"

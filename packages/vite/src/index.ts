@@ -15,8 +15,11 @@
 
 import type { Plugin, PluginOption } from "vite";
 import { tamaguiPlugin, tamaguiAliases } from "@tamagui/vite-plugin";
-import { buildColorModeScript, DEFAULT_STORAGE_KEY } from "@superstyling/core";
-import type { InitialColorMode } from "@superstyling/core";
+import { buildColorModeScript, DEFAULT_STORAGE_KEY } from "@superstyling/core/colorMode";
+
+// Local type alias duplicates `InitialColorMode` from core/theme/types to
+// avoid importing the full core barrel into this integration package.
+type InitialColorMode = "light" | "dark" | "system";
 
 // ────────────────────────────────────────────────────────────────────────
 // Plugin
@@ -170,4 +173,4 @@ export function colorModeScriptSnippet(options: ColorModeScriptOptions = {}): st
   return `<script>${body}</script>`;
 }
 
-export { DEFAULT_STORAGE_KEY } from "@superstyling/core";
+export { DEFAULT_STORAGE_KEY } from "@superstyling/core/colorMode";

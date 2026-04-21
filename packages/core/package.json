@@ -25,19 +25,32 @@
   },
   "files": [
     "dist",
-    "src",
     "cli.mjs",
     "README.md"
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./colorMode": {
+      "types": "./dist/colorMode/index.d.ts",
+      "import": "./dist/colorMode/index.js",
+      "default": "./dist/colorMode/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "echo 'build: not yet implemented (Milestone 3)'",
+    "build": "tsc -p tsconfig.build.json && node ../../scripts/add-js-extensions.mjs dist",
     "typecheck": "tsc --noEmit",
     "test": "echo 'test: not yet implemented (Milestone 2)'"
   },

@@ -51,6 +51,9 @@ out/
 # Vite
 .vite/
 
+# Tamagui build cache
+.tamagui/
+
 # Logs
 *.log
 npm-debug.log*

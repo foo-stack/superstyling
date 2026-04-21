@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.build.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.web.test.ts",
+    "src/**/*.web.test.tsx",
+    "src/**/*.native.test.ts",
+    "src/**/*.native.test.tsx",
+    "src/**/*.playwright.test.ts",
+    "src/**/*.playwright.test.tsx",
+    "src/**/_smoke.*"
+  ]
+}

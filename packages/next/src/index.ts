@@ -15,8 +15,14 @@
  *   - `@superstyling/next/pages` — Pages Router (_document.tsx class API)
  */
 
-import { buildColorModeScript as buildCore, DEFAULT_STORAGE_KEY } from "@superstyling/core";
-import type { InitialColorMode } from "@superstyling/core";
+import {
+  buildColorModeScript as buildCore,
+  DEFAULT_STORAGE_KEY,
+} from "@superstyling/core/colorMode";
+
+// Local type alias duplicates `InitialColorMode` from core/theme/types to
+// avoid importing the full core barrel into this integration package.
+type InitialColorMode = "light" | "dark" | "system";
 
 // ────────────────────────────────────────────────────────────────────────
 // Config wrapper
