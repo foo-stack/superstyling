@@ -1,6 +1,6 @@
 # @superstyling/vite
 
-Vite integration for [Superstyling](https://github.com/natestack/superstyling). Wraps `@tamagui/vite-plugin`, composes the needed aliases and `optimizeDeps` hints, and ships a color-mode script snippet for FOUC-free first paint.
+Vite integration for [Superstyling](https://github.com/foo-stack/superstyling). Wraps `@tamagui/vite-plugin`, composes the needed aliases and `optimizeDeps` hints, and ships a color-mode script snippet for FOUC-free first paint.
 
 ## Install
 
@@ -39,7 +39,7 @@ export default defineConfig({
 
 ## Docs
 
-See the [Vite getting-started guide](https://github.com/natestack/superstyling/blob/main/apps/docs/pages/getting-started/vite.mdx).
+See the [Vite getting-started guide](https://github.com/foo-stack/superstyling/blob/main/apps/docs/pages/getting-started/vite.mdx).
 
 ## License
 

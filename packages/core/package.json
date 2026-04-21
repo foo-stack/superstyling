@@ -12,12 +12,12 @@
     "tamagui",
     "ui"
   ],
-  "homepage": "https://github.com/natestack/superstyling/tree/main/packages/core",
+  "homepage": "https://github.com/foo-stack/superstyling/tree/main/packages/core",
   "license": "MIT",
   "author": "Nathan Irikefe",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/natestack/superstyling.git",
+    "url": "git+https://github.com/foo-stack/superstyling.git",
     "directory": "packages/core"
   },
   "bin": {

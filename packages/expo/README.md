@@ -1,6 +1,6 @@
 # @superstyling/expo
 
-Expo integration for [Superstyling](https://github.com/natestack/superstyling). Ships the required Tamagui native setup side-effects (teleport host, gesture handler, worklets, safe-area, keyboard), a Babel preset with the Tamagui compiler, a Metro config helper, and an Expo config plugin.
+Expo integration for [Superstyling](https://github.com/foo-stack/superstyling). Ships the required Tamagui native setup side-effects (teleport host, gesture handler, worklets, safe-area, keyboard), a Babel preset with the Tamagui compiler, a Metro config helper, and an Expo config plugin.
 
 ## Install
 
@@ -40,7 +40,7 @@ module.exports = withSuperStylingMetro(getDefaultConfig(__dirname), {
 
 ## Docs
 
-See the [Expo getting-started guide](https://github.com/natestack/superstyling/blob/main/apps/docs/pages/getting-started/expo.mdx).
+See the [Expo getting-started guide](https://github.com/foo-stack/superstyling/blob/main/apps/docs/pages/getting-started/expo.mdx).
 
 ## License
 

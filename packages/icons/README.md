@@ -1,6 +1,6 @@
 # @superstyling/icons
 
-Default icon set and `<Icon>` component for [Superstyling](https://github.com/natestack/superstyling). Ships 21 commonly used icons (chevrons, arrows, status, common UI) and a `createIcon` factory for custom glyphs.
+Default icon set and `<Icon>` component for [Superstyling](https://github.com/foo-stack/superstyling). Ships 21 commonly used icons (chevrons, arrows, status, common UI) and a `createIcon` factory for custom glyphs.
 
 ## Install
 
@@ -31,7 +31,7 @@ export const HeartIcon = createIcon({
 
 ## Docs
 
-See the [docs site source](https://github.com/natestack/superstyling/tree/main/apps/docs) for the full icon catalog and `<Icon>` / `createIcon` API.
+See the [docs site source](https://github.com/foo-stack/superstyling/tree/main/apps/docs) for the full icon catalog and `<Icon>` / `createIcon` API.
 
 ## License
 

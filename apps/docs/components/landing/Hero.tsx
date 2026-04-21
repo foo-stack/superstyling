@@ -34,7 +34,7 @@ export function Hero() {
               Browse components
             </Button>
           </Link>
-          <Link href="https://github.com/natestack/superstyling" isExternal>
+          <Link href="https://github.com/foo-stack/superstyling" isExternal>
             <Button variant="ghost" size="lg">
               GitHub ↗
             </Button>

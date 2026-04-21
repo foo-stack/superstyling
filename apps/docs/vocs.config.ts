@@ -81,11 +81,11 @@ const config: Config = {
   socials: [
     {
       icon: "github",
-      link: "https://github.com/natestack/superstyling",
+      link: "https://github.com/foo-stack/superstyling",
     },
   ],
   editLink: {
-    pattern: "https://github.com/natestack/superstyling/edit/main/apps/docs/pages/:path",
+    pattern: "https://github.com/foo-stack/superstyling/edit/main/apps/docs/pages/:path",
     text: "Edit on GitHub",
   },
   theme: {

@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "description": "Cross-platform UI library combining Chakra UI's developer experience with Tamagui's cross-platform engine",
-  "homepage": "https://github.com/natestack/superstyling",
+  "homepage": "https://github.com/foo-stack/superstyling",
   "license": "MIT",
   "author": "Nathan Irikefe",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/natestack/superstyling.git"
+    "url": "git+https://github.com/foo-stack/superstyling.git"
   },
   "workspaces": [
     "packages/*",

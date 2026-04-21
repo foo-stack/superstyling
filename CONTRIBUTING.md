@@ -17,7 +17,7 @@ Thanks for your interest. Superstyling is pre-v0.1 and in active scaffolding, so
 ## One-time setup
 
 ```bash
-git clone https://github.com/natestack/superstyling.git
+git clone https://github.com/foo-stack/superstyling.git
 cd superstyling
 corepack enable
 yarn install

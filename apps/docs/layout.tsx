@@ -34,7 +34,7 @@ export function TopNavEnd() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("https://api.github.com/repos/natestack/superstyling")
+    fetch("https://api.github.com/repos/foo-stack/superstyling")
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (cancelled || !data) return;
@@ -52,7 +52,7 @@ export function TopNavEnd() {
 
   return (
     <a
-      href="https://github.com/natestack/superstyling"
+      href="https://github.com/foo-stack/superstyling"
       target="_blank"
       rel="noopener noreferrer"
       style={{

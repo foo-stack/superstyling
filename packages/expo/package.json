@@ -8,12 +8,12 @@
     "react-native",
     "superstyling"
   ],
-  "homepage": "https://github.com/natestack/superstyling/tree/main/packages/expo",
+  "homepage": "https://github.com/foo-stack/superstyling/tree/main/packages/expo",
   "license": "MIT",
   "author": "Nathan Irikefe",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/natestack/superstyling.git",
+    "url": "git+https://github.com/foo-stack/superstyling.git",
     "directory": "packages/expo"
   },
   "files": [
