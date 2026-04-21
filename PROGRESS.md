@@ -1,7 +1,7 @@
 # `@superstyling/*` — Progress Tracker
 
-**Current phase:** Pre–Phase 0 (planning complete, audit not started)
-**Last updated:** 2026-04-16
+**Current phase:** Phase 8.6 — docs rebuild on One, milestone 1 (spike) in progress
+**Last updated:** 2026-04-21
 
 Phase definitions and decisions live in [`PLAN.md`](./PLAN.md). This file tracks execution only.
 
@@ -572,9 +572,56 @@ See **v0.2 roadmap — docs rebuild on Tamagui's stack** below. Full rebuild wit
 
 ---
 
+## Phase 8.6 — Pull docs rebuild forward (v0.1 critical path)
+
+Status: **in progress — started 2026-04-21**
+
+### Why (decision log 2026-04-21)
+
+The Vocs docs site turned out to have two blockers that surfaced during Phase 9 publish prep:
+
+1. **`vocs@1.4.1` requires Node ≥22** (uses `node:fs.globSync`). Our CI was pinned to Node 20; `yarn build` hard-failed in the release job.
+2. **`vocs build` hangs on Node 24 locally** even after the Node 22 bump. Five ghost processes accumulated on the dev machine over multiple sessions.
+
+Rather than patch around Vocs, we pulled the **v0.2 roadmap — docs rebuild on Tamagui's stack** into the v0.1 critical path. v0.1.0 now ships whenever the rebuild ships; the old Vocs site is quarantined from CI during the migration.
+
+### Plan (locked 2026-04-21)
+
+| Decision       | Answer                                                                                                |
+| -------------- | ----------------------------------------------------------------------------------------------------- |
+| Scope          | Full v0.2 plan — all 7 hand-rolled docs components, full polish                                       |
+| Existing Vocs  | Keep `apps/docs/` in-tree, remove its `build` script, scope root CI build to `./packages/*` only      |
+| Spike approach | Clone `tamagui/tamagui` to `/tmp/` + iterate in `apps/docs-next/`, cross-reference as we go           |
+| Work location  | Directly on `main`, noisy commits OK, `apps/docs-next/` quarantined from CI until green               |
+| Checkpoints    | 4 milestones — (1) spike green, (2) 7 components + first page, (3) all 24 pages + search, (4) cutover |
+| Stack          | `one@^1.15.10`, `@vxrn/mdx`, `mdx-bundler`, `refractor`, `@leeoniya/ufuzzy`                           |
+
+### Sub-tasks (from the v0.2 roadmap, unchanged)
+
+1. **Spike** — reproduce `<Button>Hello</Button>` rendering on One without dual-React crash. Un-timeboxed.
+2. **Scaffold `apps/docs-next/`.** Minimal One app with working `<Button>`.
+3. **Port 7 docs components** — `DocsPage`, `DocsCodeBlock`, `DocsMenuContents`, `MDXProvider`, `PropsTable`, `InlineTabs`, `VersionSwitcher`.
+4. **Wire `mdx-bundler` + dynamic routes** — `data/docs/{category}/{slug}.mdx` loaded by `app/(site)/(docs)/docs/[category]/[slug].tsx`.
+5. **Port 24 MDX files** from `apps/docs/pages/**/*.mdx` → `apps/docs-next/data/docs/{category}/{slug}.mdx`.
+6. **Local search** via `@leeoniya/ufuzzy` over frontmatter + headings + first-paragraph summaries.
+7. **Cutover** — rename `apps/docs` → `apps/docs-vocs`, `apps/docs-next` → `apps/docs`. Delete `apps/docs-vocs` after 1 week.
+8. **Decision-log reversal** — append new entry in PLAN.md / PROGRESS.md explaining how the dual-React crash was solved.
+
+### Pre-work shipped 2026-04-21
+
+- Root `yarn build` split into `yarn build` (full) + `yarn build:packages` (CI-safe). `ci.yml` build job and `nightly.yml` matrix now call `yarn build:packages`. Release command already scoped (`turbo run build --filter='./packages/*'`).
+- Removed `"build": "vocs build"` from `apps/docs/package.json`. Turbo now skips it in default `yarn build` runs.
+
+### Concurrent technical-debt findings (Phase 9 pre-work)
+
+- **`apps/todo-example` vite build hangs** at 0% CPU after `✓ built in 556ms`. Output lands correctly but the process doesn't exit. Orthogonal to the Vocs hang; not investigated. Excluded from CI via the `build:packages` split. v0.2 issue.
+- **`@tamagui/static` extractor worker drops `components` across the piscina boundary** when invoked via `@superstyling/vite`. Throws "Must provide components" inside the worker even when `components` is passed. Workaround is `disableExtraction: true`; real fix is to forward components through the worker-pool serialization in `@tamagui/vite-plugin`. v0.2 issue.
+
+---
+
 ## v0.2 roadmap — docs rebuild on Tamagui's stack
 
-Recorded here so the plan doesn't get lost. Not on the v0.1.0 critical path.
+**Superseded 2026-04-21 by Phase 8.6 above** — plan pulled forward into v0.1 critical path because Vocs became unmaintainable (Node-version mismatch + build hangs). The content below remains as the locked architectural target; execution tracking lives in Phase 8.6.
 
 ### Why
 
@@ -647,6 +694,18 @@ Status: **not started**
 ## Decision log
 
 All architectural decisions from the planning session (Q1–Q42a) live in [`PLAN.md`](./PLAN.md). When a decision is revisited or reversed during implementation, record it here with a date and the reason.
+
+### 2026-04-21 — Docs framework: Vocs → One (pulled from v0.2 into v0.1)
+
+The Vocs migration decided 2026-04-20 itself got reversed one day later.
+
+**Trigger:** Phase 9 publish prep surfaced two blockers. (1) `vocs@1.4.1` requires `node:fs.globSync`, introduced in Node 22. Our CI was pinned to Node 20; `yarn build` hard-failed. We bumped `.nvmrc` to 22 in commit `7b5cf42`. (2) Even on Node 24, `vocs build` hangs at 0% CPU after its Vite subprocess completes — five ghost processes accumulated on the dev box over a day. The hang was also reproduced on `apps/todo-example`'s plain `vite build` (separate bug — extractor worker drops `components` across piscina boundary), so the class of issue isn't isolated to Vocs.
+
+**Reversed to:** rebuild docs on One + `@vxrn/mdx` + `mdx-bundler` + `refractor` + `@leeoniya/ufuzzy` — the exact stack the v0.2 roadmap had locked from `tamagui/tamagui/code/tamagui.dev@main` on 2026-04-20.
+
+**Consequence:** v0.1.0 ships whenever the docs rebuild ships. Vocs stays in `apps/docs/` during the migration but its `build` script is removed; CI is scoped to `./packages/*` via a new `yarn build:packages` command. All execution tracking moves to Phase 8.6.
+
+The hard blocker from 2026-04-20's reasoning (One+Tamagui dual-React crash) still exists; we accept an un-timeboxed spike as the first sub-task and will port tamagui.dev's own config wholesale as the starting point.
 
 ### 2026-04-20 — Docs framework: One → Vocs
 

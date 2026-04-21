@@ -11,7 +11,6 @@
     "dev:web": "expo start --web",
     "dev:ios": "expo start --ios",
     "dev:android": "expo start --android",
-    "build": "echo 'build: apps do not ship; use expo build or EAS for releases'",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

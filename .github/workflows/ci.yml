@@ -49,7 +49,7 @@ jobs:
           node-version-file: .nvmrc
       - run: corepack enable
       - run: yarn install --immutable
-      - run: yarn build
+      - run: yarn build:packages
 
   test-vitest:
     name: Vitest (logic + web-component)

@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:packages": "turbo run build --filter='./packages/*'",
     "typecheck": "turbo run typecheck",
     "test": "yarn test:vitest && yarn test:jest && yarn test:playwright",
     "test:vitest": "vitest run",
@@ -28,7 +29,7 @@
     "dev": "turbo run dev",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build && changeset publish",
+    "release": "turbo run build --filter='./packages/*' && changeset publish",
     "prepare": "lefthook install"
   },
   "devDependencies": {
