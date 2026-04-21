@@ -16,11 +16,13 @@
     "@superstyling/core": "workspace:*",
     "@superstyling/icons": "workspace:*",
     "@tamagui/vite-plugin": "2.0.0-rc.41",
+    "hast-util-to-html": "^8.0.4",
     "one": "1.15.10",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-native": "0.83.2",
     "react-native-web": "^0.21.1",
+    "refractor": "^4.9.0",
     "tamagui": "2.0.0-rc.41",
     "vite": "^8.0.3"
   }

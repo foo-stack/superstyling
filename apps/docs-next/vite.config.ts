@@ -1,3 +1,4 @@
+import { resolve as pathResolve } from "node:path";
 import { tamaguiPlugin } from "@tamagui/vite-plugin";
 import { one } from "one/vite";
 import type { UserConfig } from "vite";
@@ -36,6 +37,9 @@ const include = [
 export default {
   resolve: {
     preserveSymlinks: false,
+    alias: {
+      "~": pathResolve(import.meta.dirname, "."),
+    },
     dedupe: ["react", "react-dom", "react-native", "react-native-web", ...include],
   },
 
