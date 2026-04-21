@@ -51,6 +51,10 @@ out/
 # Vite
 .vite/
 
+# One / vxrn
+.one/
+.vxrn/
+
 # Tamagui build cache
 .tamagui/
 
