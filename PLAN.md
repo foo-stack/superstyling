@@ -207,10 +207,10 @@ Minimal runtime deps. Tamagui + a handful of audited utilities (primarily Zag ma
 - **GitHub Actions** with tiered gating:
   - **Fast lane (merge-blocking):** lint, typecheck, build, Vitest, Jest native (no device), Playwright web. Linux, 5–10 min.
   - **Slow lane (advisory):** Maestro iOS (macOS-14), Maestro Android (Ubuntu). 15–25 min.
-  - **Nightly:** full matrix across Node 20/22, multiple iOS Simulator versions, multiple Android API levels.
+  - **Nightly:** full matrix across Node 22/24, multiple iOS Simulator versions, multiple Android API levels.
 - Concurrency: cancel in-progress runs on new pushes.
 - Upload Playwright traces and Maestro videos on failure.
-- Node 20 LTS primary.
+- Node 22 LTS primary (bumped from 20 at Phase 9 — Vocs requires `fs.globSync` from Node 22+).
 
 ---
 
