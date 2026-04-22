@@ -1,6 +1,6 @@
 # Maestro setup
 
-[Maestro](https://maestro.mobile.dev) is a lightweight mobile UI E2E test runner that drives the actual app on iOS Simulator / Android Emulator using YAML flow files. We chose it over Detox in [Q33a](../PLAN.md) for its simpler authoring model and lack of test-app rebuild requirement.
+[Maestro](https://maestro.mobile.dev) is a lightweight mobile UI E2E test runner that drives the actual app on iOS Simulator / Android Emulator using YAML flow files. We chose it over Detox for its simpler authoring model and lack of test-app rebuild requirement.
 
 ## Why this isn't a dev dependency
 

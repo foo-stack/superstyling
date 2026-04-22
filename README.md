@@ -2,15 +2,14 @@
 
 Cross-platform UI library combining Chakra UI's developer experience with Tamagui's cross-platform engine. Web + iOS + Android from a single API.
 
-**Status: pre-v0.1, in active scaffolding.**
+**Status: v0.1.0 shipped** · [npm](https://www.npmjs.com/package/@superstyling/core)
 
 ## Documentation
 
-- [`PLAN.md`](./PLAN.md) — architectural decisions with rationale (every design choice recorded with the Q-number it came from)
-- [`PROGRESS.md`](./PROGRESS.md) — phase-by-phase execution tracker
-- [`docs/prior-art/`](./docs/prior-art/) — Phase 0 audit of existing Tamagui/Chakra/Zag/Radix/etc. libraries
+- [`docs/prior-art/`](./docs/prior-art/) — audit of existing Tamagui/Chakra/Zag/Radix/etc. libraries
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — how to set up the repo and contribute
 - [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) — community standards
+- [Changelogs](./packages/core/CHANGELOG.md) — per-package release notes
 
 ## Packages
 
@@ -24,7 +23,11 @@ Cross-platform UI library combining Chakra UI's developer experience with Tamagu
 
 ## Getting started
 
-Not yet. v0.1 is in scaffolding. See `PROGRESS.md` for current phase.
+```sh
+yarn add @superstyling/core @superstyling/vite react-native-web
+```
+
+Framework-specific guides: [Next.js](https://github.com/foo-stack/superstyling/blob/main/apps/docs/data/docs/getting-started/next.mdx), [Expo](https://github.com/foo-stack/superstyling/blob/main/apps/docs/data/docs/getting-started/expo.mdx), [Vite](https://github.com/foo-stack/superstyling/blob/main/apps/docs/data/docs/getting-started/vite.mdx).
 
 ## License
 

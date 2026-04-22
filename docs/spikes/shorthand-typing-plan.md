@@ -53,7 +53,7 @@ Candidate strategies (will be narrowed by A4):
 - **B.iii — Our own prop type layer.** Don't augment Tamagui at all. Ship `BoxProps`, `TextProps`, `HeadingProps` with explicit Chakra shortcut keys typed against our `SuperStylingCustomTheme`. Widest freedom but most surface area we own.
 - **B.iv — Prototype patch upstream.** If root cause is a genuine Tamagui bug, patch locally via `.yarn/patches`, file issue, use patched version until fixed upstream. Highest-leverage if viable.
 
-**Decision:** pick one based on A4 findings + effort vs reward. Document decision in PLAN.md (new §3.6.1 or similar).
+**Decision:** pick one based on A4 findings + effort vs reward. Document the decision in CHANGELOG + code comments.
 
 ---
 
@@ -79,10 +79,9 @@ Candidate strategies (will be narrowed by A4):
 If no strategy works cleanly:
 
 - Roll back any in-progress changes
-- Document the limitation in PLAN.md §9 risk with the diagnosis + why each strategy failed
+- Document the limitation in code comments with the diagnosis + why each strategy failed
 - Update `CONTRIBUTING.md` and the CLI `--help` to explicitly tell users to use long-form props (`padding` not `p`) until the typing issue is resolved
 - File a Tamagui GitHub issue with the minimal reproduction from A1
-- Add to PROGRESS.md decision log: "spike completed — no fix landed in v0.1"
 - **Hard stop.** Move on.
 
 This fail-safe is important — without it, the task can easily eat a full week chasing TS-puzzle edge cases.
@@ -91,8 +90,7 @@ This fail-safe is important — without it, the task can easily eat a full week 
 
 ## Phase E — Wrap-up (30 min regardless of outcome)
 
-- Update PLAN.md: if fix landed, record the chosen strategy and any design consequences; if not, mark as v0.2 carry-over.
-- Update PROGRESS.md: either remove the #5 deferred item or move it with updated context.
+- Note the outcome in the CHANGELOG; if deferred, open a GitHub issue to track.
 - Update `@superstyling/core` README with the typed-props usage example (if a fix landed).
 
 ---
@@ -122,7 +120,6 @@ This fail-safe is important — without it, the task can easily eat a full week 
 
 ## Related
 
-- `PLAN.md` §9 risk register (update on completion)
-- `PROGRESS.md` Phase 2 "Still deferred" section, item #5
+- CHANGELOG entry + code comment at the fix site
 - `packages/core/cli.mjs` + `packages/core/src/cli/generate.ts` (likely touch targets)
 - `packages/core/src/components/{Box,Stack,Text,Heading}.tsx` (may need prop-type changes depending on strategy)

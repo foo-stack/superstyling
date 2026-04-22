@@ -80,4 +80,4 @@ Docs-only, test-only, and tooling-only PRs don't need a changeset. CI gives you 
 
 ## Project direction
 
-`PLAN.md` is the source of truth for architectural decisions. If a decision looks wrong, open an issue rather than a PR — we'd rather discuss the design first.
+Architectural decisions are documented in-code and in per-package CHANGELOG.md notes. If a decision looks wrong, open an issue rather than a PR — we'd rather discuss the design first.

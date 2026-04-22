@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for the suggestion. Before filing, check `PLAN.md` — the feature may already be planned or explicitly deferred.
+        Thanks for the suggestion. Before filing, browse open issues and the CHANGELOG to check whether the feature is already planned, in progress, or deferred.
   - type: textarea
     id: problem
     attributes:
