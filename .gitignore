@@ -69,3 +69,4 @@ yarn-error.log*
 tmp/
 
 docs/prior-art/
+.claude/
