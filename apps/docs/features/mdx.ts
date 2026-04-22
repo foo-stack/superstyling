@@ -1,6 +1,18 @@
 import { readdirSync, statSync } from "node:fs";
+import { createRequire } from "node:module";
 import { resolve as pathResolve, join as pathJoin } from "node:path";
-import { bundleMDX } from "mdx-bundler";
+
+// `mdx-bundler`'s server entry is pure CJS with `__dirname`, `__filename`,
+// and top-level `require()` calls. Vite's dev SSR runner evaluates modules
+// as ESM and chokes on the bare `require` — `require is not defined` at
+// mdx-bundler/dist/index.js:3. Bypassing Vite via `createRequire` loads it
+// through Node's CJS resolver, which has `require` built in.
+//
+// `mdx-bundler/client` stays on the normal import path in route files —
+// it must be Vite-bundled so its `require("react")` dedupes with the
+// page's React instance (otherwise dual-React, useState null).
+const require = createRequire(import.meta.url);
+const { bundleMDX } = require("mdx-bundler") as typeof import("mdx-bundler");
 
 export interface Frontmatter {
   title: string;

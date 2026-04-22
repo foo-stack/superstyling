@@ -48,15 +48,22 @@ export default {
   },
 
   ssr: {
-    // mdx-bundler IS bundled into the SSR graph so its `require("react")`
-    // (via /client subpath) dedupes with the page's React instance. Its
-    // CJS-isms (__dirname, __filename) are shimmed via `define` below.
+    // mdx-bundler/client IS bundled into the SSR graph so its
+    // `require("react")` dedupes with the page's React instance — missing
+    // this gives dual-React + useState null. Its CJS-isms (top-level
+    // `require` calls) are rewritten to ESM imports via optimizeDeps below.
     //
     // `esbuild` uses native bindings + a child process and explicitly
     // refuses to be bundled — externalize it alone. Same for a few other
     // pure-Node deps that don't play nice with ESM bundling.
     external: ["esbuild", "chokidar", "fsevents"],
     noExternal: true,
+    // Force Vite to pre-bundle mdx-bundler/client (pure CJS) into ESM so
+    // the dev SSR module runner can evaluate it. Without this, top-level
+    // `require("./react")` throws `require is not defined` in dev.
+    optimizeDeps: {
+      include: ["mdx-bundler/client"],
+    },
   },
 
   define: {
