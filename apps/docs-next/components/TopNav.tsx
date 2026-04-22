@@ -1,5 +1,6 @@
 import { HStack, Box, Text, Link } from "@superstyling/core";
 import { VersionSwitcher } from "./VersionSwitcher";
+import { Search } from "./Search";
 
 /**
  * Top navigation strip. Wordmark on the left, version switcher + external
@@ -25,6 +26,7 @@ export function TopNav() {
         </Text>
       </Link>
       <Box flex={1} />
+      <Search />
       <VersionSwitcher />
       <Link href="https://github.com/foo-stack/superstyling" isExternal>
         <Text fontSize={14} color="$color">

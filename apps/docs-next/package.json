@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@leeoniya/ufuzzy": "^1.0.14",
     "@superstyling/core": "workspace:*",
     "@superstyling/icons": "workspace:*",
     "@tamagui/vite-plugin": "2.0.0-rc.41",

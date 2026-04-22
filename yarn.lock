@@ -3315,6 +3315,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@leeoniya/ufuzzy@npm:^1.0.14":
+  version: 1.0.19
+  resolution: "@leeoniya/ufuzzy@npm:1.0.19"
+  checksum: 10c0/a8d36a2672565d92a3ff41dff335b02bc3ee8c27974e7f680da9e19457702e8b39b0132ad5c480ee064acc9871f590672e23533c492ea68b20a0fb4c32a116c6
+  languageName: node
+  linkType: hard
+
 "@manypkg/find-root@npm:^1.1.0":
   version: 1.1.0
   resolution: "@manypkg/find-root@npm:1.1.0"
@@ -23469,6 +23476,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "superstyling-docs-next@workspace:apps/docs-next"
   dependencies:
+    "@leeoniya/ufuzzy": "npm:^1.0.14"
     "@superstyling/core": "workspace:*"
     "@superstyling/icons": "workspace:*"
     "@tamagui/vite-plugin": "npm:2.0.0-rc.41"
