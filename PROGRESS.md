@@ -1,6 +1,6 @@
 # `@superstyling/*` — Progress Tracker
 
-**Current phase:** Phase 8.6 complete — docs rebuild shipped on One, cutover done; v0.1.0 ready to release
+**Current phase:** v0.1.0 shipped 🎉 — all 5 packages on npm, tag pushed, announcements out
 **Last updated:** 2026-04-22
 
 Phase definitions and decisions live in [`PLAN.md`](./PLAN.md). This file tracks execution only.
@@ -679,15 +679,29 @@ v0.2 kickoff starts with a proper un-timeboxed spike to replicate the fix in our
 
 ## Phase 9 — Publish v0.1.0 (~1 day)
 
-Status: **not started**
+Status: **complete — 2026-04-22**
 
-- [ ] Merge the Changesets "Version Packages" PR
-- [ ] Verify publish workflow succeeds for all 5 npm packages
-- [ ] Tag `v0.1.0` on main
-- [ ] Announce: blog post
-- [ ] Announce: X / social
-- [ ] Announce: relevant Discord / subreddit
-- [ ] Announce: Tamagui community channels
+- [x] Merge the Changesets "Version Packages" PR (#1)
+- [x] Verify publish workflow succeeds for all 5 npm packages — published manually after registry-URL debugging
+- [x] Tag `v0.1.0` on main
+- [x] Announce: blog post
+- [x] Announce: X / social
+- [x] Announce: relevant Discord / subreddit
+- [x] Announce: Tamagui community channels
+
+### Post-release cleanups (2026-04-22)
+
+- `.yarnrc.yml` — added `npmRegistryServer` + `npmPublishRegistry` pinning to `registry.npmjs.org`. Yarn v4 defaults publishes to `registry.yarnpkg.com` which the `NPM_TOKEN` doesn't authenticate against; future Changesets releases auto-publish correctly.
+- `.prettierignore` — excludes One-generated `**/routes.d.ts` so `yarn format:check` doesn't flap after every dev run regenerates the file with different quote style.
+- `ci.yml` — test jobs now run `yarn build:packages` before `yarn test:vitest` / `yarn test:jest` / `yarn test:playwright`. Phase 9's repoint of `package.json` `exports` from `./src` → `./dist` means tests can't resolve internal imports without built output.
+- `release.yml` — pre-build step scoped to `./packages/*` (`yarn build:packages`) instead of the full `yarn build` that was hanging on docs/todo-example.
+- `ci-e2e.yml` (Maestro) — switched to `workflow_dispatch` only. The workflow booted simulator/emulator but never built + installed the Expo playground app, so every run was red. Real cross-platform E2E in CI needs `expo prebuild` + `xcodebuild`/`gradlew` + install — tracked as a v0.1.1 follow-up.
+
+### Debugging highlights (worth remembering)
+
+- **npm publish first-time 404s** on scoped packages mean one of: scope doesn't exist, token not granted to scope, token registered against `registry.yarnpkg.com` mismatch. The fix in our case was the third — `.yarnrc.yml` pin to `registry.npmjs.org`.
+- **GitHub Actions "is not permitted to create or approve pull requests"** — org-level setting at `/organizations/<org>/settings/actions`, not repo-level.
+- **Port drift on `yarn dev`** — 17 zombie dev servers accumulated over the sprint, each binding a different 80XX port. `pkill -9 -f "yarn dev"` + `pkill -9 -f vxrn` clears them.
 
 ---
 
