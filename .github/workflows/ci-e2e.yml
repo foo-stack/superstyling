@@ -1,14 +1,19 @@
 name: CI (slow lane — Maestro E2E)
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  # Manual trigger only. Running on every push / PR would require building
+  # and installing the Expo playground app onto a sim/emulator first
+  # (cocoapods + Xcode for iOS, Android SDK for Android — ~30 min per run
+  # × 2 devices), which is overkill for an advisory workflow.
+  #
+  # Use `gh workflow run "CI (slow lane — Maestro E2E)"` to trigger when
+  # needed, or use the "Run workflow" button in the Actions tab. Local-dev
+  # testing against a device is the primary path — see docs/maestro-setup.md.
+  workflow_dispatch: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: false
 
 # This workflow is advisory — failures here do not block PR merges.
 # Critical regressions caught here should be addressed but won't gate the merge queue.
