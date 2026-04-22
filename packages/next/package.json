@@ -1,6 +1,6 @@
 {
   "name": "@superstyling/next",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Next.js integration for Superstyling — SSR, color mode, plugin wrapper",
   "keywords": [
     "nextjs",
