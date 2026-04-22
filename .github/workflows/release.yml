@@ -26,7 +26,11 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: corepack enable
       - run: yarn install --immutable
-      - run: yarn build
+      # Pre-build the publishable packages so tsc-emitted dist/ dirs exist
+      # when changeset publish runs. Scoped to ./packages/* — `yarn build`
+      # would also try to build apps/docs (One SSG, slow) and apps/todo-
+      # example, which aren't published and can hang CI.
+      - run: yarn build:packages
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1
         with:
