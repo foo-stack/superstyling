@@ -42,5 +42,6 @@ jobs:
           node-version-file: .nvmrc
       - run: corepack enable
       - run: yarn install --immutable
+      - run: yarn build:packages
       - run: yarn playwright install --with-deps
       - run: yarn test:playwright --project=chromium --project=firefox --project=webkit
