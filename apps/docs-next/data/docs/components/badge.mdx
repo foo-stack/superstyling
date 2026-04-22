@@ -1,0 +1,84 @@
+
+export const COLOR_SCHEMES = ["gray", "blue", "red", "green", "purple"];
+export const VARIANTS = ["solid", "subtle", "outline"];
+
+# Badge
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
+
+Compact status or count indicator. Supports three visual variants and the full `colorScheme` palette.
+
+## Import
+
+```tsx
+```
+
+## Variants × colorScheme
+
+<ComponentDemo
+  code={`{VARIANTS.map((variant) => (
+  <HStack key={variant} gap="$2">
+    {COLOR_SCHEMES.map((cs) => (
+      <Badge key={cs} variant={variant} colorScheme={cs}>{cs}</Badge>
+    ))}
+  </HStack>
+))}`}
+  preview={
+    <VStack gap="$3">
+      {VARIANTS.map((variant) => (
+        <HStack key={variant} gap="$2" alignItems="center">
+          <Text width={70} fontSize="$2" fontWeight="600">
+            {variant}
+          </Text>
+          {COLOR_SCHEMES.map((cs) => (
+            <Badge key={cs} variant={variant} colorScheme={cs}>
+              {cs}
+            </Badge>
+          ))}
+        </HStack>
+      ))}
+    </VStack>
+  }
+/>
+
+## Sizes
+
+<ComponentDemo
+  code={`<HStack gap="$2" alignItems="center">
+  <Badge size="sm">Small</Badge>
+  <Badge size="md">Medium</Badge>
+  <Badge size="lg">Large</Badge>
+</HStack>`}
+  preview={
+    <HStack gap="$2" alignItems="center">
+      <Badge size="sm">Small</Badge>
+      <Badge size="md">Medium</Badge>
+      <Badge size="lg">Large</Badge>
+    </HStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "variant",
+      type: `"solid" | "subtle" | "outline"`,
+      default: `"subtle"`,
+      description: "Visual treatment.",
+    },
+    {
+      name: "colorScheme",
+      type: "string",
+      default: `"gray"`,
+      description: "Which palette to use. Must be a key on your theme's colorScheme set.",
+    },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg"`,
+      default: `"md"`,
+      description: "Overall size (padding + font).",
+    },
+  ]}
+/>

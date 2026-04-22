@@ -48,7 +48,23 @@ export default {
   },
 
   ssr: {
+    // mdx-bundler IS bundled into the SSR graph so its `require("react")`
+    // (via /client subpath) dedupes with the page's React instance. Its
+    // CJS-isms (__dirname, __filename) are shimmed via `define` below.
+    //
+    // `esbuild` uses native bindings + a child process and explicitly
+    // refuses to be bundled — externalize it alone. Same for a few other
+    // pure-Node deps that don't play nice with ESM bundling.
+    external: ["esbuild", "chokidar", "fsevents"],
     noExternal: true,
+  },
+
+  define: {
+    // mdx-bundler/dist/index.js references CJS primitives at top-level; ESM
+    // doesn't provide them. Empty-string / noop stubs are safe here because
+    // bundleMDX only uses `__dirname` for a default cwd we always override.
+    __dirname: JSON.stringify(""),
+    __filename: JSON.stringify(""),
   },
 
   plugins: [

@@ -1,0 +1,81 @@
+
+# Avatar
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
+
+User-image primitive with a fallback slot. Mirrors Tamagui's `Avatar` compound structure — `Avatar.Image` + `Avatar.Fallback` — so the fallback renders whenever the image fails to load.
+
+## Import
+
+```tsx
+```
+
+## Basic usage
+
+<ComponentDemo
+  code={`<Avatar circular size="$6">
+  <Avatar.Image src="https://i.pravatar.cc/150?img=1" />
+  <Avatar.Fallback backgroundColor="$primaryMuted" />
+</Avatar>`}
+  preview={
+    <Avatar circular size="$6">
+      <Avatar.Image src="https://i.pravatar.cc/150?img=1" />
+      <Avatar.Fallback backgroundColor="$primaryMuted" />
+    </Avatar>
+  }
+/>
+
+## Sizes
+
+<ComponentDemo
+  code={`<HStack gap="$3" alignItems="center">
+  <Avatar circular size="$4"><Avatar.Image src="..." /></Avatar>
+  <Avatar circular size="$6"><Avatar.Image src="..." /></Avatar>
+  <Avatar circular size="$8"><Avatar.Image src="..." /></Avatar>
+</HStack>`}
+  preview={
+    <HStack gap="$3" alignItems="center">
+      <Avatar circular size="$4">
+        <Avatar.Image src="https://i.pravatar.cc/80?img=2" />
+        <Avatar.Fallback backgroundColor="$primaryMuted" />
+      </Avatar>
+      <Avatar circular size="$6">
+        <Avatar.Image src="https://i.pravatar.cc/150?img=3" />
+        <Avatar.Fallback backgroundColor="$primaryMuted" />
+      </Avatar>
+      <Avatar circular size="$8">
+        <Avatar.Image src="https://i.pravatar.cc/200?img=4" />
+        <Avatar.Fallback backgroundColor="$primaryMuted" />
+      </Avatar>
+    </HStack>
+  }
+/>
+
+## Fallback (image missing)
+
+<ComponentDemo
+  code={`<Avatar circular size="$6">
+  <Avatar.Image src="/not-a-real-url.png" />
+  <Avatar.Fallback backgroundColor="$primaryMuted" />
+</Avatar>`}
+  preview={
+    <Avatar circular size="$6">
+      <Avatar.Image src="/not-a-real-url.png" />
+      <Avatar.Fallback backgroundColor="$primaryMuted" />
+    </Avatar>
+  }
+/>
+
+## Props — Avatar (root)
+
+<PropsTable
+  props={[
+    { name: "size", type: "$token | number", default: "$5", description: "Overall square size." },
+    {
+      name: "circular",
+      type: "boolean",
+      default: "false",
+      description: "Round corners fully. Leave off for a square avatar.",
+    },
+  ]}
+/>

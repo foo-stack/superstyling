@@ -1,0 +1,66 @@
+
+# IconButton
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
+
+Square button that renders a single icon. Shares variants and `colorScheme` with `Button` but **requires** `aria-label` so assistive tech can name it.
+
+## Import
+
+```tsx
+```
+
+## Variants
+
+<ComponentDemo
+  code={`<IconButton aria-label="Search" icon={<SearchIcon />} variant="outline" />
+<IconButton aria-label="Add" icon={<PlusIcon />} colorScheme="blue" />
+<IconButton aria-label="More" icon={<ChevronDownIcon />} variant="ghost" />`}
+  preview={
+    <HStack gap="$2" alignItems="center">
+      <IconButton aria-label="Search" icon={<SearchIcon />} variant="outline" />
+      <IconButton aria-label="Add" icon={<PlusIcon />} colorScheme="blue" />
+      <IconButton aria-label="More" icon={<ChevronDownIcon />} variant="ghost" />
+    </HStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "aria-label",
+      type: "string",
+      required: true,
+      description:
+        "Accessible name. Screen readers announce this; required because the button has no visible text.",
+    },
+    {
+      name: "icon",
+      type: "ReactElement",
+      required: true,
+      description: "Icon element (from @superstyling/icons or your own SVG component).",
+    },
+    {
+      name: "variant",
+      type: `"solid" | "outline" | "ghost" | "link"`,
+      default: `"solid"`,
+      description: "Shared with Button.",
+    },
+    {
+      name: "size",
+      type: `"xs" | "sm" | "md" | "lg"`,
+      default: `"md"`,
+      description: "Square dimensions track the button size.",
+    },
+    { name: "colorScheme", type: "string", default: `"gray"`, description: "Palette." },
+    {
+      name: "isDisabled",
+      type: "boolean",
+      default: "false",
+      description: "Disable interaction + a11y.",
+    },
+    { name: "onPress", type: "() => void", description: "Press handler." },
+  ]}
+/>

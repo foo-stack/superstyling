@@ -25,5 +25,8 @@
     "refractor": "^4.9.0",
     "tamagui": "2.0.0-rc.41",
     "vite": "^8.0.3"
+  },
+  "devDependencies": {
+    "mdx-bundler": "^10.1.1"
   }
 }

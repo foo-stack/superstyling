@@ -1,0 +1,58 @@
+
+# Divider
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
+
+A thin separator line with horizontal and vertical variants. Use it to split sections within a stack, or inline between items in a row.
+
+## Import
+
+```tsx
+```
+
+## Horizontal (default)
+
+<ComponentDemo
+  code={`<VStack gap="$2">
+  <Text>Section one</Text>
+  <Divider />
+  <Text>Section two</Text>
+</VStack>`}
+  preview={
+    <VStack gap="$2">
+      <Text>Section one</Text>
+      <Divider />
+      <Text>Section two</Text>
+    </VStack>
+  }
+/>
+
+## Vertical
+
+<ComponentDemo
+  code={`<HStack height={32} alignItems="center" gap="$3">
+  <Text>Left</Text>
+  <Divider orientation="vertical" />
+  <Text>Right</Text>
+</HStack>`}
+  preview={
+    <HStack height={32} alignItems="center" gap="$3">
+      <Text>Left</Text>
+      <Divider orientation="vertical" />
+      <Text>Right</Text>
+    </HStack>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "orientation",
+      type: `"horizontal" | "vertical"`,
+      default: `"horizontal"`,
+      description: "Axis the divider sits on. Vertical requires a parent with a set height.",
+    },
+  ]}
+/>

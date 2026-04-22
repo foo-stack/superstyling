@@ -1,0 +1,52 @@
+
+# Spinner
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.1.0" />
+
+Indeterminate loading indicator. Uses the native `ActivityIndicator` on iOS/Android and a CSS-driven rotating SVG on the web for visual parity.
+
+## Import
+
+```tsx
+```
+
+## Sizes
+
+<ComponentDemo
+  code={`<HStack gap="$4" alignItems="center">
+  <Spinner size="small" />
+  <Spinner size="large" />
+</HStack>`}
+  preview={
+    <HStack gap="$4" alignItems="center">
+      <Spinner size="small" />
+      <Spinner size="large" />
+    </HStack>
+  }
+/>
+
+## Coloured
+
+<ComponentDemo
+  code={`<Spinner size="large" color="$primary" />`}
+  preview={<Spinner size="large" color="$primary" />}
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "size",
+      type: `"small" | "large"`,
+      default: `"small"`,
+      description:
+        "Visual size. Matches React Native's ActivityIndicator values so the native renderer doesn't re-scale.",
+    },
+    {
+      name: "color",
+      type: "ColorToken | CSS color",
+      description: "Stroke colour. Inherits theme foreground by default.",
+    },
+  ]}
+/>

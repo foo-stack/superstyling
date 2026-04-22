@@ -1,0 +1,90 @@
+
+# Example — Theming walkthrough
+
+Customize colors, spacing, radii, and per-component defaults by passing a `ThemeInput` into `createSystem`. Everything you don't override keeps the Superstyling defaults.
+
+## 1. Start with `createSystem`
+
+```tsx
+// tamagui.config.ts
+
+export const system = createSystem({
+  colors: {
+    // Override just the brand palette; everything else uses defaults.
+    brand: {
+      "1": "#f0f9ff",
+      "9": "#0284c7",
+      "12": "#0c4a6e",
+    },
+  },
+  space: {
+    // Add a custom spacing token.
+    huge: 96,
+  },
+  radii: {
+    md: 10,     // override the default medium radius
+    pill: 9999,
+  },
+});
+
+export default system.config;
+
+declare module "tamagui" {
+  interface TamaguiCustomConfig extends typeof system.config {}
+}
+```
+
+## 2. Use the tokens you defined
+
+<ComponentDemo
+  code={`// Anywhere in your app, reference the custom tokens:
+<Badge colorScheme="brand">New</Badge>
+<Box padding="$huge" borderRadius="$pill">Hero</Box>`}
+  preview={
+    <VStack gap="$2" alignItems="flex-start">
+      <Badge colorScheme="blue">New</Badge>
+      <Text fontSize="$2" color="$color10">
+        (preview uses $blue — your own brand scheme would render here.)
+      </Text>
+    </VStack>
+  }
+/>
+
+## 3. Per-component defaults
+
+Pass a `components` map to apply `defaultProps` or style overrides to every instance of a primitive. Useful when your whole app wants `Button colorScheme="brand"` without repeating it every time.
+
+```tsx
+// Override per-component defaults via theme.components
+export const system = createSystem({
+  components: {
+    Button: {
+      // Make every <Button> use the brand scheme by default.
+      defaultProps: { colorScheme: "brand" },
+    },
+    Heading: {
+      // Tighten heading letter spacing globally.
+      sx: { letterSpacing: -0.5 },
+    },
+  },
+});
+```
+
+## Default vs custom — side by side
+
+<HStack gap="$3" alignItems="center" flexWrap="wrap">
+  <Button colorScheme="blue">Default blue</Button>
+  <Button colorScheme="green">Default green</Button>
+  <Button colorScheme="red">Default red</Button>
+</HStack>
+
+## What you can override
+
+- `colors` — named palettes, each a 12-step scale
+- `space` / `sizes` — spacing + size tokens
+- `radii` — border radius tokens
+- `fonts` / `fontSizes` / `fontWeights` — typography scale
+- `breakpoints` — responsive query keys
+- `shadows`, `zIndices`, `letterSpacings`, `lineHeights`
+- `semanticTokens` — abstract tokens that resolve differently per color mode
+- `components` — per-primitive `defaultProps` and `sx` overrides
