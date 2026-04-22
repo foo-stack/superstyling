@@ -3,13 +3,9 @@ import { Badge, HStack } from "@superstyling/core";
 import type { BadgeProps } from "@superstyling/core";
 
 export interface StatusRowProps {
-  /** Tier label: "1" | "2" | "3" or custom text. */
   tier?: "1" | "2" | "3" | string;
-  /** Platform coverage. */
   platforms?: "Cross-platform" | "Web-only" | "Native-only" | string;
-  /** Version the component shipped in. */
   since?: string;
-  /** Additional badges rendered after the standard three. */
   children?: React.ReactNode;
 }
 
@@ -20,11 +16,8 @@ const tierScheme: Record<string, BadgeProps["colorScheme"]> = {
 };
 
 /**
- * Row of status badges rendered at the top of every component docs page.
- * Exposes tier, platform coverage, and the version a component first shipped in.
- *
- * Used by `<ComponentDocsFrame>` in P8.5.6; pages can also drop it directly
- * for one-off combinations.
+ * Tier + platform + since badges rendered under the H1 on every component
+ * page. Ported verbatim from Vocs apps/docs/components/StatusRow.tsx.
  */
 export function StatusRow({ tier, platforms, since, children }: StatusRowProps) {
   return (

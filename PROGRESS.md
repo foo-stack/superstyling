@@ -1,7 +1,7 @@
 # `@superstyling/*` — Progress Tracker
 
-**Current phase:** Phase 8.6 — docs rebuild on One, milestone 1 (spike) in progress
-**Last updated:** 2026-04-21
+**Current phase:** Phase 8.6 complete — docs rebuild shipped on One, cutover done; v0.1.0 ready to release
+**Last updated:** 2026-04-22
 
 Phase definitions and decisions live in [`PLAN.md`](./PLAN.md). This file tracks execution only.
 

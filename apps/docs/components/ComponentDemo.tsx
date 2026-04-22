@@ -1,31 +1,21 @@
+"use client";
+
 /* oxlint-disable react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-function-as-prop -- docs building block */
 import { useState, type ReactNode } from "react";
 import { Badge, Box, Button, HStack, Text, VStack } from "@superstyling/core";
 
 export interface ComponentDemoProps {
-  /** The rendered React example. */
   preview: ReactNode;
-  /** Source string shown in the code pane. Paste the exact TSX the `preview` uses. */
   code: string;
-  /** Optional caption shown in the header row. */
   caption?: string;
-  /** Initial visible pane. Default: `"preview"`. */
   defaultPane?: "preview" | "code";
-  /** Status badge shown next to the tab pills (e.g. "a11y verified"). */
   status?: string;
-  /** Syntax language label (pill in the header). Default: `"tsx"`. */
   language?: "tsx" | "ts" | "jsx" | "js" | "bash" | "json" | "html" | "css";
 }
 
 /**
- * Docs building block. Renders a live preview + code source with a
- * "Preview" / "Code" tab switcher. The preview pane sits inside our
- * `<SuperStylingProvider>` (see `apps/docs/layout.tsx`), so Tamagui theme
- * tokens and color-mode state apply.
- *
- * Upgrade from P8.5.4: tabs replace the show/hide toggle; status badge slot;
- * nicer frame. Shiki syntax highlighting in the code pane is a follow-up
- * (requires async highlighter init that's awkward in SSR).
+ * Live preview + code tabs. Ported from Vocs's ComponentDemo v2; only
+ * difference is the "use client" directive for One's SSR pipeline.
  */
 export function ComponentDemo({
   preview,
@@ -44,8 +34,7 @@ export function ComponentDemo({
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // Clipboard unavailable (e.g., insecure context). Code still visible
-      // in the pane; users can select + copy manually.
+      // Clipboard unavailable; code still visible for manual copy.
     }
   }
 
@@ -59,7 +48,6 @@ export function ComponentDemo({
       marginVertical="$4"
       backgroundColor="$background"
     >
-      {/* Header: tab pills + optional caption + status + language */}
       <HStack
         paddingHorizontal="$3"
         paddingVertical="$2"
@@ -108,7 +96,6 @@ export function ComponentDemo({
         ) : null}
       </HStack>
 
-      {/* Body: preview (framed box, theme-aware bg) OR code (mono pre) */}
       {pane === "preview" ? (
         <Box padding="$6" backgroundColor="$background" minHeight={80}>
           {preview}

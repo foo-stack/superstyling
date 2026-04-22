@@ -2,21 +2,32 @@
   "name": "superstyling-docs",
   "version": "0.0.0",
   "private": true,
-  "description": "Superstyling documentation site (Vocs)",
+  "description": "Superstyling docs site (One + Tamagui)",
   "license": "MIT",
   "author": "Nathan Irikefe",
   "type": "module",
   "scripts": {
-    "dev": "vocs dev",
-    "preview": "vocs preview",
+    "dev": "one dev",
+    "build": "one build",
+    "preview": "one serve",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@leeoniya/ufuzzy": "^1.0.14",
     "@superstyling/core": "workspace:*",
     "@superstyling/icons": "workspace:*",
+    "@tamagui/vite-plugin": "2.0.0-rc.41",
+    "hast-util-to-html": "^8.0.4",
+    "one": "1.15.10",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
+    "react-native": "0.83.2",
     "react-native-web": "^0.21.1",
-    "vocs": "^1.4.1"
+    "refractor": "^4.9.0",
+    "tamagui": "2.0.0-rc.41",
+    "vite": "^8.0.3"
+  },
+  "devDependencies": {
+    "mdx-bundler": "^10.1.1"
   }
 }

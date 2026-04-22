@@ -1,5 +1,3 @@
-"use client";
-
 /* oxlint-disable react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-function-as-prop -- docs building block */
 import { useMemo, useState } from "react";
 import { Box, HStack, Input, Text, VStack } from "@superstyling/core";
@@ -17,9 +15,12 @@ export interface PropRow {
 const FILTER_THRESHOLD = 10;
 
 /**
- * Props reference table. Ported verbatim from the Vocs v2 implementation —
- * the only change is the "use client" directive at top, needed under One's
- * SSR pipeline for the `useState`/`useMemo` filter behavior.
+ * Props reference table. Pass an array of `PropRow`. Rows can be grouped via
+ * the `group` field; groups render as subheadings. When the total row count
+ * exceeds `FILTER_THRESHOLD`, a filter input appears above the table.
+ *
+ * Upgrade from P8.5.5: required asterisk styled (red, bold), optional filter
+ * input, grouped rows with subheaders, sticky header row with alt-row hover.
  */
 export function PropsTable({ props }: { props: PropRow[] }) {
   const [query, setQuery] = useState("");
