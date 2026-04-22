@@ -16,7 +16,10 @@ import { InlineTabs } from "./InlineTabs";
 import { StatusRow } from "./StatusRow";
 import { mdxComponents } from "./MDXComponents";
 
-export const pageComponents = {
+// Broad Record type so TS doesn't try to serialize the full spread shape
+// (which trips error TS7056 — "exceeds the maximum length the compiler
+// will serialize" — because of the Select + FormControl compound types).
+export const pageComponents: Record<string, unknown> = {
   // MDX tag → styled component overrides (h1, p, code, pre, etc.)
   ...mdxComponents,
 

@@ -1,6 +1,30 @@
-import { useState } from "react";
+/* oxlint-disable react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-function-as-prop, react-perf/jsx-no-new-array-as-prop -- docs page, not a hot path */
+import { useState, type ReactNode } from "react";
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  HStack,
+  Heading,
+  Input,
+  Radio,
+  RadioGroup,
+  Select,
+  Switch,
+  Text,
+  VStack,
+} from "@superstyling/core";
+import { DocsPage } from "~/components/DocsPage";
+import { ComponentDemo } from "~/components/ComponentDemo";
+import { mdxComponents } from "~/components/MDXComponents";
 
-export function SettingsSection({ title, children }) {
+const H1 = mdxComponents.h1;
+const P = mdxComponents.p;
+
+function SettingsSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <VStack gap="$3">
       <Heading level={3}>{title}</Heading>
@@ -9,7 +33,7 @@ export function SettingsSection({ title, children }) {
   );
 }
 
-export function SettingsPreview() {
+function SettingsPreview() {
   const [displayName, setDisplayName] = useState("Ada Lovelace");
   const [role, setRole] = useState("eng");
   const [emailNotif, setEmailNotif] = useState(true);
@@ -26,7 +50,7 @@ export function SettingsPreview() {
           </Avatar>
           <VStack gap="$1" flex={1}>
             <Text fontWeight="600">{displayName}</Text>
-            <Text fontSize="$2" color="$color10">
+            <Text fontSize={13} color="$color10">
               ada@superstyling.dev
             </Text>
           </VStack>
@@ -95,15 +119,20 @@ export function SettingsPreview() {
   );
 }
 
-# Example — Settings screen
-
-A realistic settings layout showing grouped `FormControl`s, `Switch` toggles, a `RadioGroup` theme picker, and a destructive action at the bottom.
-
-## Live preview
-
-<ComponentDemo
-  code={`// A settings screen composed from form primitives.
+export default function SettingsExamplePage() {
+  return (
+    <DocsPage currentPath="/examples/settings">
+      <H1>Example — Settings screen</H1>
+      <P>
+        A realistic settings layout showing grouped FormControls, Switch toggles, a RadioGroup theme
+        picker, and a destructive action at the bottom.
+      </P>
+      <ComponentDemo
+        code={`// A settings screen composed from form primitives.
 // Groups: Profile, Notifications, Appearance, Danger Zone.
-// See /examples/settings.mdx for the full source.`}
-  preview={<SettingsPreview />}
-/>
+// See apps/docs-next/app/examples/settings.tsx for the full source.`}
+        preview={<SettingsPreview />}
+      />
+    </DocsPage>
+  );
+}

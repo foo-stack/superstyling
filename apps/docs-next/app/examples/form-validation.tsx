@@ -1,7 +1,29 @@
+/* oxlint-disable react-perf/jsx-no-new-object-as-prop, react-perf/jsx-no-jsx-as-prop, react-perf/jsx-no-new-function-as-prop, react-perf/jsx-no-new-array-as-prop -- docs page, not a hot path */
 import { useState } from "react";
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  Heading,
+  Input,
+  Textarea,
+  VStack,
+} from "@superstyling/core";
+import { DocsPage } from "~/components/DocsPage";
+import { ComponentDemo } from "~/components/ComponentDemo";
+import { mdxComponents } from "~/components/MDXComponents";
 
-export function validate(values) {
-  const e = {};
+const H1 = mdxComponents.h1;
+const H2 = mdxComponents.h2;
+const P = mdxComponents.p;
+
+type Field = "name" | "email" | "password" | "bio";
+type Values = Record<Field, string>;
+type Errors = Partial<Record<Field, string>>;
+
+function validate(values: Values): Errors {
+  const e: Errors = {};
   if (values.name.trim().length < 2) e.name = "Name must be at least 2 characters.";
   if (!values.email.includes("@")) e.email = "Email must contain @.";
   if (values.password.length < 8) e.password = "Password must be at least 8 characters.";
@@ -9,9 +31,14 @@ export function validate(values) {
   return e;
 }
 
-export function FormPreview() {
-  const [values, setValues] = useState({ name: "", email: "", password: "", bio: "" });
-  const [touched, setTouched] = useState({
+function FormPreview() {
+  const [values, setValues] = useState<Values>({
+    name: "",
+    email: "",
+    password: "",
+    bio: "",
+  });
+  const [touched, setTouched] = useState<Record<Field, boolean>>({
     name: false,
     email: false,
     password: false,
@@ -20,14 +47,14 @@ export function FormPreview() {
   const [submitted, setSubmitted] = useState(false);
   const errors = validate(values);
   const allValid = Object.keys(errors).length === 0;
-  function set(k, v) {
+  function set(k: Field, v: string) {
     setValues((p) => ({ ...p, [k]: v }));
   }
-  function touch(k) {
+  function touch(k: Field) {
     setTouched((p) => ({ ...p, [k]: true }));
   }
-  function show(k) {
-    return touched[k] && !!errors[k];
+  function show(k: Field) {
+    return touched[k] && Boolean(errors[k]);
   }
   if (submitted) {
     return (
@@ -96,21 +123,27 @@ export function FormPreview() {
   );
 }
 
-# Example — Form with validation
-
-Sign-up form showing field-level validation, touched tracking, and a submit flow. Built entirely from Superstyling primitives — no external form library required.
-
-## Live preview
-
-<ComponentDemo
-  code={`// Sign-up form with field-level validation running on blur + submit.
+export default function FormValidationExamplePage() {
+  return (
+    <DocsPage currentPath="/examples/form-validation">
+      <H1>Example — Form with validation</H1>
+      <P>
+        Sign-up form showing field-level validation, touched tracking, and a submit flow. Built
+        entirely from Superstyling primitives — no external form library required.
+      </P>
+      <ComponentDemo
+        code={`// Sign-up form with field-level validation running on blur + submit.
 // Each field owns its own validator; the submit button stays disabled
 // until every field is valid.`}
-  preview={<FormPreview />}
-/>
-
-## What to notice
-
-- The submit button stays disabled until every field validates.
-- `FormControl.isInvalid` is only applied after the field has been touched (blurred) — no angry red border before the user's even tried.
-- Errors ride in `FormControl.ErrorMessage`, which reads as `aria-live="polite"` so screen readers announce them without stealing focus.
+        preview={<FormPreview />}
+      />
+      <H2>What to notice</H2>
+      <P>
+        The submit button stays disabled until every field validates. FormControl's isInvalid is
+        only applied after the field has been touched (blurred) — no angry red border before the
+        user's even tried. Errors ride in FormControl.ErrorMessage, which reads as
+        aria-live="polite" so screen readers announce them without stealing focus.
+      </P>
+    </DocsPage>
+  );
+}
