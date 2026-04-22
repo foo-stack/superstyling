@@ -1,6 +1,6 @@
 {
   "name": "@superstyling/icons",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Default icon set and <Icon> component for Superstyling",
   "keywords": [
     "icons",

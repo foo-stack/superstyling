@@ -1,6 +1,6 @@
 {
   "name": "@superstyling/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Core components, theme, and style-prop engine for Superstyling",
   "keywords": [
     "chakra",
