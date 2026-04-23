@@ -1,0 +1,59 @@
+---
+title: Flex
+description: Row-direction flex container with Chakra's shorthand props — direction, justify, align, wrap.
+---
+
+# Flex
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Row-direction flex container with shorthand props for `justify`, `align`, `direction`, and `wrap`. Renders as an `XStack` under the hood.
+
+## Import
+
+```tsx
+import { Flex } from "@superstyling/core";
+```
+
+## Basic usage
+
+<ComponentDemo
+  code={`<Flex justify="space-between" align="center" gap="$3">
+  <Box>Left</Box>
+  <Box>Right</Box>
+</Flex>`}
+  preview={
+    <Flex justify="space-between" align="center" gap="$3">
+      <Box>Left</Box>
+      <Box>Right</Box>
+    </Flex>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "direction",
+      type: `"row" | "column" | "row-reverse" | "column-reverse"`,
+      default: `"row"`,
+      description: "flexDirection shorthand.",
+    },
+    {
+      name: "justify",
+      type: `"flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly"`,
+      description: "justifyContent shorthand.",
+    },
+    {
+      name: "align",
+      type: `"flex-start" | "flex-end" | "center" | "stretch" | "baseline"`,
+      description: "alignItems shorthand.",
+    },
+    {
+      name: "wrap",
+      type: `"wrap" | "nowrap" | "wrap-reverse"`,
+      description: "flexWrap shorthand.",
+    },
+  ]}
+/>

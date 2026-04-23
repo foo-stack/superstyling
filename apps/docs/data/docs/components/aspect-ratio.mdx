@@ -1,0 +1,42 @@
+---
+title: AspectRatio
+description: Enforce a width-to-height ratio on a single child. Useful for responsive images, video embeds, media cards.
+---
+
+# AspectRatio
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Enforces a `width:height` ratio on its single child. The child stretches to fill the wrapper.
+
+## Import
+
+```tsx
+import { AspectRatio } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<AspectRatio ratio={16 / 9}>
+  <Box backgroundColor="$color3" />
+</AspectRatio>`}
+  preview={
+    <AspectRatio ratio={16 / 9}>
+      <Box backgroundColor="$color3" />
+    </AspectRatio>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "ratio",
+      type: "number",
+      default: "4 / 3",
+      description: "width / height. Common values: 16/9, 4/3, 1, 21/9.",
+    },
+  ]}
+/>

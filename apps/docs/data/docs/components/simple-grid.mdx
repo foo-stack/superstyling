@@ -1,0 +1,88 @@
+---
+title: SimpleGrid
+description: N-equal-column grid with one prop. Use columns for a fixed count or minChildWidth for responsive auto-fill.
+---
+
+# SimpleGrid
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+`<Grid>` with automatic `templateColumns` from either `columns` (fixed count) or `minChildWidth` (responsive auto-fill).
+
+## Import
+
+```tsx
+import { SimpleGrid } from "@superstyling/core";
+```
+
+## Fixed columns
+
+<ComponentDemo
+  code={`<SimpleGrid columns={3} spacing="$3">
+  <Box>1</Box><Box>2</Box><Box>3</Box>
+  <Box>4</Box><Box>5</Box><Box>6</Box>
+</SimpleGrid>`}
+  preview={
+    <SimpleGrid columns={3} spacing="$3">
+      <Box backgroundColor="$color3" padding="$2">
+        1
+      </Box>
+      <Box backgroundColor="$color3" padding="$2">
+        2
+      </Box>
+      <Box backgroundColor="$color3" padding="$2">
+        3
+      </Box>
+      <Box backgroundColor="$color3" padding="$2">
+        4
+      </Box>
+      <Box backgroundColor="$color3" padding="$2">
+        5
+      </Box>
+      <Box backgroundColor="$color3" padding="$2">
+        6
+      </Box>
+    </SimpleGrid>
+  }
+/>
+
+## Responsive (minChildWidth)
+
+<ComponentDemo
+  code={`<SimpleGrid minChildWidth={160} spacing="$3">
+  <Box>A</Box><Box>B</Box><Box>C</Box>
+</SimpleGrid>`}
+  preview={
+    <SimpleGrid minChildWidth={160} spacing="$3">
+      <Box backgroundColor="$color3" padding="$2">
+        A
+      </Box>
+      <Box backgroundColor="$color3" padding="$2">
+        B
+      </Box>
+      <Box backgroundColor="$color3" padding="$2">
+        C
+      </Box>
+    </SimpleGrid>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "columns",
+      type: "number",
+      description: "Fixed column count. Takes precedence over minChildWidth.",
+    },
+    {
+      name: "minChildWidth",
+      type: "number | string",
+      description: "Responsive auto-fill minimum. Wraps when children don't fit.",
+    },
+    { name: "spacing", type: "token | number | string", description: "Alias for gap." },
+    { name: "spacingX", type: "token | number | string", description: "Alias for columnGap." },
+    { name: "spacingY", type: "token | number | string", description: "Alias for rowGap." },
+  ]}
+/>

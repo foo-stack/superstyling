@@ -1,0 +1,27 @@
+---
+title: Code
+description: Inline monospace text with a subtle pill background. Use for code snippets inside prose.
+---
+
+# Code
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Inline monospace text styled as a subtle pill. For fenced / multi-line blocks with syntax highlighting, use the docs-level `DocsCodeBlock`.
+
+## Import
+
+```tsx
+import { Code } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<Text>Install with <Code>yarn add @superstyling/core</Code>.</Text>`}
+  preview={
+    <Text>
+      Install with <Code>yarn add @superstyling/core</Code>.
+    </Text>
+  }
+/>

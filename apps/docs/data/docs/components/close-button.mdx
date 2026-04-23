@@ -1,0 +1,34 @@
+---
+title: CloseButton
+description: IconButton preset with CloseIcon. Ghost variant by default to blend into overlays.
+---
+
+# CloseButton
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Preset `<IconButton>` with an ✕ icon. Used for dismiss actions on Alerts, Drawers, Modals, Tags.
+
+## Import
+
+```tsx
+import { CloseButton } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<CloseButton aria-label="Close banner" onPress={() => setDismissed(true)} />`}
+  preview={<CloseButton aria-label="Close demo" />}
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "aria-label", type: "string", default: `"Close"`, description: "Screen-reader label." },
+    { name: "variant", type: `"solid" | "outline" | "ghost" | "link"`, default: `"ghost"` },
+    { name: "size", type: `"xs" | "sm" | "md" | "lg"`, default: `"sm"` },
+    { name: "onPress", type: "() => void", description: "Dismiss handler." },
+  ]}
+/>

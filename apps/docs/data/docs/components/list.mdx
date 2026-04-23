@@ -1,0 +1,72 @@
+---
+title: List
+description: Vertical list of items. List, OrderedList, UnorderedList render semantic ul/ol on web. ListItem + ListIcon for content.
+---
+
+# List · OrderedList · UnorderedList · ListItem · ListIcon
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Vertical list with optional styleType (disc / decimal / none). `<OrderedList>` emits `<ol>`, `<UnorderedList>` emits `<ul>`.
+
+## Import
+
+```tsx
+import { List, OrderedList, UnorderedList, ListItem, ListIcon } from "@superstyling/core";
+```
+
+## Unordered list
+
+<ComponentDemo
+  code={`<UnorderedList>
+  <ListItem>first</ListItem>
+  <ListItem>second</ListItem>
+  <ListItem>third</ListItem>
+</UnorderedList>`}
+  preview={
+    <UnorderedList>
+      <ListItem>first</ListItem>
+      <ListItem>second</ListItem>
+      <ListItem>third</ListItem>
+    </UnorderedList>
+  }
+/>
+
+## With icons
+
+<ComponentDemo
+  code={`<List styleType="none">
+  <ListItem>
+    <ListIcon>✓</ListIcon>
+    task complete
+  </ListItem>
+</List>`}
+  preview={
+    <List styleType="none">
+      <ListItem>
+        <HStack alignItems="center">
+          <ListIcon>✓</ListIcon>
+          <Text>task complete</Text>
+        </HStack>
+      </ListItem>
+    </List>
+  }
+/>
+
+## Props — List
+
+<PropsTable
+  props={[
+    { name: "spacing", type: "token | number | string", description: "Gap between items." },
+    {
+      name: "styleType",
+      type: `"disc" | "circle" | "square" | "decimal" | "none"`,
+      description: "Bullet/numeral style (web-only).",
+    },
+    {
+      name: "stylePosition",
+      type: `"inside" | "outside"`,
+      description: "listStylePosition (web-only).",
+    },
+  ]}
+/>

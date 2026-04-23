@@ -1,0 +1,81 @@
+---
+title: Grid
+description: CSS grid container + GridItem child. Use SimpleGrid for N-equal-column layouts with one prop.
+---
+
+# Grid · GridItem
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+CSS grid container with Chakra's shorthand prop names. For simple N-equal-column layouts, reach for [SimpleGrid](/components/simple-grid) instead.
+
+## Import
+
+```tsx
+import { Grid, GridItem } from "@superstyling/core";
+```
+
+## Basic grid
+
+<ComponentDemo
+  code={`<Grid templateColumns="repeat(3, 1fr)" gap="$2">
+  <GridItem colSpan={2}>A</GridItem>
+  <GridItem>B</GridItem>
+  <GridItem>C</GridItem>
+  <GridItem colSpan={2}>D</GridItem>
+</Grid>`}
+  preview={
+    <Grid templateColumns="repeat(3, 1fr)" gap="$2">
+      <GridItem backgroundColor="$color3" padding="$2" colSpan={2}>
+        A
+      </GridItem>
+      <GridItem backgroundColor="$color3" padding="$2">
+        B
+      </GridItem>
+      <GridItem backgroundColor="$color3" padding="$2">
+        C
+      </GridItem>
+      <GridItem backgroundColor="$color3" padding="$2" colSpan={2}>
+        D
+      </GridItem>
+    </Grid>
+  }
+/>
+
+## Props — Grid
+
+<PropsTable
+  props={[
+    {
+      name: "templateColumns",
+      type: "string",
+      description: "gridTemplateColumns (e.g., repeat(3, 1fr)).",
+    },
+    { name: "templateRows", type: "string", description: "gridTemplateRows." },
+    {
+      name: "templateAreas",
+      type: "string",
+      description: "gridTemplateAreas for named-area layouts.",
+    },
+    {
+      name: "autoFlow",
+      type: `"row" | "column" | "dense" | "row dense" | "column dense"`,
+      description: "gridAutoFlow.",
+    },
+    { name: "autoRows", type: "string", description: "gridAutoRows." },
+    { name: "autoColumns", type: "string", description: "gridAutoColumns." },
+    { name: "gap", type: "token | number | string", description: "Gap between rows and columns." },
+  ]}
+/>
+
+## Props — GridItem
+
+<PropsTable
+  props={[
+    { name: "colSpan", type: `number | "auto"`, description: "Columns to span." },
+    { name: "rowSpan", type: `number | "auto"`, description: "Rows to span." },
+    { name: "colStart", type: `number | "auto"`, description: "Column start line." },
+    { name: "rowStart", type: `number | "auto"`, description: "Row start line." },
+    { name: "area", type: "string", description: "Named grid area." },
+  ]}
+/>

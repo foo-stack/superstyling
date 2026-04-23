@@ -1,0 +1,83 @@
+---
+title: ButtonGroup
+description: Layout wrapper for a row of buttons. Injects shared size / variant / colorScheme. isAttached merges borders for segmented controls.
+---
+
+# ButtonGroup
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Groups a row of `<Button>`s with shared `size` / `variant` / `colorScheme` / `isDisabled`. `isAttached` produces the segmented-control look.
+
+## Import
+
+```tsx
+import { ButtonGroup, Button } from "@superstyling/core";
+```
+
+## Spaced group
+
+<ComponentDemo
+  code={`<ButtonGroup size="sm" variant="outline" spacing="$2">
+  <Button>Save</Button>
+  <Button colorScheme="red">Delete</Button>
+</ButtonGroup>`}
+  preview={
+    <ButtonGroup size="sm" variant="outline" spacing="$2">
+      <Button>Save</Button>
+      <Button colorScheme="red">Delete</Button>
+    </ButtonGroup>
+  }
+/>
+
+## Attached (segmented)
+
+<ComponentDemo
+  code={`<ButtonGroup isAttached variant="outline" size="sm">
+  <Button>Day</Button>
+  <Button>Week</Button>
+  <Button>Month</Button>
+</ButtonGroup>`}
+  preview={
+    <ButtonGroup isAttached variant="outline" size="sm">
+      <Button>Day</Button>
+      <Button>Week</Button>
+      <Button>Month</Button>
+    </ButtonGroup>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "size",
+      type: `"xs" | "sm" | "md" | "lg"`,
+      description: "Injected into every Button child that hasn't set its own.",
+    },
+    {
+      name: "variant",
+      type: `"solid" | "outline" | "ghost" | "link"`,
+      description: "Injected into every Button child that hasn't set its own.",
+    },
+    {
+      name: "colorScheme",
+      type: "string",
+      description: "Injected into every Button child that hasn't set its own.",
+    },
+    { name: "isDisabled", type: "boolean", description: "Disables every Button child." },
+    {
+      name: "isAttached",
+      type: "boolean",
+      default: "false",
+      description: "Collapse spacing and merge adjacent borders.",
+    },
+    {
+      name: "spacing",
+      type: "token | number | string",
+      default: `"$2"`,
+      description: "Gap between buttons when not attached.",
+    },
+  ]}
+/>

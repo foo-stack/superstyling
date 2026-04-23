@@ -60,3 +60,64 @@ export {
   type SelectSize,
   type SelectElement,
 } from "./Select";
+
+// Phase 10 — Layout primitives
+export {
+  Flex,
+  type FlexProps,
+  type FlexDirection,
+  type FlexJustify,
+  type FlexAlign,
+  type FlexWrap,
+  type FlexElement,
+} from "./Flex";
+export { Center, type CenterProps } from "./Center";
+export { Container, type ContainerProps, type ContainerElement } from "./Container";
+export { Spacer, type SpacerProps, type SpacerElement } from "./Spacer";
+export { AspectRatio, type AspectRatioProps } from "./AspectRatio";
+export { Grid, GridItem, type GridProps, type GridItemProps, type GridElement } from "./Grid";
+export { SimpleGrid, type SimpleGridProps } from "./SimpleGrid";
+export { Wrap, WrapItem, type WrapProps, type WrapItemProps, type WrapElement } from "./Wrap";
+export { Code, type CodeProps, type CodeElement } from "./Code";
+export { Kbd, type KbdProps, type KbdElement } from "./Kbd";
+export {
+  Tag,
+  type TagProps,
+  type TagVariant,
+  type TagSize,
+  type TagElement,
+  type TagLabelProps,
+  type TagCloseButtonProps,
+  type TagIconSlotProps,
+} from "./Tag";
+export { Image, type ImageProps, type ImageObjectFit, type ImageElement } from "./Image";
+export {
+  List,
+  OrderedList,
+  UnorderedList,
+  ListItem,
+  ListIcon,
+  type ListProps,
+  type ListItemProps,
+  type ListIconProps,
+  type ListElement,
+} from "./List";
+export {
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  InputLeftAddon,
+  InputRightAddon,
+  type InputGroupProps,
+  type InputElementProps,
+  type InputAddonProps,
+  type InputGroupElement,
+} from "./InputGroup";
+export { ButtonGroup, type ButtonGroupProps } from "./ButtonGroup";
+export {
+  CheckboxGroup,
+  useCheckboxGroup,
+  type CheckboxGroupProps,
+  type CheckboxGroupContextValue,
+} from "./CheckboxGroup";
+export { CloseButton, type CloseButtonProps } from "./CloseButton";

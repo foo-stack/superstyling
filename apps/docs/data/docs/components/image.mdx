@@ -1,0 +1,59 @@
+---
+title: Image
+description: Tamagui Image wrapper with fallback, fallbackSrc, and objectFit. On web renders a real img; on native, composes RN's Image.
+---
+
+# Image
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Cross-platform image with fallback handling matching Chakra's semantics.
+
+## Import
+
+```tsx
+import { Image } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<Image
+  src="https://example.com/photo.jpg"
+  alt="Profile"
+  fallbackSrc="https://example.com/placeholder.png"
+  fallback={<Box>no image</Box>}
+  width={120}
+  height={120}
+/>`}
+  preview={
+    <Image
+      alt="fallback demo"
+      fallback={<Box width={120} height={120} backgroundColor="$color3" />}
+      width={120}
+      height={120}
+    />
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "src", type: "string", description: "Primary image URL." },
+    { name: "alt", type: "string", description: "Alt text; required for a11y on web." },
+    { name: "fallbackSrc", type: "string", description: "URL used when src errors." },
+    {
+      name: "fallback",
+      type: "ReactNode",
+      description: "Rendered when src + fallbackSrc both error, or neither is set.",
+    },
+    {
+      name: "objectFit",
+      type: `"contain" | "cover" | "fill" | "none" | "scale-down"`,
+      default: `"cover"`,
+    },
+    { name: "width", type: "number | string" },
+    { name: "height", type: "number | string" },
+  ]}
+/>

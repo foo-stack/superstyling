@@ -1,0 +1,31 @@
+---
+title: Kbd
+description: Keyboard-shortcut keycap display. Small monospace pill with border and subtle bottom shadow.
+---
+
+# Kbd
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Keyboard shortcut display. Use with HStack for multi-key combos.
+
+## Import
+
+```tsx
+import { Kbd } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<HStack gap="$1">
+  <Kbd>⌘</Kbd>
+  <Kbd>K</Kbd>
+</HStack>`}
+  preview={
+    <HStack gap="$1">
+      <Kbd>⌘</Kbd>
+      <Kbd>K</Kbd>
+    </HStack>
+  }
+/>

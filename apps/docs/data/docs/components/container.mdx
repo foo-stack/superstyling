@@ -1,0 +1,48 @@
+---
+title: Container
+description: Centered max-width wrapper for page content. Default maxWidth 60ch for readable text columns.
+---
+
+# Container
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Centered max-width wrapper for page content. Default `maxWidth` is `60ch` (readable text-column width); override with any CSS length or token.
+
+## Import
+
+```tsx
+import { Container } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<Container maxWidth={720}>
+  <Text>Constrained column.</Text>
+</Container>`}
+  preview={
+    <Container maxWidth={720} backgroundColor="$color2" padding="$4">
+      <Text>Constrained column.</Text>
+    </Container>
+  }
+/>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "maxWidth",
+      type: "number | string",
+      default: `"60ch"`,
+      description: "Width cap. Use a token, CSS length, or ch-unit for text columns.",
+    },
+    {
+      name: "centered",
+      type: "boolean",
+      default: "true",
+      description: "Horizontally center the container via marginHorizontal: auto.",
+    },
+  ]}
+/>

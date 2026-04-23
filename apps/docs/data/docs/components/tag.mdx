@@ -1,0 +1,61 @@
+---
+title: Tag
+description: Small labeled pill. Three variants × three sizes × colorScheme. Dot-namespaced with Label, CloseButton, LeftIcon, RightIcon.
+---
+
+# Tag
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Small labeled pill for metadata, filters, status markers. Three variants (`subtle`, `solid`, `outline`), three sizes (`sm`, `md`, `lg`), full `colorScheme` palette.
+
+## Import
+
+```tsx
+import { Tag } from "@superstyling/core";
+```
+
+## Variants
+
+<ComponentDemo
+  code={`<Tag variant="subtle">subtle</Tag>
+<Tag variant="solid">solid</Tag>
+<Tag variant="outline">outline</Tag>`}
+  preview={
+    <HStack gap="$2">
+      <Tag variant="subtle">subtle</Tag>
+      <Tag variant="solid">solid</Tag>
+      <Tag variant="outline">outline</Tag>
+    </HStack>
+  }
+/>
+
+## With subcomponents
+
+<ComponentDemo
+  code={`<Tag>
+  <Tag.Label>beta</Tag.Label>
+  <Tag.CloseButton aria-label="Remove beta" />
+</Tag>`}
+  preview={
+    <Tag>
+      <Tag.Label>beta</Tag.Label>
+      <Tag.CloseButton aria-label="Remove beta" />
+    </Tag>
+  }
+/>
+
+## Props — Tag
+
+<PropsTable
+  props={[
+    { name: "variant", type: `"subtle" | "solid" | "outline"`, default: `"subtle"` },
+    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"` },
+    {
+      name: "colorScheme",
+      type: "string",
+      default: `"gray"`,
+      description: "Palette applied via data-color-scheme.",
+    },
+  ]}
+/>

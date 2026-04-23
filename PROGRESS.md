@@ -1,6 +1,6 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 10 — Layout primitives, not started
+**Current phase:** Phase 10 complete — 17 layout primitives shipped
 **Last updated:** 2026-04-23
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
@@ -11,28 +11,29 @@ v0.1.0 shipped 2026-04-22. Published packages: `@superstyling/{core,icons,next,e
 
 ## Phase 10 — Layout primitives (~1 week)
 
-Status: **not started**
+Status: **complete — 2026-04-23**
 
-- [ ] Flex
-- [ ] Center
-- [ ] Container
-- [ ] Grid + GridItem
-- [ ] SimpleGrid
-- [ ] Wrap + WrapItem
-- [ ] Spacer
-- [ ] AspectRatio
-- [ ] Tag + `.Label` / `.CloseButton` / `.LeftIcon` / `.RightIcon`
-- [ ] Code
-- [ ] Kbd
-- [ ] Image (with `fallback`, `fallbackSrc`, `objectFit`)
-- [ ] List + OrderedList + UnorderedList + ListItem + ListIcon
-- [ ] InputGroup + InputLeftElement + InputRightElement + InputLeftAddon + InputRightAddon
-- [ ] ButtonGroup (with `isAttached`)
-- [ ] CheckboxGroup
-- [ ] CloseButton
-- [ ] Smoke tests for every component
-- [ ] `/components/*` docs page for every component
-- [ ] **Exit check:** 0 new runtime deps; `yarn test:vitest` + `yarn typecheck` green
+- [x] Flex
+- [x] Center
+- [x] Container
+- [x] Grid + GridItem
+- [x] SimpleGrid
+- [x] Wrap + WrapItem
+- [x] Spacer
+- [x] AspectRatio
+- [x] Tag + `.Label` / `.CloseButton` / `.LeftIcon` / `.RightIcon`
+- [x] Code
+- [x] Kbd
+- [x] Image (with `fallback`, `fallbackSrc`, `objectFit`)
+- [x] List + OrderedList + UnorderedList + ListItem + ListIcon
+- [x] InputGroup + InputLeftElement + InputRightElement + InputLeftAddon + InputRightAddon
+- [x] ButtonGroup (with `isAttached`)
+- [x] CheckboxGroup
+- [x] CloseButton
+- [x] Smoke tests for every component — `layout.web.test.tsx` (+13 tests → 163/163 total)
+- [x] `/components/*` docs page for every component (17 new MDX files)
+- [x] Sidebar nav reorganized into Layout / Typography / Data display / Feedback / Overlay / Interactive / Forms sections
+- [x] **Exit check:** 0 new runtime deps · `yarn test:vitest` 163/163 · `yarn typecheck` 12/12 · docs build 45 static HTML pages
 
 ---
 

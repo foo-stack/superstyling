@@ -1,0 +1,57 @@
+---
+title: CheckboxGroup
+description: Shared selected-values state for a set of Checkboxes. Pass value + onChange for controlled mode or defaultValue for uncontrolled.
+---
+
+# CheckboxGroup
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Shared context for a set of `<Checkbox>`es. Individual items opt-in by setting a `value` prop; the group tracks selected values and fires `onChange`.
+
+## Import
+
+```tsx
+import { CheckboxGroup, Checkbox } from "@superstyling/core";
+```
+
+## Controlled
+
+:::tip
+See the [Checkbox page](/components/checkbox) for the per-item interactive demo with state wired up.
+:::
+
+```tsx
+const [selected, setSelected] = useState(["a"]);
+
+<CheckboxGroup value={selected} onChange={setSelected}>
+  <Checkbox value="a">Option A</Checkbox>
+  <Checkbox value="b">Option B</Checkbox>
+  <Checkbox value="c">Option C</Checkbox>
+</CheckboxGroup>;
+```
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "value", type: "(string | number)[]", description: "Controlled selected values." },
+    {
+      name: "defaultValue",
+      type: "(string | number)[]",
+      description: "Uncontrolled initial selection.",
+    },
+    {
+      name: "onChange",
+      type: "(values: (string | number)[]) => void",
+      description: "Fires on any selection change.",
+    },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg"`,
+      description: "Propagated to all Checkbox children.",
+    },
+    { name: "colorScheme", type: "string", description: "Propagated to all Checkbox children." },
+    { name: "isDisabled", type: "boolean", description: "Disable the whole group." },
+  ]}
+/>

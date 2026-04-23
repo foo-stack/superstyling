@@ -1,0 +1,29 @@
+---
+title: Center
+description: Flex container with justify + align both centered. Chakra-shaped alias for the common "center in both axes" pattern.
+---
+
+# Center
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+`<Flex>` with `justify="center"` and `align="center"` baked in. Use when you want something centered both horizontally and vertically inside its parent.
+
+## Import
+
+```tsx
+import { Center } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<Center height={120} backgroundColor="$color2">
+  <Text>Dead center.</Text>
+</Center>`}
+  preview={
+    <Center height={120} backgroundColor="$color2">
+      <Text>Dead center.</Text>
+    </Center>
+  }
+/>

@@ -1,0 +1,59 @@
+---
+title: Wrap
+description: Flex-row container that wraps children with consistent spacing. Use for tag lists, button clusters, filter chips.
+---
+
+# Wrap · WrapItem
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Horizontal flex row that wraps children with consistent `spacing`. `<WrapItem>` is an optional per-child wrapper — signals intent and gives a stable styling slot.
+
+## Import
+
+```tsx
+import { Wrap, WrapItem } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<Wrap spacing="$2">
+  {tags.map((t) => (
+    <WrapItem key={t}>
+      <Tag>{t}</Tag>
+    </WrapItem>
+  ))}
+</Wrap>`}
+  preview={
+    <Wrap spacing="$2">
+      <WrapItem>
+        <Tag>react</Tag>
+      </WrapItem>
+      <WrapItem>
+        <Tag>typescript</Tag>
+      </WrapItem>
+      <WrapItem>
+        <Tag>tamagui</Tag>
+      </WrapItem>
+      <WrapItem>
+        <Tag>vite</Tag>
+      </WrapItem>
+      <WrapItem>
+        <Tag>expo</Tag>
+      </WrapItem>
+    </Wrap>
+  }
+/>
+
+## Props — Wrap
+
+<PropsTable
+  props={[
+    { name: "spacing", type: "token | number | string", description: "gap alias." },
+    { name: "spacingX", type: "token | number | string", description: "columnGap alias." },
+    { name: "spacingY", type: "token | number | string", description: "rowGap alias." },
+    { name: "justify", type: "string", description: "justifyContent shorthand." },
+    { name: "align", type: "string", description: "alignItems shorthand." },
+  ]}
+/>

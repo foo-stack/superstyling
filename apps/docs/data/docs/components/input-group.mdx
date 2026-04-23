@@ -1,0 +1,65 @@
+---
+title: InputGroup
+description: Compose an Input with left/right icons, addon text, or button overlays. Mirrors Chakra's InputGroup pattern.
+---
+
+# InputGroup · InputLeftElement · InputRightElement · InputLeftAddon · InputRightAddon
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Compose an `<Input>` with element overlays (icons, buttons, inside the input's border) or addons (prefix/suffix pills with their own border).
+
+## Import
+
+```tsx
+import {
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  InputLeftAddon,
+  InputRightAddon,
+  Input,
+} from "@superstyling/core";
+```
+
+## With addons
+
+<ComponentDemo
+  code={`<InputGroup>
+  <InputLeftAddon>https://</InputLeftAddon>
+  <Input placeholder="superstyling" />
+  <InputRightAddon>.dev</InputRightAddon>
+</InputGroup>`}
+  preview={
+    <InputGroup>
+      <InputLeftAddon>https://</InputLeftAddon>
+      <Input placeholder="superstyling" />
+      <InputRightAddon>.dev</InputRightAddon>
+    </InputGroup>
+  }
+/>
+
+## With elements
+
+<ComponentDemo
+  code={`<InputGroup>
+  <InputLeftElement><SearchIcon /></InputLeftElement>
+  <Input placeholder="Search" paddingLeft={40} />
+</InputGroup>`}
+  preview={
+    <InputGroup>
+      <InputLeftElement>
+        <Box>🔍</Box>
+      </InputLeftElement>
+      <Input placeholder="Search" paddingLeft={40} />
+    </InputGroup>
+  }
+/>
+
+## Elements vs addons
+
+|             | Elements                                                         | Addons                                  |
+| ----------- | ---------------------------------------------------------------- | --------------------------------------- |
+| position    | inside input border                                              | outside input border                    |
+| typical use | icons, small buttons                                             | text prefix/suffix (URL schemes, units) |
+| spacing     | `paddingLeft` / `paddingRight` on the Input to clear the overlay | none needed                             |

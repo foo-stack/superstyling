@@ -1,0 +1,33 @@
+---
+title: Spacer
+description: flex 1 filler. Pushes siblings apart inside a Flex / HStack / VStack.
+---
+
+# Spacer
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+A `flex: 1` filler. Drop it between siblings inside a `<Flex>` to push them to the edges.
+
+## Import
+
+```tsx
+import { Spacer } from "@superstyling/core";
+```
+
+## Usage
+
+<ComponentDemo
+  code={`<Flex>
+  <Text>Left</Text>
+  <Spacer />
+  <Text>Right</Text>
+</Flex>`}
+  preview={
+    <Flex backgroundColor="$color2" padding="$2">
+      <Text>Left</Text>
+      <Spacer />
+      <Text>Right</Text>
+    </Flex>
+  }
+/>
