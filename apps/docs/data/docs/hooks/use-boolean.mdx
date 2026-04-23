@@ -1,0 +1,36 @@
+---
+title: useBoolean
+description: Boolean state hook with tuple-return ergonomics and on/off/toggle helpers.
+---
+
+# useBoolean
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+A thin wrapper over `useState(boolean)` with semantic helpers.
+
+## Import
+
+```tsx
+import { useBoolean } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const [flag, { on, off, toggle }] = useBoolean(false);
+
+<Button onPress={toggle}>{flag ? "On" : "Off"}</Button>;
+```
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useBoolean(initial?: boolean): [boolean, { on; off; toggle }];
+
+// @superstyling/core
+function useBoolean(initial?: boolean): [boolean, { on; off; toggle }];
+```
+
+Identical.

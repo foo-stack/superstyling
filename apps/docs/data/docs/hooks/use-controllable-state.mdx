@@ -1,0 +1,53 @@
+---
+title: useControllableState
+description: Unified controlled + uncontrolled state. The go-to primitive for building composable inputs that accept optional `value` + `onChange`.
+---
+
+# useControllableState
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+When `value` is provided, the hook is controlled. Otherwise it owns internal state seeded from `defaultValue`. `onChange` fires in both modes.
+
+## Import
+
+```tsx
+import { useControllableState } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+function MyInput(props: { value?: string; defaultValue?: string; onChange?: (v: string) => void }) {
+  const [value, setValue] = useControllableState({
+    value: props.value,
+    defaultValue: props.defaultValue ?? "",
+    onChange: props.onChange,
+  });
+  return <Input value={value} onChangeText={setValue} />;
+}
+```
+
+## Functional updates
+
+```tsx
+setValue((prev) => prev + 1);
+```
+
+Works correctly in both modes — the hook reads the current value from a ref so the updater always sees the latest.
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useControllableState<T>(
+  props: UseControllableStateProps<T>,
+): [T, Dispatch<SetStateAction<T>>];
+
+// @superstyling/core
+function useControllableState<T>(
+  props: UseControllableStateProps<T>,
+): [T, (next: T | ((prev: T) => T)) => void];
+```
+
+Identical ergonomics.

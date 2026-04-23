@@ -118,6 +118,21 @@ export const NAV: NavSection[] = [
     ],
   },
   {
+    label: "Hooks",
+    items: [
+      { label: "useDisclosure", href: "/hooks/use-disclosure" },
+      { label: "useBoolean", href: "/hooks/use-boolean" },
+      { label: "useControllableState", href: "/hooks/use-controllable-state" },
+      { label: "useMergeRefs", href: "/hooks/use-merge-refs" },
+      { label: "useMediaQuery", href: "/hooks/use-media-query" },
+      { label: "useBreakpointValue", href: "/hooks/use-breakpoint-value" },
+      { label: "useClipboard", href: "/hooks/use-clipboard" },
+      { label: "useTheme", href: "/hooks/use-theme" },
+      { label: "useToken", href: "/hooks/use-token" },
+      { label: "useOutsideClick", href: "/hooks/use-outside-click" },
+    ],
+  },
+  {
     label: "Examples",
     items: [
       { label: "Login", href: "/examples/login" },

@@ -1,0 +1,43 @@
+---
+title: useBreakpointValue
+description: Pick a value based on the current breakpoint. Cross-platform via Tamagui's media system.
+---
+
+# useBreakpointValue
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Returns the largest-matched breakpoint's value from an input map. Works on web and native via Tamagui's `useMedia`.
+
+## Import
+
+```tsx
+import { useBreakpointValue } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const cols = useBreakpointValue({ base: 1, md: 2, lg: 4 });
+
+<SimpleGrid columns={cols}>…</SimpleGrid>;
+```
+
+## Keys
+
+Accepts `base` (default fallback) plus any of: `xs`, `sm`, `md`, `lg`, `xl`, `xxl`.
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useBreakpointValue<T>(
+  values: Record<string, T>,
+  defaultBreakpoint?: string,
+): T | undefined;
+
+// @superstyling/core
+function useBreakpointValue<T>(values: BreakpointValueMap<T>): T | undefined;
+```
+
+Same intent. We drop the `defaultBreakpoint` arg — pass `base` in the map instead.

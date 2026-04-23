@@ -1,0 +1,38 @@
+---
+title: useMergeRefs
+description: Combine multiple refs into one callback ref. Handles function refs, object refs, and null/undefined.
+---
+
+# useMergeRefs
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Compose a forwarded ref with local refs so both point at the same node.
+
+## Import
+
+```tsx
+import { useMergeRefs } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const Thing = forwardRef<HTMLDivElement>((props, ref) => {
+  const localRef = useRef<HTMLDivElement | null>(null);
+  const merged = useMergeRefs(ref, localRef);
+  return <div ref={merged} />;
+});
+```
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useMergeRefs<T>(...refs: AnyRef<T>[]): (node: T | null) => void;
+
+// @superstyling/core
+function useMergeRefs<T>(...refs: AnyRef<T>[]): (node: T | null) => void;
+```
+
+Identical.

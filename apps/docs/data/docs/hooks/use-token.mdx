@@ -1,0 +1,49 @@
+---
+title: useToken
+description: Resolve one or more theme tokens to their raw values. Supports dot-path notation for nested scales.
+---
+
+# useToken
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Walk the active theme and return the raw string values for a given scale and token path.
+
+## Import
+
+```tsx
+import { useToken } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+useToken("colors", "blue.500"); // "#3182CE"
+useToken("radii", "md"); // "0.375rem"
+useToken("space", "4"); // "1rem"
+```
+
+## Array input
+
+```tsx
+const [red, green, blue] = useToken("colors", ["red.500", "green.500", "blue.500"]);
+```
+
+## Scales
+
+`"colors" | "space" | "sizes" | "fonts" | "fontSizes" | "fontWeights" | "lineHeights" | "letterSpacings" | "radii" | "shadows" | "zIndices" | "breakpoints"`
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useToken(scale: string, token: string | string[]): string | string[];
+
+// @superstyling/core
+function useToken<K extends ThemeScale>(
+  scale: K,
+  token: string | string[],
+): string | undefined | (string | undefined)[];
+```
+
+Same intent. We type-narrow the `scale` argument and return `undefined` for missing tokens instead of silently falling back.

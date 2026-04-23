@@ -1,6 +1,6 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 13 complete — data & forms + real native shipped
+**Current phase:** Phase 14 complete — hooks parity shipped
 **Last updated:** 2026-04-23
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
@@ -98,19 +98,22 @@ Status: **complete — 2026-04-23**
 
 ## Phase 14 — Hooks parity (~1 week)
 
-Status: **not started**
+Status: **complete — 2026-04-23**
 
-- [ ] useDisclosure
-- [ ] useBreakpointValue
-- [ ] useMediaQuery
-- [ ] useClipboard
-- [ ] useToken
-- [ ] useTheme
-- [ ] useBoolean
-- [ ] useControllableState
-- [ ] useMergeRefs
-- [ ] useOutsideClick
-- [ ] **Exit check:** every hook has a unit test + docs page with Chakra-equivalent signature diff
+- [x] useDisclosure (controlled + uncontrolled, aria helpers via `getButtonProps` / `getDisclosureProps`)
+- [x] useBreakpointValue (wraps Tamagui `useMedia` — cross-platform)
+- [x] useMediaQuery (web `matchMedia`; no-op on native with documented `useBreakpointValue` alternative)
+- [x] useClipboard (web `navigator.clipboard`; native dynamic-import of `@react-native-clipboard/clipboard`)
+- [x] useToken (resolves dot-path tokens from active `Theme`)
+- [x] useTheme (returns resolved `Theme` object via new `SystemContext`)
+- [x] useBoolean
+- [x] useControllableState (ref-backed updater so functional setState works in controlled mode)
+- [x] useMergeRefs
+- [x] useOutsideClick (document-level mousedown/touchstart; no-op on native)
+- [x] Smoke tests (+13 → 200/200 total)
+- [x] `/hooks/*` docs pages for each + new sidebar "Hooks" section (10 entries) + `apps/docs/app/hooks/[slug].tsx` route
+- [x] New `SystemContext` added to `SuperStylingProvider` so hooks can read the active system without a prop-drill
+- [x] **Exit check:** `yarn typecheck` 12/12 · `yarn test:vitest` 200/200 · docs build 74 static HTML pages · 0 new runtime deps
 
 ---
 

@@ -1,0 +1,43 @@
+---
+title: useOutsideClick
+description: Fire a handler when a pointer event lands outside a referenced element. Web-only.
+---
+
+# useOutsideClick
+
+<StatusRow tier="1" platforms="Web" since="v0.2.0" />
+
+Listen for mousedown / touchstart on the document and fire when the target is outside your ref'd element. Great for closing menus, popovers, and custom dropdowns.
+
+On React Native, the conventional pattern is `Pressable` with `onPress` on a full-screen backdrop — this hook becomes a no-op there.
+
+## Import
+
+```tsx
+import { useOutsideClick } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+function ClickAwayMenu() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [open, setOpen] = useState(false);
+
+  useOutsideClick({ ref, handler: () => setOpen(false), enabled: open });
+
+  return <div ref={ref}>{open ? "menu" : null}</div>;
+}
+```
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useOutsideClick(props: UseOutsideClickProps): void;
+
+// @superstyling/core
+function useOutsideClick<T extends Element>(props: UseOutsideClickProps<T>): void;
+```
+
+Same intent. We add a generic parameter for ref type narrowing.

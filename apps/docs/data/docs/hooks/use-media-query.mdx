@@ -1,0 +1,40 @@
+---
+title: useMediaQuery
+description: Subscribe to one or many CSS media queries. Returns a boolean array (even for a single query) for tuple-friendly destructuring.
+---
+
+# useMediaQuery
+
+<StatusRow tier="1" platforms="Web" since="v0.2.0" />
+
+Subscribe to `window.matchMedia`. On React Native this always returns `[false, ...]` — use [`useBreakpointValue`](/hooks/use-breakpoint-value) for cross-platform responsive selection.
+
+## Import
+
+```tsx
+import { useMediaQuery } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const [isLarge] = useMediaQuery("(min-width: 900px)");
+```
+
+## Multiple queries
+
+```tsx
+const [canHover, isDark] = useMediaQuery(["(hover: hover)", "(prefers-color-scheme: dark)"]);
+```
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useMediaQuery(queries: string | string[]): boolean[];
+
+// @superstyling/core
+function useMediaQuery(queries: string | string[]): boolean[];
+```
+
+Identical return shape — always an array.

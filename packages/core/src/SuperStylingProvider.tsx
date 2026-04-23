@@ -5,6 +5,7 @@ import { defaultSystem, type System } from "./createSystem";
 import { ColorModeProvider } from "./colorMode/ColorModeProvider";
 import { OverlayRegistryProvider } from "./overlay/OverlayRegistry";
 import { BreakpointProvider } from "./system/BreakpointContext";
+import { SystemProvider } from "./system/SystemContext";
 import { ToastProvider } from "./toast/ToastProvider";
 
 export interface SuperStylingProviderProps {
@@ -55,17 +56,19 @@ export function SuperStylingProvider({
 
   return (
     <TamaguiProvider config={system.config} defaultTheme={tamaguiDefaultTheme}>
-      <BreakpointProvider names={breakpointNames}>
-        <ColorModeProvider
-          initialColorMode={resolvedInitial}
-          useSystemColorMode={resolvedUseSystem}
-        >
-          <OverlayRegistryProvider>
-            <ToastProvider>{children}</ToastProvider>
-            <PortalHost name="__superstyling_toasts__" />
-          </OverlayRegistryProvider>
-        </ColorModeProvider>
-      </BreakpointProvider>
+      <SystemProvider system={system}>
+        <BreakpointProvider names={breakpointNames}>
+          <ColorModeProvider
+            initialColorMode={resolvedInitial}
+            useSystemColorMode={resolvedUseSystem}
+          >
+            <OverlayRegistryProvider>
+              <ToastProvider>{children}</ToastProvider>
+              <PortalHost name="__superstyling_toasts__" />
+            </OverlayRegistryProvider>
+          </ColorModeProvider>
+        </BreakpointProvider>
+      </SystemProvider>
     </TamaguiProvider>
   );
 }

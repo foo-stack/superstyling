@@ -310,6 +310,29 @@ export {
 // Breakpoint context (for custom components that want theme-aware responsive parsing)
 export { BreakpointProvider, useBreakpointNames } from "./system/BreakpointContext";
 
+// Phase 14 — Chakra-parity hooks
+export {
+  useDisclosure,
+  useBoolean,
+  useControllableState,
+  useMergeRefs,
+  useMediaQuery,
+  useBreakpointValue,
+  useClipboard,
+  useTheme,
+  useToken,
+  useOutsideClick,
+  type UseDisclosureProps,
+  type UseDisclosureReturn,
+  type UseBooleanControls,
+  type UseControllableStateProps,
+  type BreakpointValueMap,
+  type UseClipboardOptions,
+  type UseClipboardReturn,
+  type ThemeScale,
+  type UseOutsideClickProps,
+} from "./hooks";
+
 // Overlay registry
 export {
   OverlayRegistryProvider,

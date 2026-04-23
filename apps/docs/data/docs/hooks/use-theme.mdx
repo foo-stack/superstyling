@@ -1,0 +1,36 @@
+---
+title: useTheme
+description: Access the active resolved theme object — colors, space, fonts, radii, shadows.
+---
+
+# useTheme
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Returns the Superstyling `Theme` object currently active in the `<SuperStylingProvider>`.
+
+## Import
+
+```tsx
+import { useTheme } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const theme = useTheme();
+const blue500 = theme.colors.blue[500];
+const spacing4 = theme.space["4"];
+```
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useTheme<T extends Record<string, any>>(): T;
+
+// @superstyling/core
+function useTheme(): Theme;
+```
+
+Same intent. We return a strongly-typed `Theme` — use declaration-merging of `SuperStylingCustomTheme` to narrow to your own tokens.

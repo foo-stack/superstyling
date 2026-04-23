@@ -1,0 +1,52 @@
+---
+title: useDisclosure
+description: Boolean open/close state with controlled + uncontrolled support. Perfect for modals, drawers, menus, popovers.
+---
+
+# useDisclosure
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Manage open/close state for disclosure widgets. Returns both state and ready-to-spread aria helpers for the trigger button and disclosure panel.
+
+## Import
+
+```tsx
+import { useDisclosure } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+
+<Button onPress={onOpen}>Open</Button>
+<Modal isOpen={isOpen} onClose={onClose}>…</Modal>
+```
+
+## Aria helpers
+
+```tsx
+const { getButtonProps, getDisclosureProps } = useDisclosure();
+
+<Button {...getButtonProps()}>Toggle</Button>
+<Box {...getDisclosureProps()}>Panel</Box>
+```
+
+## Controlled
+
+```tsx
+const disclosure = useDisclosure({ isOpen: props.isOpen, onOpen, onClose });
+```
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useDisclosure(props?: UseDisclosureProps): UseDisclosureReturn;
+
+// @superstyling/core
+function useDisclosure(props?: UseDisclosureProps): UseDisclosureReturn;
+```
+
+Identical shape. `getButtonProps()` returns `onPress` (Tamagui's cross-platform press handler) instead of `onClick` — works on web + native without branching.

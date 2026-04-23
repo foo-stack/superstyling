@@ -1,0 +1,49 @@
+---
+title: useClipboard
+description: Copy a string to the system clipboard and track transient `hasCopied` feedback state.
+---
+
+# useClipboard
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Manage clipboard copy with a "copied!" flash state that auto-resets.
+
+## Import
+
+```tsx
+import { useClipboard } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const { value, onCopy, hasCopied } = useClipboard("hello world");
+
+<Button onPress={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>;
+```
+
+## Options
+
+```tsx
+useClipboard("value", {
+  timeout: 2000, // ms before hasCopied resets (default 1500)
+  syncOnExternalChange: false, // skip syncing internal value when the arg changes
+});
+```
+
+## Native
+
+Web uses `navigator.clipboard`. On React Native, install `@react-native-clipboard/clipboard` and the hook will load it dynamically. Without it, the hook becomes a safe no-op on native.
+
+## Signature — Chakra parity
+
+```ts
+// @chakra-ui/react
+function useClipboard(value: string, options?: UseClipboardOptions): UseClipboardReturn;
+
+// @superstyling/core
+function useClipboard(value: string, options?: UseClipboardOptions): UseClipboardReturn;
+```
+
+Identical surface.
