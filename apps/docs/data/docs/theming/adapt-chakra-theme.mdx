@@ -1,0 +1,111 @@
+---
+title: adaptChakraTheme
+description: Convert a Chakra v2 `extendTheme(...)` return value into a Superstyling `ThemeInput` with a single call. Flags unsupported surfaces.
+---
+
+# adaptChakraTheme
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Drop a real Chakra v2 theme object into Superstyling with one call. Most fields pass through unchanged because the two shapes are deliberately compatible.
+
+## Import
+
+```tsx
+import { adaptChakraTheme, createSystem, SuperStylingProvider } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+import { extendTheme } from "@chakra-ui/react";
+
+const chakraTheme = extendTheme({
+  colors: { brand: { "500": "#0ea5e9" } },
+  components: {
+    Button: {
+      baseStyle: { fontWeight: 600 },
+      variants: { solid: { bg: "brand.500", color: "white" } },
+      defaultProps: { variant: "solid" },
+    },
+  },
+});
+
+const { theme, warnings } = adaptChakraTheme(chakraTheme);
+const system = createSystem(theme);
+
+<SuperStylingProvider system={system}>…</SuperStylingProvider>;
+```
+
+## Warnings surface
+
+`adaptChakraTheme` returns a `warnings: string[]` listing every surface it had to drop. The same list is summarized in a single `console.warn` call; opt out with `{ logWarnings: false }`.
+
+## defineStyleConfig + defineMultiStyleConfig
+
+Chakra-parity identity helpers for per-component style config narrowing:
+
+```tsx
+import { defineStyleConfig, defineMultiStyleConfig } from "@superstyling/core";
+
+const ButtonStyles = defineStyleConfig({
+  baseStyle: { fontWeight: 600 },
+  sizes: { md: { px: 4 } },
+  variants: { solid: { bg: "brand.500" } },
+  defaultProps: { size: "md", variant: "solid" },
+});
+
+const MenuStyles = defineMultiStyleConfig({
+  parts: ["button", "list", "item"],
+  baseStyle: { button: { px: 3 }, list: { py: 2 }, item: { px: 3 } },
+});
+```
+
+`defineStyleConfig` is a pure identity function — it narrows types without transforming values.
+
+`defineMultiStyleConfig` flattens part-keyed style objects into a single shallow-merged style. Per-part targeting is deferred (Phase 17).
+
+## Documented gaps
+
+The adapter cannot round-trip everything Chakra v2 supports. Each gap below is flagged in the `warnings` return so you see exactly what to hand-convert.
+
+### `styles.global`
+
+Chakra-era global selectors (`body`, `*`, `::before`) have no Superstyling equivalent. Ship these via a regular CSS file imported at app entry.
+
+### `layerStyles` and `textStyles`
+
+Inline the styles on usage, or add a matching variant to the relevant component (`components.Text.variants.heading`, etc).
+
+### Function-valued `baseStyle` / `sizes` / `variants`
+
+Chakra's `StyleFunctionProps` (`({ colorMode, theme, colorScheme }) => styles`) is not supported — Superstyling resolves variants statically at `createSystem()` time. Replace the function with either:
+
+- a static object (for color-scheme-free styles), or
+- `semanticTokens` (for per-mode values — `{ default: 'gray.800', _dark: 'gray.100' }`).
+
+### `cssVar(...)` and `mode(light, dark)`
+
+These Chakra helpers produce runtime CSS-variable references. Convert to a `semanticTokens` entry:
+
+```tsx
+// Chakra:
+color: mode("gray.800", "gray.100")(props)
+
+// Superstyling semantic token:
+semanticTokens: {
+  colors: {
+    bodyText: { default: "gray.800", _dark: "gray.100" }
+  }
+}
+// usage: <Text color="bodyText" />
+```
+
+## Signature
+
+```ts
+function adaptChakraTheme(
+  chakra: ChakraThemeLike,
+  options?: { logWarnings?: boolean },
+): { theme: ThemeInput; warnings: string[] };
+```

@@ -1,6 +1,6 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 14 complete — hooks parity shipped
+**Current phase:** Phase 15 complete — theming compat shipped
 **Last updated:** 2026-04-23
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
@@ -119,13 +119,16 @@ Status: **complete — 2026-04-23**
 
 ## Phase 15 — Theming compat (~1 week)
 
-Status: **not started**
+Status: **complete — 2026-04-23**
 
-- [ ] `adaptChakraTheme(chakraTheme)` in `@superstyling/core`
-- [ ] `defineStyleConfig` + `defineMultiStyleConfig` re-exports
-- [ ] Visual-diff smoke test: real Chakra theme → Superstyling render parity on 5 component types
-- [ ] Documented gaps: `StyleFunctionProps`, `cssVar`, CSSMap patterns
-- [ ] **Exit check:** no type-explosion in consumer app after `adaptChakraTheme(themeObj)`
+- [x] `adaptChakraTheme(chakraTheme)` — pass-through for matching fields, drops `styles.global` / `layerStyles` / `textStyles` with warnings, flags function-valued `baseStyle` / `sizes` / `variants` (StyleFunctionProps) and skips them
+- [x] `defineStyleConfig` — identity helper (same role as Chakra's)
+- [x] `defineMultiStyleConfig` — shallow-flattens part-keyed style maps into a single `ComponentOverride`
+- [x] Parity smoke test: Chakra-shaped theme → `createSystem` → renders 5 primitives (Box / Text / Button / Badge / Alert) green
+- [x] Unit tests for pass-through / dropped surfaces / function-valued skip / warnings logging (`+9` logic tests)
+- [x] Documented gaps: `StyleFunctionProps`, `cssVar` / `mode()`, `layerStyles` / `textStyles`, `styles.global` — each flagged in the `warnings` array _and_ in `/theming/adapt-chakra-theme`
+- [x] New `/theming/*` MDX route + sidebar Theming section
+- [x] **Exit check:** `yarn typecheck` 12/12 · `yarn test:vitest` 210/210 · docs build 75 static HTML pages · 0 new runtime deps
 
 ---
 

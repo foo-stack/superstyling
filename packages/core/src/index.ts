@@ -33,6 +33,9 @@ export {
 export {
   defaultTheme,
   mergeTheme,
+  adaptChakraTheme,
+  defineStyleConfig,
+  defineMultiStyleConfig,
   resolveTheme,
   buildColorTokens,
   buildThemes,
@@ -62,6 +65,10 @@ export {
   type SuperStylingCustomTheme,
   type ResolvedTamaguiInput,
   type SpaceKey,
+  type ChakraThemeLike,
+  type AdaptChakraThemeResult,
+  type AdaptChakraThemeOptions,
+  type MultiStyleConfigInput,
 } from "./theme";
 
 // Primitives (P2.5 + P3.1 + P3.2)

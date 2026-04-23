@@ -26,6 +26,17 @@ export type {
 export { defaultTheme } from "./default";
 export { mergeTheme } from "./merge";
 export {
+  adaptChakraTheme,
+  type ChakraThemeLike,
+  type AdaptChakraThemeResult,
+  type AdaptChakraThemeOptions,
+} from "./adaptChakraTheme";
+export {
+  defineStyleConfig,
+  defineMultiStyleConfig,
+  type MultiStyleConfigInput,
+} from "./defineStyleConfig";
+export {
   resolveTheme,
   buildColorTokens,
   buildThemes,

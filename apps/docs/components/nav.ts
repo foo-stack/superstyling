@@ -118,6 +118,10 @@ export const NAV: NavSection[] = [
     ],
   },
   {
+    label: "Theming",
+    items: [{ label: "adaptChakraTheme", href: "/theming/adapt-chakra-theme" }],
+  },
+  {
     label: "Hooks",
     items: [
       { label: "useDisclosure", href: "/hooks/use-disclosure" },
