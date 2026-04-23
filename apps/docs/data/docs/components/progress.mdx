@@ -1,0 +1,63 @@
+---
+title: Progress
+description: Linear and circular progress indicators. Determinate (value) or indeterminate (animated wave).
+---
+
+# Progress
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Linear progress bar built on `@tamagui/progress`. Pair with `<CircularProgress>` for ring-shaped indicators (SVG on web, styled ring on native).
+
+## Import
+
+```tsx
+import { Progress, CircularProgress } from "@superstyling/core";
+```
+
+## Linear
+
+```tsx
+<Progress value={60} />
+<Progress value={30} size="xs" />
+<Progress isIndeterminate />
+```
+
+## Circular
+
+```tsx
+<CircularProgress value={65}>
+  <CircularProgress.Label>65%</CircularProgress.Label>
+</CircularProgress>
+```
+
+## Props — Progress
+
+<PropsTable
+  props={[
+    {
+      name: "value",
+      type: "number",
+      default: "0",
+      description: "Current value. Ignored when indeterminate.",
+    },
+    { name: "min", type: "number", default: "0" },
+    { name: "max", type: "number", default: "100" },
+    { name: "size", type: `"xs" | "sm" | "md" | "lg"`, default: `"md"` },
+    { name: "isIndeterminate", type: "boolean", description: "Animated loading wave, no value." },
+  ]}
+/>
+
+## Props — CircularProgress
+
+<PropsTable
+  props={[
+    { name: "value", type: "number", default: "0" },
+    { name: "min", type: "number", default: "0" },
+    { name: "max", type: "number", default: "100" },
+    { name: "size", type: "number", default: "48", description: "Diameter in px." },
+    { name: "thickness", type: "number", default: "10", description: "Track thickness in px." },
+    { name: "isIndeterminate", type: "boolean" },
+    { name: "trackColor", type: "string", default: `"$color4"` },
+  ]}
+/>

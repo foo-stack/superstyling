@@ -175,3 +175,33 @@ export {
   type SlideDirection,
   type CollapseProps,
 } from "./Transitions";
+
+// Phase 13 — Data & forms + real native
+export {
+  Table,
+  TableContainer,
+  type TableProps,
+  type TableVariant,
+  type TableSize,
+  type CellProps,
+} from "./Table";
+export { NumberInput, type NumberInputProps } from "./NumberInput";
+export { PinInput, type PinInputProps } from "./PinInput";
+export { Slider, RangeSlider, type SliderProps } from "./Slider";
+export {
+  Progress,
+  CircularProgress,
+  type ProgressProps,
+  type ProgressSize,
+  type CircularProgressProps,
+} from "./Progress";
+export {
+  Skeleton,
+  SkeletonCircle,
+  SkeletonText,
+  type SkeletonProps,
+  type SkeletonCircleProps,
+  type SkeletonTextProps,
+} from "./Skeleton";
+export { Stat, type StatProps, type StatArrowType, type StatArrowProps } from "./Stat";
+export { Editable, useEditableControls, type EditableProps } from "./Editable";

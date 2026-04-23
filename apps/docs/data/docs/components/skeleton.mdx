@@ -1,0 +1,73 @@
+---
+title: Skeleton
+description: Shimmer placeholder boxes for async content. Skeleton, SkeletonCircle, and SkeletonText for common loading shapes.
+---
+
+# Skeleton
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Placeholder boxes shown while content loads. Flip `isLoaded` to reveal the real children.
+
+## Import
+
+```tsx
+import { Skeleton, SkeletonCircle, SkeletonText } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Skeleton height={20} width={200} />
+<SkeletonCircle size={40} />
+<SkeletonText noOfLines={3} />
+```
+
+## Reveal children
+
+```tsx
+<Skeleton isLoaded={!loading} height={20}>
+  <Text>{data.title}</Text>
+</Skeleton>
+```
+
+## Props — Skeleton
+
+<PropsTable
+  props={[
+    {
+      name: "isLoaded",
+      type: "boolean",
+      description: "When true, renders children instead of the placeholder.",
+    },
+    {
+      name: "fadeDuration",
+      type: "number",
+      default: "1200",
+      description: "ms between shimmer cycles.",
+    },
+    { name: "startColor", type: "string", default: `"$color4"` },
+    { name: "endColor", type: "string", default: `"$color5"` },
+  ]}
+/>
+
+## Props — SkeletonCircle
+
+<PropsTable
+  props={[{ name: "size", type: "number", default: "40", description: "Diameter in px." }]}
+/>
+
+## Props — SkeletonText
+
+<PropsTable
+  props={[
+    { name: "noOfLines", type: "number", default: "3" },
+    { name: "spacing", type: "YStackProps['gap']", default: `"$2"` },
+    {
+      name: "skeletonHeight",
+      type: "number",
+      default: "12",
+      description: "Per-line height in px.",
+    },
+  ]}
+/>

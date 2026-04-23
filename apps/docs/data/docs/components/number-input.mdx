@@ -1,0 +1,65 @@
+---
+title: NumberInput
+description: Numeric input with stepper buttons and keyboard arrows. Enforces min/max, precision, and blocks non-numeric input.
+---
+
+# NumberInput
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Numeric input with up/down stepper buttons and keyboard arrows. Clamps to `[min, max]` on blur, blocks non-numeric keypress, and honors Chakra's `Shift + ↑/↓` = 10× step convention.
+
+## Import
+
+```tsx
+import { NumberInput } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<NumberInput defaultValue={5} min={0} max={10} step={1}>
+  <NumberInput.Field />
+  <NumberInput.Stepper>
+    <NumberInput.IncrementStepper />
+    <NumberInput.DecrementStepper />
+  </NumberInput.Stepper>
+</NumberInput>
+```
+
+## Controlled
+
+```tsx
+const [value, setValue] = useState(0);
+
+<NumberInput value={value} onChange={(n) => setValue(n)} min={0} max={100}>
+  <NumberInput.Field />
+  <NumberInput.Stepper>
+    <NumberInput.IncrementStepper />
+    <NumberInput.DecrementStepper />
+  </NumberInput.Stepper>
+</NumberInput>;
+```
+
+## Keyboard
+
+- `↑` / `↓` — step by `step`
+- `Shift + ↑/↓` — step by `step * 10`
+- Typing non-numeric characters is blocked at the input
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "value", type: "number" },
+    { name: "defaultValue", type: "number" },
+    { name: "onChange", type: "(value: number, asString: string) => void" },
+    { name: "min", type: "number", default: "-Infinity" },
+    { name: "max", type: "number", default: "Infinity" },
+    { name: "step", type: "number", default: "1" },
+    { name: "precision", type: "number", description: "Decimal places on commit." },
+    { name: "isDisabled", type: "boolean" },
+    { name: "isReadOnly", type: "boolean" },
+    { name: "isInvalid", type: "boolean" },
+  ]}
+/>

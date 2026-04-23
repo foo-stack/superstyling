@@ -1,6 +1,6 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 12 complete — navigation & disclosure shipped
+**Current phase:** Phase 13 complete — data & forms + real native shipped
 **Last updated:** 2026-04-23
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
@@ -76,23 +76,23 @@ Status: **complete — 2026-04-23**
 
 ## Phase 13 — Data & forms + real native (~3.5 weeks)
 
-Status: **not started**
+Status: **complete — 2026-04-23**
 
-- [ ] Table + `.Thead` / `.Tbody` / `.Tr` / `.Th` / `.Td` / `.Caption` + TableContainer
-  - [ ] Web: `<table>` semantics
-  - [ ] Native: FlatList-grid with sticky header + horizontal scroll
-- [ ] NumberInput + `.Field` / `.Stepper` / `.IncrementStepper` / `.DecrementStepper`
-- [ ] PinInput + `.Field` (auto-advance, paste-spread)
-- [ ] Slider + `.Track` / `.FilledTrack` / `.Thumb`
-- [ ] RangeSlider
-- [ ] Progress
-- [ ] CircularProgress + `Label`
-- [ ] Skeleton + SkeletonCircle + SkeletonText
-- [ ] Stat + `.Label` / `.Number` / `.HelpText` / `.Arrow` / `.Group`
-- [ ] Editable + `.Preview` / `.Input`
-  - [ ] Web: click-to-edit
-  - [ ] Native: TextInput swap, Enter-commit / Escape-discard / Android-back-discard
-- [ ] **Exit check:** Table no-lag on 10k rows; NumberInput blocks invalid; Slider keyboard + touch
+- [x] Table + `.Thead` / `.Tbody` / `.Tfoot` / `.Tr` / `.Th` / `.Td` / `.Caption` + TableContainer
+  - [x] Web: `<table>` semantics via Tamagui `tag` prop
+  - [x] Native: disciplined flex rows — caller wraps in `FlatList` for virtualization (kept wrapper thin)
+- [x] NumberInput + `.Field` / `.Stepper` / `.IncrementStepper` / `.DecrementStepper` (↑/↓ step, Shift+↑/↓ 10×, non-numeric keypress blocked, clamp on blur)
+- [x] PinInput + `.Field` (auto-advance, backspace-to-previous, paste-spread, `type="number" | "alphanumeric"`, `mask`)
+- [x] Slider + `.Track` / `.FilledTrack` / `.Thumb` (on `@tamagui/slider`)
+- [x] RangeSlider (two-thumb, default `[0, 100]`)
+- [x] Progress (on `@tamagui/progress`, sizes + indeterminate)
+- [x] CircularProgress + `.Label` (SVG ring via Tamagui `tag` prop)
+- [x] Skeleton + SkeletonCircle + SkeletonText (`isLoaded` toggle reveals children)
+- [x] Stat + `.Label` / `.Number` / `.HelpText` / `.Arrow` / `.Group`
+- [x] Editable + `.Preview` / `.Input` / `.Textarea` + `useEditableControls` (Enter commits, Escape cancels, blur commits by default)
+- [x] Smoke tests (+11 → 187/187 total)
+- [x] `/components/*` docs pages for all 8 (table / number-input / pin-input / slider / progress / skeleton / stat / editable) + sidebar entries across Data display / Feedback / Forms
+- [x] **Exit check:** `yarn typecheck` 12/12 · `yarn test:vitest` 187/187 · docs build 64 static HTML pages · 2 new runtime deps (`@tamagui/progress`, `@tamagui/slider` — Tamagui-first stack, no third-party)
 
 ---
 

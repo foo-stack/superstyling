@@ -1,0 +1,67 @@
+---
+title: Slider
+description: Value picker along a continuous range. Keyboard arrows, touch gestures, ARIA slider semantics. One-thumb Slider and two-thumb RangeSlider.
+---
+
+# Slider
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Continuous-value picker. Built on `@tamagui/slider` — keyboard arrows (←/→), touch drag, and WAI-ARIA slider semantics. Use `<RangeSlider>` for two-thumb range selection.
+
+## Import
+
+```tsx
+import { Slider, RangeSlider } from "@superstyling/core";
+```
+
+## Single thumb
+
+```tsx
+const [value, setValue] = useState([50]);
+
+<Slider value={value} onChange={setValue} min={0} max={100}>
+  <Slider.Track>
+    <Slider.FilledTrack />
+  </Slider.Track>
+  <Slider.Thumb index={0} />
+</Slider>;
+```
+
+## Range (two thumbs)
+
+```tsx
+const [range, setRange] = useState([20, 80]);
+
+<RangeSlider value={range} onChange={setRange}>
+  <RangeSlider.Track>
+    <RangeSlider.FilledTrack />
+  </RangeSlider.Track>
+  <RangeSlider.Thumb index={0} />
+  <RangeSlider.Thumb index={1} />
+</RangeSlider>;
+```
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "value",
+      type: "number[]",
+      description: "Controlled value. `[v]` for single, `[a, b]` for range.",
+    },
+    { name: "defaultValue", type: "number[]" },
+    { name: "onChange", type: "(value: number[]) => void" },
+    {
+      name: "onChangeEnd",
+      type: "(value: number[]) => void",
+      description: "Fires when the user releases the thumb.",
+    },
+    { name: "min", type: "number", default: "0" },
+    { name: "max", type: "number", default: "100" },
+    { name: "step", type: "number", default: "1" },
+    { name: "orientation", type: `"horizontal" | "vertical"`, default: `"horizontal"` },
+    { name: "isDisabled", type: "boolean" },
+  ]}
+/>

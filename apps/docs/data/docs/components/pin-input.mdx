@@ -1,0 +1,69 @@
+---
+title: PinInput
+description: N single-character inputs with auto-advance, backspace-to-previous, and paste-spread. OTP / verification-code pattern.
+---
+
+# PinInput
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+N independent single-character inputs that auto-advance on keypress, backspace-to-previous when empty, and spread a pasted value across all fields. Common for OTP / verification codes.
+
+## Import
+
+```tsx
+import { PinInput } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<PinInput length={4} onComplete={(code) => verify(code)}>
+  <PinInput.Field />
+  <PinInput.Field />
+  <PinInput.Field />
+  <PinInput.Field />
+</PinInput>
+```
+
+## Digits only / alphanumeric
+
+```tsx
+<PinInput type="number">…</PinInput>
+<PinInput type="alphanumeric">…</PinInput>
+```
+
+## Masked
+
+```tsx
+<PinInput mask>
+  <PinInput.Field />
+  <PinInput.Field />
+  <PinInput.Field />
+  <PinInput.Field />
+</PinInput>
+```
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "value", type: "string" },
+    { name: "defaultValue", type: "string" },
+    { name: "onChange", type: "(value: string) => void" },
+    {
+      name: "onComplete",
+      type: "(value: string) => void",
+      description: "Fires when all fields are filled.",
+    },
+    {
+      name: "length",
+      type: "number",
+      description: "Count of fields. Defaults to the number of `.Field` children.",
+    },
+    { name: "type", type: `"number" | "alphanumeric"`, default: `"number"` },
+    { name: "mask", type: "boolean", description: "Render as password dots." },
+    { name: "autoFocus", type: "boolean", description: "Focus the first field on mount." },
+    { name: "size", type: `"sm" | "md" | "lg"`, default: `"md"` },
+  ]}
+/>

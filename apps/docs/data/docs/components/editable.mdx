@@ -1,0 +1,72 @@
+---
+title: Editable
+description: Inline edit-in-place field. Tap the preview to edit; Enter commits; Escape discards; blur commits by default.
+---
+
+# Editable
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Inline edit-in-place field. Tap/click `Preview` to swap in an input. `Enter` commits, `Escape` discards, blur commits by default. On native, Android hardware-back while editing discards (fires `onCancel`).
+
+## Import
+
+```tsx
+import { Editable } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Editable defaultValue="Untitled" onSubmit={(next) => rename(next)}>
+  <Editable.Preview />
+  <Editable.Input />
+</Editable>
+```
+
+## Multi-line (textarea)
+
+```tsx
+<Editable defaultValue="Draft…">
+  <Editable.Preview />
+  <Editable.Textarea />
+</Editable>
+```
+
+## Imperative control
+
+```tsx
+function EditableControls() {
+  const { isEditing, startEditing, commit, cancel } = useEditableControls();
+  return isEditing ? (
+    <HStack>
+      <Button onPress={commit}>Save</Button>
+      <Button onPress={cancel}>Cancel</Button>
+    </HStack>
+  ) : (
+    <Button onPress={startEditing}>Edit</Button>
+  );
+}
+```
+
+## Props
+
+<PropsTable
+  props={[
+    { name: "value", type: "string", description: "Controlled value." },
+    { name: "defaultValue", type: "string" },
+    { name: "onChange", type: "(value: string) => void" },
+    { name: "onSubmit", type: "(value: string) => void", description: "Fires on commit." },
+    { name: "onCancel", type: "(previous: string) => void", description: "Fires on discard." },
+    { name: "placeholder", type: "string" },
+    { name: "isDisabled", type: "boolean" },
+    {
+      name: "selectAllOnFocus",
+      type: "boolean",
+      default: "true",
+      description: "Select the input's text when entering edit mode.",
+    },
+    { name: "submitOnBlur", type: "boolean", default: "true" },
+    { name: "startWithEditView", type: "boolean", default: "false" },
+  ]}
+/>

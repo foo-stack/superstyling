@@ -1,0 +1,65 @@
+---
+title: Table
+description: Tabular data with real `<table>` semantics on web and disciplined flex rows on native. Dot-namespaced compound.
+---
+
+# Table
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Tabular data with platform-appropriate rendering. On web, renders as real `<table>` / `<thead>` / `<tbody>` / `<tr>` / `<th>` / `<td>` for row/columnheader announcements. On native, same compound API renders as flex boxes — wrap long lists in `FlatList` yourself to keep the primitive thin.
+
+## Import
+
+```tsx
+import { Table, TableContainer } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<TableContainer>
+  <Table>
+    <Table.Caption>Users</Table.Caption>
+    <Table.Thead>
+      <Table.Tr>
+        <Table.Th>Name</Table.Th>
+        <Table.Th>Email</Table.Th>
+        <Table.Th isNumeric>Age</Table.Th>
+      </Table.Tr>
+    </Table.Thead>
+    <Table.Tbody>
+      {users.map((u) => (
+        <Table.Tr key={u.id}>
+          <Table.Td>{u.name}</Table.Td>
+          <Table.Td>{u.email}</Table.Td>
+          <Table.Td isNumeric>{u.age}</Table.Td>
+        </Table.Tr>
+      ))}
+    </Table.Tbody>
+  </Table>
+</TableContainer>
+```
+
+## Props — Table (root)
+
+<PropsTable
+  props={[
+    { name: "variant", type: `"simple" | "striped" | "unstyled"`, default: `"simple"` },
+    {
+      name: "size",
+      type: `"sm" | "md" | "lg"`,
+      default: `"md"`,
+      description: "Cell padding scale.",
+    },
+  ]}
+/>
+
+## Props — Table.Th / Table.Td
+
+<PropsTable
+  props={[
+    { name: "size", type: `"sm" | "md" | "lg"`, description: "Per-cell padding override." },
+    { name: "isNumeric", type: "boolean", description: "Right-align the cell (numeric columns)." },
+  ]}
+/>

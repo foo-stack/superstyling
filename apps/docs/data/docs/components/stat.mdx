@@ -1,0 +1,61 @@
+---
+title: Stat
+description: Single-metric display with label, number, help text, and directional arrow. Group multiple stats with `Stat.Group`.
+---
+
+# Stat
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Display a single metric with its label, value, and trend. Use `<Stat.Group>` to lay out multiple side by side.
+
+## Import
+
+```tsx
+import { Stat } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Stat>
+  <Stat.Label>MRR</Stat.Label>
+  <Stat.Number>$12,340</Stat.Number>
+  <Stat.HelpText>
+    <Stat.Arrow type="increase" />
+    +12% vs last month
+  </Stat.HelpText>
+</Stat>
+```
+
+## Group
+
+```tsx
+<Stat.Group>
+  <Stat>
+    <Stat.Label>MRR</Stat.Label>
+    <Stat.Number>$12,340</Stat.Number>
+    <Stat.HelpText>
+      <Stat.Arrow type="increase" />
+      +12%
+    </Stat.HelpText>
+  </Stat>
+  <Stat>
+    <Stat.Label>Churn</Stat.Label>
+    <Stat.Number>1.4%</Stat.Number>
+    <Stat.HelpText>
+      <Stat.Arrow type="decrease" />
+      -0.3%
+    </Stat.HelpText>
+  </Stat>
+</Stat.Group>
+```
+
+## Props — Stat.Arrow
+
+<PropsTable
+  props={[
+    { name: "type", type: `"increase" | "decrease"`, default: `"increase"` },
+    { name: "color", type: "string", description: "Override the default green/red." },
+  ]}
+/>
