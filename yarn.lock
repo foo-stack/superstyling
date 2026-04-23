@@ -5335,8 +5335,10 @@ __metadata:
   resolution: "@superstyling/core@workspace:packages/core"
   dependencies:
     "@superstyling/icons": "workspace:*"
+    "@tamagui/accordion": "npm:2.0.0-rc.41"
     "@tamagui/adapt": "npm:2.0.0-rc.41"
     "@tamagui/alert-dialog": "npm:2.0.0-rc.41"
+    "@tamagui/animate-presence": "npm:2.0.0-rc.41"
     "@tamagui/checkbox": "npm:2.0.0-rc.41"
     "@tamagui/dialog": "npm:2.0.0-rc.41"
     "@tamagui/input": "npm:2.0.0-rc.41"
@@ -5347,6 +5349,7 @@ __metadata:
     "@tamagui/select": "npm:2.0.0-rc.41"
     "@tamagui/sheet": "npm:2.0.0-rc.41"
     "@tamagui/switch": "npm:2.0.0-rc.41"
+    "@tamagui/tabs": "npm:2.0.0-rc.41"
     "@tamagui/toast": "npm:2.0.0-rc.41"
     "@tamagui/tooltip": "npm:2.0.0-rc.41"
   bin:

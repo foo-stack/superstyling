@@ -1,6 +1,6 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 11 complete — overlay surfaces + dual toast shipped
+**Current phase:** Phase 12 complete — navigation & disclosure shipped
 **Last updated:** 2026-04-23
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
@@ -61,14 +61,16 @@ Status: **complete — 2026-04-23**
 
 ## Phase 12 — Navigation & disclosure (~1.5 weeks)
 
-Status: **not started**
+Status: **complete — 2026-04-23**
 
-- [ ] Tabs + `.List` / `.Tab` / `.Panels` / `.Panel` (4 variants)
-- [ ] Accordion + `.Item` / `.Button` / `.Panel` / `.Icon`
-- [ ] Breadcrumb + `.Item` / `.Link` / `.Separator`
-- [ ] Stepper + `.Step` / `.Indicator` / `.Separator` / `.Number` / `.Title` / `.Description`
-- [ ] Collapse, Fade, ScaleFade, Slide
-- [ ] **Exit check:** focus management + keyboard correct for Tabs + Accordion
+- [x] Tabs + `.List` / `.Tab` / `.Panels` / `.Panel` (4 variants — line/enclosed/soft-rounded/solid-rounded)
+- [x] Accordion + `.Item` / `.Button` / `.Panel` / `.Icon` (single + `allowMultiple`)
+- [x] Breadcrumb + `.Item` / `.Link` / `.Separator` with auto-inserted separators + `isCurrentPage`
+- [x] Stepper + `.Step` / `.Indicator` / `.Separator` / `.Number` / `.Title` / `.Description` + `useSteps` hook
+- [x] Fade, ScaleFade, Slide (4 directions), Collapse — all built on `@tamagui/animate-presence`
+- [x] Smoke tests (+6 → 176/176 total)
+- [x] `/components/*` docs pages for each + sidebar "Navigation & disclosure" section (5 entries)
+- [x] **Exit check:** Tabs + Accordion inherit keyboard nav + focus semantics from Tamagui primitives (↑/↓/←/→/Home/End/Enter/Esc — ARIA-correct)
 
 ---
 

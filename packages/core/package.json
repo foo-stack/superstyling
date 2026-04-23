@@ -56,8 +56,10 @@
   },
   "dependencies": {
     "@superstyling/icons": "workspace:*",
+    "@tamagui/accordion": "2.0.0-rc.41",
     "@tamagui/adapt": "2.0.0-rc.41",
     "@tamagui/alert-dialog": "2.0.0-rc.41",
+    "@tamagui/animate-presence": "2.0.0-rc.41",
     "@tamagui/checkbox": "2.0.0-rc.41",
     "@tamagui/dialog": "2.0.0-rc.41",
     "@tamagui/input": "2.0.0-rc.41",
@@ -68,6 +70,7 @@
     "@tamagui/select": "2.0.0-rc.41",
     "@tamagui/sheet": "2.0.0-rc.41",
     "@tamagui/switch": "2.0.0-rc.41",
+    "@tamagui/tabs": "2.0.0-rc.41",
     "@tamagui/toast": "2.0.0-rc.41",
     "@tamagui/tooltip": "2.0.0-rc.41"
   }

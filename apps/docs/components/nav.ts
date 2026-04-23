@@ -75,6 +75,16 @@ export const NAV: NavSection[] = [
     ],
   },
   {
+    label: "Navigation & disclosure",
+    items: [
+      { label: "Tabs", href: "/components/tabs" },
+      { label: "Accordion", href: "/components/accordion" },
+      { label: "Breadcrumb", href: "/components/breadcrumb" },
+      { label: "Stepper", href: "/components/stepper" },
+      { label: "Transitions", href: "/components/transitions" },
+    ],
+  },
+  {
     label: "Interactive",
     items: [
       { label: "Button", href: "/components/button" },

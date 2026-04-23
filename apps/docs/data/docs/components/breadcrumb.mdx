@@ -1,0 +1,52 @@
+---
+title: Breadcrumb
+description: Navigation trail. Auto-inserts separators between items. isCurrentPage marks the final item with aria-current.
+---
+
+# Breadcrumb
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Navigation trail showing the path to the current page. Auto-inserts separators between items; the last item marked `isCurrentPage` gets `aria-current="page"` and muted color.
+
+## Import
+
+```tsx
+import { Breadcrumb } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Breadcrumb>
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+  </Breadcrumb.Item>
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="/components">Components</Breadcrumb.Link>
+  </Breadcrumb.Item>
+  <Breadcrumb.Item isCurrentPage>
+    <Breadcrumb.Link href="#">Breadcrumb</Breadcrumb.Link>
+  </Breadcrumb.Item>
+</Breadcrumb>
+```
+
+## Custom separator
+
+```tsx
+<Breadcrumb separator={<ChevronRightIcon size={14} />}>{/* … */}</Breadcrumb>
+```
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "separator",
+      type: "ReactNode",
+      default: `"/"`,
+      description: "Character, string, or node between items.",
+    },
+    { name: "spacing", type: "token | number | string", default: `"$2"` },
+  ]}
+/>

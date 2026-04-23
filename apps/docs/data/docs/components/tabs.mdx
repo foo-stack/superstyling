@@ -1,0 +1,59 @@
+---
+title: Tabs
+description: Switch between panels of content. Four variants (line, enclosed, soft-rounded, solid-rounded), horizontal or vertical, keyboard-navigable.
+---
+
+# Tabs
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Switch between multiple panels with keyboard-navigable tabs. Built on `@tamagui/tabs` — WAI-ARIA tablist / tab / tabpanel semantics with roving tabindex + ←/→/Home/End keyboard nav.
+
+## Import
+
+```tsx
+import { Tabs } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Tabs defaultValue="profile">
+  <Tabs.List>
+    <Tabs.Tab value="profile">Profile</Tabs.Tab>
+    <Tabs.Tab value="settings">Settings</Tabs.Tab>
+    <Tabs.Tab value="billing">Billing</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panels>
+    <Tabs.Panel value="profile">…</Tabs.Panel>
+    <Tabs.Panel value="settings">…</Tabs.Panel>
+    <Tabs.Panel value="billing">…</Tabs.Panel>
+  </Tabs.Panels>
+</Tabs>
+```
+
+## Props — Tabs (root)
+
+<PropsTable
+  props={[
+    { name: "value", type: "string", description: "Controlled active tab." },
+    { name: "defaultValue", type: "string", description: "Uncontrolled initial active tab." },
+    {
+      name: "onChange",
+      type: "(value: string) => void",
+      description: "Fires when the active tab changes.",
+    },
+    { name: "orientation", type: `"horizontal" | "vertical"`, default: `"horizontal"` },
+    {
+      name: "variant",
+      type: `"line" | "enclosed" | "soft-rounded" | "solid-rounded"`,
+      default: `"line"`,
+    },
+    {
+      name: "colorScheme",
+      type: "string",
+      default: `"blue"`,
+      description: "Palette for the active-tab indicator.",
+    },
+  ]}
+/>

@@ -1,0 +1,70 @@
+---
+title: Stepper
+description: Multi-step progress indicator. Horizontal or vertical. useSteps hook for state.
+---
+
+# Stepper
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Progress indicator for multi-step flows. Each step shows an indicator + optional title/description, with separator lines marking completed segments.
+
+## Import
+
+```tsx
+import { Stepper, useSteps } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const { activeStep } = useSteps({ count: 3 });
+
+<Stepper index={activeStep}>
+  <Stepper.Step>
+    <Stepper.Indicator>
+      <Stepper.Number />
+    </Stepper.Indicator>
+    <Box>
+      <Stepper.Title>Account</Stepper.Title>
+      <Stepper.Description>Create your account</Stepper.Description>
+    </Box>
+    <Stepper.Separator />
+  </Stepper.Step>
+  <Stepper.Step>
+    <Stepper.Indicator>
+      <Stepper.Number />
+    </Stepper.Indicator>
+    <Box>
+      <Stepper.Title>Profile</Stepper.Title>
+      <Stepper.Description>Add your details</Stepper.Description>
+    </Box>
+    <Stepper.Separator />
+  </Stepper.Step>
+  <Stepper.Step>
+    <Stepper.Indicator>
+      <Stepper.Number />
+    </Stepper.Indicator>
+    <Box>
+      <Stepper.Title>Confirm</Stepper.Title>
+    </Box>
+  </Stepper.Step>
+</Stepper>;
+```
+
+## useSteps
+
+```tsx
+const { activeStep, setActiveStep, goToNext, goToPrevious, reset, isActiveStep, isCompleteStep } =
+  useSteps({ count: 3, index: 0 });
+```
+
+## Props — Stepper
+
+<PropsTable
+  props={[
+    { name: "index", type: "number", required: true, description: "Current step (0-based)." },
+    { name: "orientation", type: `"horizontal" | "vertical"`, default: `"horizontal"` },
+    { name: "colorScheme", type: "string", default: `"blue"` },
+  ]}
+/>

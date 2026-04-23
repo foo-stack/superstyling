@@ -141,3 +141,37 @@ export {
   type MenuItemOptionProps,
 } from "./Menu";
 export { AlertDialog, type AlertDialogProps } from "./AlertDialog";
+
+// Phase 12 — Navigation & disclosure
+export {
+  Tabs,
+  type TabsProps,
+  type TabsVariant,
+  type TabsOrientation,
+  type TabsTabProps,
+} from "./Tabs";
+export { Accordion, type AccordionProps, type AccordionItemProps } from "./Accordion";
+export {
+  Breadcrumb,
+  BreadcrumbChevron,
+  type BreadcrumbProps,
+  type BreadcrumbItemProps,
+} from "./Breadcrumb";
+export {
+  Stepper,
+  useSteps,
+  type StepperProps,
+  type StepStatus,
+  type StepperOrientation,
+} from "./Stepper";
+export {
+  Fade,
+  ScaleFade,
+  Slide,
+  Collapse,
+  type TransitionBaseProps,
+  type ScaleFadeProps,
+  type SlideProps,
+  type SlideDirection,
+  type CollapseProps,
+} from "./Transitions";

@@ -1,0 +1,75 @@
+---
+title: Accordion
+description: Collapsible content sections. Single or multiple panels open. Built on Tamagui with keyboard nav + ARIA disclosure.
+---
+
+# Accordion
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Collapsible content sections. Built on `@tamagui/accordion` — keyboard-navigable (↑/↓/Home/End) with correct ARIA disclosure semantics.
+
+## Import
+
+```tsx
+import { Accordion } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Accordion defaultValue="q1">
+  <Accordion.Item value="q1">
+    <Accordion.Button>
+      <Text>How do I get started?</Text>
+      <Accordion.Icon />
+    </Accordion.Button>
+    <Accordion.Panel>
+      <Text>Install the package with yarn add @superstyling/core.</Text>
+    </Accordion.Panel>
+  </Accordion.Item>
+  <Accordion.Item value="q2">
+    <Accordion.Button>
+      <Text>Is it cross-platform?</Text>
+      <Accordion.Icon />
+    </Accordion.Button>
+    <Accordion.Panel>
+      <Text>Yes — web, iOS, Android from one API.</Text>
+    </Accordion.Panel>
+  </Accordion.Item>
+</Accordion>
+```
+
+## Allow multiple open
+
+```tsx
+<Accordion allowMultiple defaultValue={["q1", "q2"]}>
+  {/* … */}
+</Accordion>
+```
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "allowMultiple",
+      type: "boolean",
+      default: "false",
+      description: "Let multiple panels be open simultaneously.",
+    },
+    {
+      name: "allowToggle",
+      type: "boolean",
+      default: "true",
+      description: "Single-mode: let the user close the last-open panel.",
+    },
+    {
+      name: "value",
+      type: "string | string[]",
+      description: "Controlled — string for single, array for multiple.",
+    },
+    { name: "defaultValue", type: "string | string[]", description: "Uncontrolled initial." },
+    { name: "onChange", type: "(value: string | string[]) => void" },
+  ]}
+/>

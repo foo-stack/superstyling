@@ -1,0 +1,94 @@
+---
+title: Transitions — Fade · ScaleFade · Slide · Collapse
+description: Animation wrappers using Tamagui AnimatePresence. Mount / unmount a child with a preset enter/exit animation.
+---
+
+# Fade · ScaleFade · Slide · Collapse
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Animation wrappers matching Chakra's `<Fade>`, `<ScaleFade>`, `<Slide>`, `<Collapse>`. All share the same API: pass `in={true|false}` to mount/unmount with an enter/exit animation.
+
+## Import
+
+```tsx
+import { Fade, ScaleFade, Slide, Collapse } from "@superstyling/core";
+```
+
+## Fade
+
+```tsx
+<Fade in={isOpen}>
+  <Text>Fades in and out</Text>
+</Fade>
+```
+
+## ScaleFade
+
+```tsx
+<ScaleFade in={isOpen} initialScale={0.9}>
+  <Text>Scales + fades</Text>
+</ScaleFade>
+```
+
+## Slide
+
+```tsx
+<Slide in={isOpen} direction="bottom" offset={60}>
+  <Text>Slides in from below</Text>
+</Slide>
+```
+
+Directions: `"top" | "right" | "bottom" | "left"`.
+
+## Collapse
+
+```tsx
+<Collapse in={isOpen} startingHeight={0}>
+  <Text>Collapses vertically</Text>
+</Collapse>
+```
+
+## Shared props
+
+<PropsTable
+  props={[
+    {
+      name: "in",
+      type: "boolean",
+      default: "true",
+      description: "Mount the child and animate in when true; animate out + unmount when false.",
+    },
+  ]}
+/>
+
+## Variant-specific props
+
+<PropsTable
+  props={[
+    {
+      name: "initialScale",
+      type: "number",
+      default: "0.95",
+      description: "ScaleFade only — starting scale.",
+    },
+    {
+      name: "direction",
+      type: `"top" | "right" | "bottom" | "left"`,
+      default: `"bottom"`,
+      description: "Slide only — edge content slides from.",
+    },
+    {
+      name: "offset",
+      type: "number",
+      default: "40",
+      description: "Slide only — pixel translate distance.",
+    },
+    {
+      name: "startingHeight",
+      type: "number",
+      default: "0",
+      description: "Collapse only — minimum height when closed.",
+    },
+  ]}
+/>
