@@ -22,15 +22,24 @@ declare module 'one' {
         | `/components/${OneRouter.SingleRoutePart<T>}`
         | `/examples/${OneRouter.SingleRoutePart<T>}`
         | `/getting-started/${OneRouter.SingleRoutePart<T>}`
+        | `/hooks/${OneRouter.SingleRoutePart<T>}`
+        | `/migration/${OneRouter.SingleRoutePart<T>}`
+        | `/theming/${OneRouter.SingleRoutePart<T>}`
       DynamicRouteTemplate: 
         | `/components/[slug]`
         | `/examples/[slug]`
         | `/getting-started/[slug]`
+        | `/hooks/[slug]`
+        | `/migration/[slug]`
+        | `/theming/[slug]`
       IsTyped: true
       RouteTypes: {
         '/components/[slug]': RouteInfo<{ slug: string }>
         '/examples/[slug]': RouteInfo<{ slug: string }>
         '/getting-started/[slug]': RouteInfo<{ slug: string }>
+        '/hooks/[slug]': RouteInfo<{ slug: string }>
+        '/migration/[slug]': RouteInfo<{ slug: string }>
+        '/theming/[slug]': RouteInfo<{ slug: string }>
       }
     }
   }

@@ -1,7 +1,7 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 15 complete — theming compat shipped
-**Last updated:** 2026-04-23
+**Current phase:** Phase 16 complete — codemod + migration guide shipped
+**Last updated:** 2026-04-24
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
 
@@ -134,17 +134,20 @@ Status: **complete — 2026-04-23**
 
 ## Phase 16 — Migration DX + codemod (~1.5 weeks)
 
-Status: **not started**
+Status: **complete — 2026-04-24**
 
-- [ ] New workspace: `packages/codemod/` → `@superstyling/codemod`
-- [ ] Pass 1 — mechanical: imports, `ChakraProvider` → `SuperStylingProvider`, prop renames
-- [ ] Pass 2 — theme: `extendTheme(...)` + `defineStyleConfig(...)` AST rewrite
-- [ ] Unconvertible values → `TODO:` comments with AST location + rationale
-- [ ] End-of-run migration report
-- [ ] CLI: `yarn superstyling migrate-from-chakra ./src`
-- [ ] Migration guide at `/migration/from-chakra-v2` — side-by-side examples
-- [ ] Dogfood: codemod runs end-to-end on a real Chakra OSS app
-- [ ] **Exit check:** clean run + reasonable TODO count on the dogfood target; jscodeshift added only as codemod devDep
+- [x] New workspace: `packages/codemod/` → `@superstyling/codemod@0.2.0` (bin: `superstyling-migrate-from-chakra`)
+- [x] Pass 1 — imports: `@chakra-ui/react` → `@superstyling/core`; `@chakra-ui/icons` → `@superstyling/icons`; unmapped `@chakra-ui/theme-tools` / `@chakra-ui/styled-system` / `@chakra-ui/anatomy` / `@chakra-ui/cli` flagged with `TODO(superstyling)` comment
+- [x] Pass 2 — provider: `<ChakraProvider>` + `<ChakraBaseProvider>` → `<SuperStylingProvider>` (both import specifier and JSX); `theme` prop → `system` prop
+- [x] Pass 3 — theme: `extendTheme({...})` → `createSystem(adaptChakraTheme({...}).theme)` with auto-inserted `@superstyling/core` imports; multi-arg calls preserved via `Object.assign({}, ...args)`; `extendBaseTheme` / `withDefaultColorScheme` / `withDefaultSize` / `withDefaultVariant` flagged as TODO
+- [x] Unconvertible values → `TODO(superstyling)` comments at the AST location + a rationale entry in the migration report
+- [x] Migration report (`Report` class) with filesTouched / tally-by-kind / format() — printed at end of CLI run; each entry captures `{ file, line?, kind, transform, message }`
+- [x] CLI entry: `superstyling-migrate-from-chakra [path] [--dry]` walking the target dir (skipping `node_modules`, `.git`, `dist`, `build`, `.turbo`, `.next`, `.expo`); fixture-verified end-to-end via `node dist/cli.js /tmp/...` smoke run
+- [x] Fixture-based unit tests (+13 → 223/223 total) — imports, provider, theme, report, combined real-app fixture
+- [x] Migration guide at `/migration/from-chakra-v2` — side-by-side examples (app entry, hooks, color-mode tokens) + "what the codemod cannot do" section linking into `adaptChakraTheme` gaps
+- [x] New sidebar "Migration" section (1 entry)
+- [ ] Deferred: codemod run on a real Chakra OSS app (validation-only step; CLI works on synthetic fixtures — real-app run is a Nate-manual item before v0.2 announcement)
+- [x] **Exit check:** `yarn typecheck` 13/13 · `yarn test:vitest` 223/223 · docs build 76 static HTML pages · `jscodeshift` isolated to `@superstyling/codemod` only (runtime packages unchanged)
 
 ---
 

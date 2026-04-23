@@ -1,0 +1,53 @@
+{
+  "name": "@superstyling/codemod",
+  "version": "0.2.0",
+  "description": "Codemod to migrate a Chakra UI v2 codebase to Superstyling",
+  "keywords": [
+    "chakra",
+    "codemod",
+    "jscodeshift",
+    "migration",
+    "superstyling"
+  ],
+  "homepage": "https://github.com/foo-stack/superstyling/tree/main/packages/codemod",
+  "license": "MIT",
+  "author": "Nathan Irikefe",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foo-stack/superstyling.git",
+    "directory": "packages/codemod"
+  },
+  "bin": {
+    "superstyling-migrate-from-chakra": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node ../../scripts/add-js-extensions.mjs dist",
+    "typecheck": "tsc --noEmit",
+    "test": "echo 'codemod tests run via root vitest'"
+  },
+  "dependencies": {
+    "jscodeshift": "^17.1.2"
+  },
+  "devDependencies": {
+    "@types/jscodeshift": "^0.12.0"
+  }
+}

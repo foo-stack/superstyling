@@ -118,6 +118,10 @@ export const NAV: NavSection[] = [
     ],
   },
   {
+    label: "Migration",
+    items: [{ label: "From Chakra v2", href: "/migration/from-chakra-v2" }],
+  },
+  {
     label: "Theming",
     items: [{ label: "adaptChakraTheme", href: "/theming/adapt-chakra-theme" }],
   },

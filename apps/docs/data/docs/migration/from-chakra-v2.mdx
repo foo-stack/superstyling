@@ -1,0 +1,175 @@
+---
+title: Migrating from Chakra UI v2
+description: A step-by-step migration guide from Chakra UI v2 to Superstyling. Includes a codemod that handles imports, providers, and theme construction automatically.
+---
+
+# Migrating from Chakra UI v2
+
+Superstyling is designed as a "Chakra-shaped" library — component names, prop names, theme tokens, and most hook signatures match Chakra UI v2. That means most migrations are a matter of updating imports and the root provider; the JSX below the provider generally stays the same.
+
+## TL;DR
+
+```bash
+# 1. Install Superstyling
+yarn add @superstyling/core @superstyling/icons
+
+# 2. Run the codemod (preview with --dry first)
+yarn dlx @superstyling/codemod ./src --dry
+yarn dlx @superstyling/codemod ./src
+
+# 3. Remove Chakra
+yarn remove @chakra-ui/react @chakra-ui/icons
+```
+
+Read the printed migration report — every TODO is a hand-conversion the codemod couldn't automate.
+
+## What the codemod does
+
+### Pass 1 — imports
+
+```tsx
+// before
+import { Button, useDisclosure } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+
+// after
+import { Button, useDisclosure } from "@superstyling/core";
+import { CloseIcon } from "@superstyling/icons";
+```
+
+Unmapped Chakra subpackages (`@chakra-ui/theme-tools`, `@chakra-ui/styled-system`, `@chakra-ui/anatomy`) are annotated with a `TODO(superstyling)` comment at the import site.
+
+### Pass 2 — provider
+
+```tsx
+// before
+<ChakraProvider theme={theme}>…</ChakraProvider>
+
+// after
+<SuperStylingProvider system={theme}>…</SuperStylingProvider>
+```
+
+Both the import specifier and the JSX element are renamed. The `theme` prop becomes `system` — see [`createSystem`](/components/box) and [`adaptChakraTheme`](/theming/adapt-chakra-theme) for what belongs in `system`.
+
+### Pass 3 — theme construction
+
+```tsx
+// before
+import { extendTheme } from "@chakra-ui/react";
+const theme = extendTheme({ colors: {…}, components: {…} });
+
+// after
+import { createSystem, adaptChakraTheme } from "@superstyling/core";
+const theme = createSystem(adaptChakraTheme({ colors: {…}, components: {…} }).theme);
+```
+
+Multi-arg `extendTheme(a, b, c)` is preserved via a shallow `Object.assign({}, a, b, c)`.
+
+`extendBaseTheme`, `withDefaultColorScheme`, `withDefaultSize`, `withDefaultVariant` are flagged for manual review — they have no direct Superstyling equivalent.
+
+## What the codemod cannot do
+
+The `adaptChakraTheme` adapter will warn at runtime when the theme uses:
+
+- `styles.global` — ship as a normal CSS file instead
+- `layerStyles` / `textStyles` — flatten into `components.<Name>.variants`
+- Function-valued `baseStyle` / `sizes` / `variants` (`StyleFunctionProps`) — convert to static objects or use `semanticTokens` for per-mode values
+- `cssVar(...)` or `mode(light, dark)` helpers — replace with `semanticTokens: { colors: { name: { default: 'gray.800', _dark: 'gray.100' } } }`
+
+See [`adaptChakraTheme` gaps](/theming/adapt-chakra-theme#documented-gaps).
+
+## Side-by-side examples
+
+### A full app entry point
+
+**Before (Chakra v2):**
+
+```tsx
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+
+const theme = extendTheme({
+  colors: { brand: { "500": "#0ea5e9" } },
+  components: {
+    Button: {
+      baseStyle: { fontWeight: 600 },
+      variants: { solid: { bg: "brand.500", color: "white" } },
+      defaultProps: { variant: "solid" },
+    },
+  },
+});
+
+export default function App({ children }: { children: React.ReactNode }) {
+  return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
+}
+```
+
+**After (Superstyling, codemod output):**
+
+```tsx
+import { SuperStylingProvider, createSystem, adaptChakraTheme } from "@superstyling/core";
+
+const theme = createSystem(
+  adaptChakraTheme({
+    colors: { brand: { "500": "#0ea5e9" } },
+    components: {
+      Button: {
+        baseStyle: { fontWeight: 600 },
+        variants: { solid: { bg: "brand.500", color: "white" } },
+        defaultProps: { variant: "solid" },
+      },
+    },
+  }).theme,
+);
+
+export default function App({ children }: { children: React.ReactNode }) {
+  return <SuperStylingProvider system={theme}>{children}</SuperStylingProvider>;
+}
+```
+
+### A disclosure hook
+
+No change — `useDisclosure` and the `<Modal>` compound match Chakra API.
+
+```tsx
+import { useDisclosure, Modal, Button } from "@superstyling/core";
+
+const { isOpen, onOpen, onClose } = useDisclosure();
+```
+
+### A color-mode-sensitive token
+
+**Before (Chakra v2):**
+
+```tsx
+import { mode } from "@chakra-ui/theme-tools";
+
+const styles = {
+  Button: {
+    baseStyle: (props) => ({
+      bg: mode("gray.100", "gray.800")(props),
+    }),
+  },
+};
+```
+
+**After (Superstyling):**
+
+```tsx
+const theme = {
+  semanticTokens: {
+    colors: { btnBg: { default: "gray.100", _dark: "gray.800" } },
+  },
+  components: {
+    Button: {
+      baseStyle: { bg: "btnBg" },
+    },
+  },
+};
+```
+
+Functions are replaced with `semanticTokens` — resolved once at `createSystem()` time. Runtime cost: zero.
+
+## Further reading
+
+- [`adaptChakraTheme`](/theming/adapt-chakra-theme) — full list of theme-surface gaps
+- [Hooks parity](/hooks/use-disclosure) — every Chakra hook mapped 1:1
