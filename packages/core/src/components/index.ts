@@ -121,3 +121,23 @@ export {
   type CheckboxGroupContextValue,
 } from "./CheckboxGroup";
 export { CloseButton, type CloseButtonProps } from "./CloseButton";
+
+// Phase 11 — Overlay surfaces
+export {
+  Drawer,
+  type DrawerProps,
+  type DrawerPlacement,
+  type DrawerSize,
+  type DrawerOverlayProps,
+  type DrawerContentProps,
+} from "./Drawer";
+export { Tooltip, type TooltipProps, type TooltipPlacement } from "./Tooltip";
+export { Popover, type PopoverProps, type PopoverPlacement } from "./Popover";
+export {
+  Menu,
+  type MenuProps,
+  type MenuItemProps,
+  type MenuOptionGroupProps,
+  type MenuItemOptionProps,
+} from "./Menu";
+export { AlertDialog, type AlertDialogProps } from "./AlertDialog";

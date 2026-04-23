@@ -1,9 +1,11 @@
 import { useMemo, type ReactNode } from "react";
 import { TamaguiProvider } from "tamagui";
+import { PortalHost } from "@tamagui/portal";
 import { defaultSystem, type System } from "./createSystem";
 import { ColorModeProvider } from "./colorMode/ColorModeProvider";
 import { OverlayRegistryProvider } from "./overlay/OverlayRegistry";
 import { BreakpointProvider } from "./system/BreakpointContext";
+import { ToastProvider } from "./toast/ToastProvider";
 
 export interface SuperStylingProviderProps {
   children: ReactNode;
@@ -58,7 +60,10 @@ export function SuperStylingProvider({
           initialColorMode={resolvedInitial}
           useSystemColorMode={resolvedUseSystem}
         >
-          <OverlayRegistryProvider>{children}</OverlayRegistryProvider>
+          <OverlayRegistryProvider>
+            <ToastProvider>{children}</ToastProvider>
+            <PortalHost name="__superstyling_toasts__" />
+          </OverlayRegistryProvider>
         </ColorModeProvider>
       </BreakpointProvider>
     </TamaguiProvider>

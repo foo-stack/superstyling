@@ -1,0 +1,60 @@
+---
+title: Menu
+description: Popover-anchored action list with keyboard nav (↑/↓/Home/End/Enter/Esc). Items, groups, dividers, radio/checkbox option groups.
+---
+
+# Menu
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Action-list popover with full keyboard navigation.
+
+## Import
+
+```tsx
+import { Menu } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Menu>
+  <Menu.Button>
+    <Button>Actions</Button>
+  </Menu.Button>
+  <Menu.List>
+    <Menu.Group title="File">
+      <Menu.Item onSelect={() => handleNew()}>New</Menu.Item>
+      <Menu.Item onSelect={() => handleOpen()}>Open</Menu.Item>
+    </Menu.Group>
+    <Menu.Divider />
+    <Menu.Item isDisabled>Print</Menu.Item>
+  </Menu.List>
+</Menu>
+```
+
+## Radio-style option group
+
+```tsx
+<Menu>
+  <Menu.Button>
+    <Button>View</Button>
+  </Menu.Button>
+  <Menu.List>
+    <Menu.OptionGroup type="radio" defaultValue="grid" title="Layout">
+      <Menu.ItemOption value="list">List</Menu.ItemOption>
+      <Menu.ItemOption value="grid">Grid</Menu.ItemOption>
+      <Menu.ItemOption value="compact">Compact</Menu.ItemOption>
+    </Menu.OptionGroup>
+  </Menu.List>
+</Menu>
+```
+
+## Keyboard
+
+| Key               | Action               |
+| ----------------- | -------------------- |
+| `↓` / `↑`         | Move focus           |
+| `Home` / `End`    | Jump to first / last |
+| `Enter` / `Space` | Select focused item  |
+| `Escape`          | Close                |

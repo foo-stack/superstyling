@@ -1,0 +1,93 @@
+---
+title: Toast · useToast · useNativeToast
+description: Imperative ephemeral notifications. useToast is cross-platform consistent; useNativeToast wraps burnt for platform-native feel on iOS/Android.
+---
+
+# Toast — useToast · useNativeToast
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Two hooks, same API. Pick the one that matches the vibe you want.
+
+| Hook               | iOS / Android                                 | Web                                  |
+| ------------------ | --------------------------------------------- | ------------------------------------ |
+| `useToast()`       | Tamagui primitive (cross-platform consistent) | Tamagui primitive                    |
+| `useNativeToast()` | `burnt` (native feel)                         | Tamagui primitive (same as useToast) |
+
+## Import
+
+```tsx
+import { useToast, useNativeToast } from "@superstyling/core";
+```
+
+## Usage
+
+```tsx
+function SaveButton() {
+  const toast = useToast();
+  return (
+    <Button
+      onPress={async () => {
+        await save();
+        toast({ title: "Saved", status: "success" });
+      }}
+    >
+      Save
+    </Button>
+  );
+}
+```
+
+## Imperative API
+
+```tsx
+const id = toast({ title: "Loading…", status: "loading", duration: null });
+
+// Later:
+toast.close(id);
+toast.closeAll();
+```
+
+## Options
+
+<PropsTable
+  props={[
+    { name: "id", type: "string", description: "Explicit id. Omit for auto-generated." },
+    { name: "title", type: "ReactNode", description: "Heading text." },
+    { name: "description", type: "ReactNode", description: "Body text below the title." },
+    {
+      name: "status",
+      type: `"info" | "success" | "warning" | "error" | "loading"`,
+      default: `"info"`,
+    },
+    {
+      name: "duration",
+      type: "number | null",
+      default: "5000",
+      description: "ms before auto-dismiss. null = sticky.",
+    },
+    {
+      name: "position",
+      type: `"top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right"`,
+      default: `"bottom"`,
+    },
+    { name: "isClosable", type: "boolean", default: "true", description: "Show the × button." },
+    {
+      name: "onClose",
+      type: "() => void",
+      description: "Fires when the toast dismisses (auto or manual).",
+    },
+  ]}
+/>
+
+## When to use which
+
+:::tip[Default: `useToast()`]
+Consistent-looking toasts across platforms. Best for cross-platform apps where brand feel > platform feel.
+:::
+
+:::info[Native: `useNativeToast()`]
+iOS users see iOS-style toasts, Android users see Material-style. Best when your app is a "wrapped native experience" and breaking platform convention would feel off.
+:::
+
+`useNativeToast()` silently falls back to the Tamagui implementation if `burnt` isn't installed — so web-only builds never need the dep.

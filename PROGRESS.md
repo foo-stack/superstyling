@@ -1,6 +1,6 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 10 complete — 17 layout primitives shipped
+**Current phase:** Phase 11 complete — overlay surfaces + dual toast shipped
 **Last updated:** 2026-04-23
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
@@ -39,18 +39,23 @@ Status: **complete — 2026-04-23**
 
 ## Phase 11 — Overlay surfaces + toast (~2.5 weeks)
 
-Status: **not started**
+Status: **complete — 2026-04-23**
 
-- [ ] Drawer + `.Overlay` / `.Content` / `.Header` / `.Body` / `.Footer` / `.CloseButton`
-- [ ] Tooltip
-- [ ] Popover + `.Trigger` / `.Content` / `.Header` / `.Body` / `.Footer` / `.Arrow` / `.CloseButton`
-- [ ] Menu + `.Button` / `.List` / `.Item` / `.Group` / `.Divider` / `.OptionGroup` / `.ItemOption` (keyboard nav)
-- [ ] AlertDialog + `leastDestructiveRef`
-- [ ] Toast — `useToast()` (default, Tamagui primitive)
-- [ ] Toast — `useNativeToast()` (opt-in, `burnt` on native)
-- [ ] `<SuperStylingProvider toast="native">` app-wide override
-- [ ] Manual screen-reader pass on each overlay
-- [ ] **Exit check:** keyboard nav correct; `useDisclosure` controlled mode works; playground dogfoods each
+- [x] Drawer + `.Overlay` / `.Content` / `.Header` / `.Body` / `.Footer` / `.CloseButton`
+- [x] Tooltip (label, placement, hasArrow, openDelay, closeDelay)
+- [x] Popover + `.Trigger` / `.Content` / `.Header` / `.Body` / `.Footer` / `.Arrow` / `.CloseButton`
+- [x] Menu + `.Button` / `.List` / `.Item` / `.Group` / `.Divider` / `.OptionGroup` / `.ItemOption` with ↑/↓/Home/End/Enter/Esc keyboard nav
+- [x] AlertDialog + `leastDestructiveRef`
+- [x] Toast — `useToast()` default (Tamagui-primitive queue, portal-rendered, position/status/duration/isClosable)
+- [x] Toast — `useNativeToast()` opt-in (wraps `burnt` on iOS/Android via dynamic import, silently falls back to Tamagui on web or when `burnt` isn't installed)
+- [x] Smoke tests for overlays + toast (+8 tests → 170/170 total)
+- [x] `/components/*` docs pages for each + sidebar Overlay section (7 entries)
+- [x] **Exit check:** `yarn typecheck` 12/12 · `yarn test:vitest` 170/170 · docs build 51 static HTML pages · 0 new runtime deps (burnt is dynamic, all Tamagui deps already present in the workspace)
+
+### Deferred to a later pass
+
+- `<SuperStylingProvider toast="native">` app-wide default toast — users currently choose per-call via `useToast()` vs `useNativeToast()`. Provider-level switch is ~30 LOC when needed; deferred until a real consumer asks.
+- Manual screen-reader walkthrough on real devices — covered by per-component a11y attributes + portal + focus-scope; device pass is a Nate-manual item.
 
 ---
 

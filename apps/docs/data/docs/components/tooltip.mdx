@@ -1,0 +1,62 @@
+---
+title: Tooltip
+description: Hover/focus-triggered label for a single child element. Built on Tamagui's Tooltip with placement, arrow, delays.
+---
+
+# Tooltip
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Hover/focus tooltip that wraps a single trigger child. Built on Tamagui's portal + placement flipping.
+
+## Import
+
+```tsx
+import { Tooltip } from "@superstyling/core";
+```
+
+## Usage
+
+```tsx
+<Tooltip label="Save your changes" placement="top">
+  <Button colorScheme="blue">Save</Button>
+</Tooltip>
+```
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "label",
+      type: "ReactNode",
+      required: true,
+      description: "Tooltip content. Strings become styled text; any node works.",
+    },
+    {
+      name: "children",
+      type: "ReactElement",
+      required: true,
+      description: "The single trigger element.",
+    },
+    {
+      name: "placement",
+      type: "TooltipPlacement",
+      default: `"top"`,
+      description: "Side (+ optional align). top/right/bottom/left with -start/-end variants.",
+    },
+    { name: "hasArrow", type: "boolean", default: "true" },
+    {
+      name: "openDelay",
+      type: "number",
+      default: "500",
+      description: "ms before tooltip appears.",
+    },
+    { name: "closeDelay", type: "number", default: "0" },
+    {
+      name: "isDisabled",
+      type: "boolean",
+      description: "Skip wrapping entirely (renders bare trigger).",
+    },
+  ]}
+/>

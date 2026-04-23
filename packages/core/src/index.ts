@@ -217,7 +217,36 @@ export {
   type CheckboxGroupProps,
   type CheckboxGroupContextValue,
   type CloseButtonProps,
+  // Phase 11 — overlays
+  Drawer,
+  Tooltip,
+  Popover,
+  Menu,
+  AlertDialog,
+  type DrawerProps,
+  type DrawerPlacement,
+  type DrawerSize,
+  type DrawerOverlayProps,
+  type DrawerContentProps,
+  type TooltipProps,
+  type TooltipPlacement,
+  type PopoverProps,
+  type PopoverPlacement,
+  type MenuProps,
+  type MenuItemProps,
+  type MenuOptionGroupProps,
+  type MenuItemOptionProps,
+  type AlertDialogProps,
 } from "./components";
+
+// Toast — default cross-platform + opt-in native-feel variant
+export {
+  useToast,
+  useNativeToast,
+  type ToastOptions,
+  type ToastStatus,
+  type ToastPosition,
+} from "./toast";
 
 // Breakpoint context (for custom components that want theme-aware responsive parsing)
 export { BreakpointProvider, useBreakpointNames } from "./system/BreakpointContext";

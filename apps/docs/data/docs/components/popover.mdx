@@ -1,0 +1,54 @@
+---
+title: Popover
+description: Floating panel anchored to a trigger. Controlled or uncontrolled. Portaled, outside-click dismiss, placement-flipping.
+---
+
+# Popover
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Floating panel anchored to a trigger. Portaled automatically; handles outside-click dismiss, Escape, and placement flipping.
+
+## Import
+
+```tsx
+import { Popover } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+<Popover>
+  <Popover.Trigger>
+    <Button>Open</Button>
+  </Popover.Trigger>
+  <Popover.Content>
+    <Popover.Arrow />
+    <Popover.Header>
+      <Text fontWeight="600">Notification</Text>
+    </Popover.Header>
+    <Popover.Body>
+      <Text>Your build just finished. Ship it?</Text>
+    </Popover.Body>
+    <Popover.Footer>
+      <Button size="sm" colorScheme="blue">
+        Ship
+      </Button>
+    </Popover.Footer>
+    <Popover.CloseButton />
+  </Popover.Content>
+</Popover>
+```
+
+## Props — Popover (root)
+
+<PropsTable
+  props={[
+    { name: "placement", type: "PopoverPlacement", default: `"bottom"` },
+    { name: "isOpen", type: "boolean", description: "Controlled open state." },
+    { name: "defaultIsOpen", type: "boolean", description: "Uncontrolled initial open state." },
+    { name: "onClose", type: "() => void", description: "Called when the popover closes." },
+    { name: "closeOnBlur", type: "boolean", default: "true" },
+    { name: "closeOnEsc", type: "boolean", default: "true" },
+  ]}
+/>

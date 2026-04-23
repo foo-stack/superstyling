@@ -64,7 +64,15 @@ export const NAV: NavSection[] = [
   },
   {
     label: "Overlay",
-    items: [{ label: "Modal", href: "/components/modal" }],
+    items: [
+      { label: "Modal", href: "/components/modal" },
+      { label: "Drawer", href: "/components/drawer" },
+      { label: "AlertDialog", href: "/components/alert-dialog" },
+      { label: "Popover", href: "/components/popover" },
+      { label: "Tooltip", href: "/components/tooltip" },
+      { label: "Menu", href: "/components/menu" },
+      { label: "Toast", href: "/components/toast" },
+    ],
   },
   {
     label: "Interactive",

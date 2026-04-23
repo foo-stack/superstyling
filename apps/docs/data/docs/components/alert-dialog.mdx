@@ -1,0 +1,53 @@
+---
+title: AlertDialog
+description: Modal with role=alertdialog for destructive confirms. leastDestructiveRef receives initial focus so users don't accidentally commit.
+---
+
+# AlertDialog
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Confirmation-style dialog. Identical shape to Modal but with `role="alertdialog"` for screen readers and a `leastDestructiveRef` that takes initial focus (the safe action, usually "Cancel").
+
+## Import
+
+```tsx
+import { AlertDialog } from "@superstyling/core";
+```
+
+## Usage
+
+```tsx
+const cancelRef = useRef(null);
+
+<AlertDialog isOpen={isOpen} onClose={onClose} leastDestructiveRef={cancelRef}>
+  <AlertDialog.Overlay />
+  <AlertDialog.Content>
+    <AlertDialog.Header>Delete repository?</AlertDialog.Header>
+    <AlertDialog.CloseButton />
+    <AlertDialog.Body>This action can't be undone. Every commit will be lost.</AlertDialog.Body>
+    <AlertDialog.Footer>
+      <Button ref={cancelRef} onPress={onClose}>
+        Cancel
+      </Button>
+      <Button colorScheme="red" onPress={handleDelete}>
+        Delete
+      </Button>
+    </AlertDialog.Footer>
+  </AlertDialog.Content>
+</AlertDialog>;
+```
+
+## Props
+
+Same as [Modal](/components/modal), plus:
+
+<PropsTable
+  props={[
+    {
+      name: "leastDestructiveRef",
+      type: "Ref",
+      description: "Receives initial focus. Conventionally the Cancel/Keep-it button.",
+    },
+  ]}
+/>

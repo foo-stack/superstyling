@@ -1,0 +1,71 @@
+---
+title: Drawer
+description: Edge-sliding dialog. Four placements, five sizes, same compound API as Modal.
+---
+
+# Drawer
+
+<StatusRow tier="1" platforms="Cross-platform" since="v0.2.0" />
+
+Edge-sliding dialog, ideal for navigation menus, settings panels, and inline detail views. Matches Chakra's `<Drawer>` API surface (placement, size, overlay, focus trap).
+
+## Import
+
+```tsx
+import { Drawer } from "@superstyling/core";
+```
+
+## Basic
+
+```tsx
+const [isOpen, setOpen] = useState(false);
+
+<Drawer isOpen={isOpen} onClose={() => setOpen(false)} placement="right">
+  <Drawer.Overlay />
+  <Drawer.Content>
+    <Drawer.Header>
+      <Drawer.Title>Settings</Drawer.Title>
+    </Drawer.Header>
+    <Drawer.CloseButton />
+    <Drawer.Body>{/* … */}</Drawer.Body>
+    <Drawer.Footer>
+      <Button variant="ghost" onPress={() => setOpen(false)}>
+        Cancel
+      </Button>
+      <Button colorScheme="blue">Save</Button>
+    </Drawer.Footer>
+  </Drawer.Content>
+</Drawer>;
+```
+
+## Props — Drawer (root)
+
+<PropsTable
+  props={[
+    { name: "isOpen", type: "boolean", required: true, description: "Controlled open state." },
+    {
+      name: "onClose",
+      type: "() => void",
+      required: true,
+      description: "Fires on overlay click, Esc, CloseButton.",
+    },
+    {
+      name: "placement",
+      type: `"top" | "right" | "bottom" | "left"`,
+      default: `"right"`,
+      description: "Edge the drawer slides from.",
+    },
+    {
+      name: "size",
+      type: `"xs" | "sm" | "md" | "lg" | "xl" | "full"`,
+      default: `"md"`,
+      description: "Size along the placement axis.",
+    },
+    { name: "closeOnOverlayClick", type: "boolean", default: "true" },
+    { name: "closeOnEsc", type: "boolean", default: "true" },
+    { name: "blockScrollOnMount", type: "boolean", default: "true" },
+    { name: "trapFocus", type: "boolean", default: "true" },
+    { name: "initialFocusRef", type: "Ref", description: "Receives focus on open." },
+    { name: "finalFocusRef", type: "Ref", description: "Receives focus on close." },
+  ]}
+/>
