@@ -30,6 +30,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter='./packages/*' && changeset publish",
+    "release:local": "node scripts/publish.mjs",
     "prepare": "lefthook install"
   },
   "devDependencies": {
