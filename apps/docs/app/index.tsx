@@ -48,8 +48,13 @@ export default function HomePage() {
                 Get started
               </Button>
             </Link>
-            <Link href="/components/button" textDecorationLine="none">
+            <Link href="/migration/from-chakra-v2" textDecorationLine="none">
               <Button variant="outline" size="md">
+                Migrating from Chakra?
+              </Button>
+            </Link>
+            <Link href="/components/button" textDecorationLine="none">
+              <Button variant="ghost" size="md">
                 Browse components
               </Button>
             </Link>

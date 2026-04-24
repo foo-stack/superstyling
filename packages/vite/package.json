@@ -1,6 +1,6 @@
 {
   "name": "@superstyling/vite",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Vite integration for Superstyling — plugin wrapper, SSG helpers",
   "keywords": [
     "plugin",

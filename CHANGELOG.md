@@ -4,6 +4,102 @@ Narrative release notes for the `@superstyling/*` monorepo. Per-package
 `CHANGELOG.md` files are generated automatically by the Changesets bot on the
 "Version Packages" release PR.
 
+## v0.2.0 — unreleased
+
+Chakra-shaped migration target. v0.2 closes the gap between "Chakra-like"
+and "I can move a real Chakra app over in an afternoon": 21 new components,
+10 new hooks, a Chakra theme adapter, and a codemod that rewrites imports,
+providers, and `extendTheme(...)` call sites automatically.
+
+### Packages
+
+- `@superstyling/core` 0.1.0 → 0.2.0
+- `@superstyling/icons` 0.1.0 → 0.2.0
+- `@superstyling/next` 0.1.0 → 0.2.0
+- `@superstyling/expo` 0.1.0 → 0.2.0
+- `@superstyling/vite` 0.1.0 → 0.2.0
+- `@superstyling/codemod` **new** — published at 0.2.0
+
+### New components (21)
+
+| Group            | Components                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Layout           | `Flex`, `Center`, `Container`, `Spacer`, `AspectRatio`, `Grid` · `GridItem`, `SimpleGrid`, `Wrap` · `WrapItem`                                                                                                                                                                                                                                                          |
+| Typography       | `Code`, `Kbd`                                                                                                                                                                                                                                                                                                                                                           |
+| Data display     | `Tag` (root · `.Label` · `.CloseButton` · `.LeftIcon` · `.RightIcon`), `Image` (`fallback`, `fallbackSrc`, `objectFit`), `List` · `OrderedList` · `UnorderedList` · `ListItem` · `ListIcon`, `Table` (root · `.Thead` · `.Tbody` · `.Tfoot` · `.Tr` · `.Th` · `.Td` · `.Caption` + `TableContainer`), `Stat` (`.Label` · `.Number` · `.HelpText` · `.Arrow` · `.Group`) |
+| Feedback         | `Progress`, `CircularProgress` (+ `.Label`), `Skeleton` · `SkeletonCircle` · `SkeletonText`                                                                                                                                                                                                                                                                             |
+| Overlay          | `Drawer`, `Tooltip`, `Popover`, `Menu` (↑/↓/Home/End/Enter/Esc keyboard nav), `AlertDialog` (+ `leastDestructiveRef`)                                                                                                                                                                                                                                                   |
+| Navigation       | `Tabs` (4 variants · horizontal/vertical), `Accordion` (+ `allowMultiple`), `Breadcrumb` (auto-separators + `isCurrentPage`), `Stepper` (+ `useSteps` hook)                                                                                                                                                                                                             |
+| Transitions      | `Fade`, `ScaleFade`, `Slide` (4 directions), `Collapse`                                                                                                                                                                                                                                                                                                                 |
+| Forms — advanced | `NumberInput` (↑/↓ step · Shift+↑/↓ 10×), `PinInput` (auto-advance + paste-spread · `number` / `alphanumeric` / `mask`), `Slider` · `RangeSlider`, `Editable` (+ `useEditableControls`)                                                                                                                                                                                 |
+| Interactive      | `InputGroup` (+ Left/Right Element · Addon), `ButtonGroup` (+ `isAttached`), `CheckboxGroup`, `CloseButton`                                                                                                                                                                                                                                                             |
+| Toast            | `useToast()` (cross-platform Tamagui queue, portal-rendered), `useNativeToast()` (dynamic-imports `burnt` on iOS/Android, falls back to Tamagui on web)                                                                                                                                                                                                                 |
+
+### Hooks — Chakra parity (10)
+
+`useDisclosure`, `useBoolean`, `useControllableState`, `useMergeRefs`,
+`useMediaQuery` (web), `useBreakpointValue` (cross-platform via Tamagui
+`useMedia`), `useClipboard` (web `navigator.clipboard` / native dynamic
+import `@react-native-clipboard/clipboard`), `useTheme`, `useToken`,
+`useOutsideClick`.
+
+### Theme migration helpers
+
+- `adaptChakraTheme(chakraTheme)` — pass-through for matching fields;
+  drops `styles.global`, `layerStyles`, `textStyles` with warnings;
+  flags function-valued `baseStyle` / `sizes` / `variants`
+  (StyleFunctionProps) and skips them rather than silently misbehaving.
+- `defineStyleConfig` — identity helper matching Chakra's API.
+- `defineMultiStyleConfig` — shallow-flattens part-keyed style maps into a
+  single `ComponentOverride` (per-part targeting deferred).
+
+### `@superstyling/codemod`
+
+```bash
+yarn dlx @superstyling/codemod ./src --dry
+yarn dlx @superstyling/codemod ./src
+```
+
+Three passes per file:
+
+1. **imports** — `@chakra-ui/react` → `@superstyling/core`; `@chakra-ui/icons`
+   → `@superstyling/icons`; unmapped `@chakra-ui/theme-tools`,
+   `@chakra-ui/styled-system`, `@chakra-ui/anatomy`, `@chakra-ui/cli`
+   flagged with `TODO(superstyling)` comments.
+2. **provider** — `<ChakraProvider>` / `<ChakraBaseProvider>` →
+   `<SuperStylingProvider>` (both import specifier and JSX element);
+   `theme` prop → `system` prop.
+3. **theme** — `extendTheme({...})` →
+   `createSystem(adaptChakraTheme({...}).theme)` with auto-inserted
+   `@superstyling/core` imports. Multi-arg calls preserved via
+   `Object.assign({}, ...args)`. `extendBaseTheme`,
+   `withDefaultColorScheme`, `withDefaultSize`, `withDefaultVariant`
+   flagged as manual-convert.
+
+Every file's changes go through a `Report` object; the CLI prints a
+summary at the end (`Rewrites: N · TODOs: N · Files touched: N`) plus a
+line-by-line TODO list. `jscodeshift` is contained to this workspace —
+no runtime-package weight.
+
+### New infrastructure
+
+- `SystemContext` added to `<SuperStylingProvider>` so `useTheme()` /
+  `useToken()` read the active system without prop-drilling.
+- New docs surfaces: `/hooks/*`, `/theming/*`, `/migration/*` routes.
+
+### Quality gates shipped
+
+- **Tests:** 223 passing across 25 suites (up from 150 in v0.1.0).
+- **Docs:** 76 static HTML pages (up from 28 at v0.1.0 launch).
+- **Typecheck:** 13 workspaces (was 12 — new `@superstyling/codemod`).
+- **New runtime deps:** `@tamagui/progress` + `@tamagui/slider` (both from
+  the existing Tamagui stack — no third-party additions).
+
+### Migration guide
+
+See `/migration/from-chakra-v2` for side-by-side examples and the complete
+list of what the codemod cannot automate.
+
 ## v0.1.0 — unreleased
 
 First public release. Fixed versioning: all `@superstyling/*` packages are
