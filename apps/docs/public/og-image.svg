@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#1A1A2E"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="240" cy="180" r="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3182CE" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#3182CE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="980" cy="500" r="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#805AD5" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#805AD5" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="markGrad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3182CE"/>
+      <stop offset="1" stop-color="#805AD5"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#cbd5e1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+
+  <!-- Logo mark -->
+  <g transform="translate(96, 96)">
+    <rect width="80" height="80" rx="18" fill="url(#markGrad)"/>
+    <path
+      d="M27 30c0-5 4-9 10-9h6a10 10 0 0 1 10 10h-7.5a3.5 3.5 0 0 0-3.5-3.5h-5a3.5 3.5 0 0 0-3.5 3.5c0 2 1.5 3.2 4.4 4l6.2 1.7c6.9 1.9 10 5.5 10 11.7 0 7-5.6 10.6-13 10.6h-6a10.6 10.6 0 0 1-10.6-10.6h7.5a4.4 4.4 0 0 0 4.4 4.4h5c2.5 0 4.4-1.4 4.4-3.6 0-2.1-1.5-3.2-4.6-4l-5.9-1.7c-7-1.9-10.1-5.6-10.1-11.5Z"
+      fill="#fff"
+    />
+  </g>
+  <text
+    x="200"
+    y="148"
+    font-family="Inter, -apple-system, sans-serif"
+    font-size="34"
+    font-weight="600"
+    fill="#cbd5e1"
+    letter-spacing="0.5"
+  >superstyling</text>
+
+  <!-- Headline -->
+  <text
+    x="96"
+    y="300"
+    font-family="Inter, -apple-system, sans-serif"
+    font-size="84"
+    font-weight="800"
+    fill="url(#titleGrad)"
+    letter-spacing="-2"
+  >Chakra on Tamagui.</text>
+  <text
+    x="96"
+    y="395"
+    font-family="Inter, -apple-system, sans-serif"
+    font-size="84"
+    font-weight="800"
+    fill="url(#titleGrad)"
+    letter-spacing="-2"
+  >Web + iOS + Android.</text>
+
+  <!-- Tagline -->
+  <text
+    x="96"
+    y="460"
+    font-family="Inter, -apple-system, sans-serif"
+    font-size="28"
+    font-weight="400"
+    fill="#94a3b8"
+  >Cross-platform React UI library with a Chakra v2 codemod.</text>
+
+  <!-- Pills -->
+  <g font-family="Inter, -apple-system, sans-serif" font-size="22" font-weight="500">
+    <g transform="translate(96, 510)">
+      <rect width="190" height="46" rx="23" fill="rgba(49, 130, 206, 0.15)" stroke="rgba(49, 130, 206, 0.4)" stroke-width="1"/>
+      <text x="95" y="30" text-anchor="middle" fill="#93c5fd">Cross-platform</text>
+    </g>
+    <g transform="translate(306, 510)">
+      <rect width="170" height="46" rx="23" fill="rgba(128, 90, 213, 0.15)" stroke="rgba(128, 90, 213, 0.4)" stroke-width="1"/>
+      <text x="85" y="30" text-anchor="middle" fill="#c4b5fd">Chakra-shaped</text>
+    </g>
+    <g transform="translate(496, 510)">
+      <rect width="200" height="46" rx="23" fill="rgba(99, 102, 241, 0.15)" stroke="rgba(99, 102, 241, 0.4)" stroke-width="1"/>
+      <text x="100" y="30" text-anchor="middle" fill="#a5b4fc">Tamagui-powered</text>
+    </g>
+    <g transform="translate(716, 510)">
+      <rect width="148" height="46" rx="23" fill="rgba(20, 184, 166, 0.15)" stroke="rgba(20, 184, 166, 0.4)" stroke-width="1"/>
+      <text x="74" y="30" text-anchor="middle" fill="#5eead4">Type-safe</text>
+    </g>
+  </g>
+
+  <!-- Version watermark -->
+  <text
+    x="1104"
+    y="588"
+    text-anchor="end"
+    font-family="JetBrains Mono, monospace"
+    font-size="22"
+    fill="#64748b"
+  >v0.2.0</text>
+</svg>
