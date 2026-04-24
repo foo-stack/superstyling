@@ -4,7 +4,7 @@ Narrative release notes for the `@superstyling/*` monorepo. Per-package
 `CHANGELOG.md` files are generated automatically by the Changesets bot on the
 "Version Packages" release PR.
 
-## v0.2.0 — unreleased
+## v0.2.0 — 2026-04-24
 
 Chakra-shaped migration target. v0.2 closes the gap between "Chakra-like"
 and "I can move a real Chakra app over in an afternoon": 21 new components,
@@ -100,7 +100,7 @@ no runtime-package weight.
 See `/migration/from-chakra-v2` for side-by-side examples and the complete
 list of what the codemod cannot automate.
 
-## v0.1.0 — unreleased
+## v0.1.0 — 2026-04-22
 
 First public release. Fixed versioning: all `@superstyling/*` packages are
 bumped together.

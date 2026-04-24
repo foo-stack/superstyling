@@ -1,11 +1,13 @@
 # Superstyling — Progress Tracker
 
-**Current phase:** Phase 16 complete — codemod + migration guide shipped
+**Current phase:** Phase 17 complete — v0.2.0 released
 **Last updated:** 2026-04-24
 
 Plan lives in [`ROADMAP.md`](./ROADMAP.md). This file tracks execution only.
 
 v0.1.0 shipped 2026-04-22. Published packages: `@superstyling/{core,icons,next,expo,vite}@0.1.0`.
+
+v0.2.0 shipped 2026-04-24. Published packages: `@superstyling/{core,icons,next,expo,vite,codemod}@0.2.0`. Tag: `v0.2.0` on `42d084d`.
 
 ---
 
@@ -153,12 +155,13 @@ Status: **complete — 2026-04-24**
 
 ## Phase 17 — v0.2.0 release (~0.5 week)
 
-Status: **not started**
+Status: **complete — 2026-04-24**
 
-- [ ] All Changesets aggregated into root CHANGELOG.md (narrative)
-- [ ] Docs landing: "Migrating from Chakra?" CTA
-- [ ] Publish 6 packages: core, icons, next, expo, vite, codemod
-- [ ] Tag `v0.2.0`
+- [x] v0.2.0 narrative entry in root `CHANGELOG.md`
+- [x] Docs landing: "Migrating from Chakra?" CTA (outline button between "Get started" and "Browse components")
+- [x] Published 6 packages at 0.2.0: `@superstyling/{core,icons,next,expo,vite,codemod}` — first ~5 via the existing changesets/action workflow after `NPM_TOKEN` rotation; `codemod` required token scope widened to "any package in `@superstyling`" since it was a new package name.
+- [x] Tag `v0.2.0` on `42d084d` pushed to origin
+- [x] Local `scripts/publish.mjs` + `yarn release:local` — preflight (branch / clean / behind), `npm whoami` check, plan table, per-package publish, optional tag + push. Safety net for future publishes that bypass changesets.
 - [ ] Announce: blog
 - [ ] Announce: X / social
 - [ ] Announce: Tamagui community channels
