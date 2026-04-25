@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Box, HStack, VStack } from "@superstyling/core";
 import { DocsMenuContents } from "./DocsMenuContents";
+import { DocsBreadcrumb } from "./DocsBreadcrumb";
 import { TopNav } from "./TopNav";
 
 /**
@@ -8,7 +9,10 @@ import { TopNav } from "./TopNav";
  *
  * Adapted from tamagui/tamagui @ code/tamagui.dev/features/docs/DocsPage.tsx
  * but compacted to ~60 lines using our own primitives. Sticky sidebar +
- * top-nav, max-width content column. No animated transitions in v0.1.
+ * top-nav, max-width content column.
+ *
+ * Breadcrumb is rendered above `children` for any `currentPath` that
+ * resolves to an entry in `nav.ts`. The landing page (`/`) skips it.
  */
 export function DocsPage({ children, currentPath }: { children: ReactNode; currentPath?: string }) {
   return (
@@ -31,6 +35,7 @@ export function DocsPage({ children, currentPath }: { children: ReactNode; curre
         </Box>
 
         <Box flex={1} minWidth={0} padding="$6" maxWidth={900} marginHorizontal="auto">
+          <DocsBreadcrumb currentPath={currentPath} />
           {children}
         </Box>
       </HStack>
