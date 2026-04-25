@@ -17,20 +17,85 @@ import { Tabs } from "@superstyling/core";
 
 ## Basic
 
-```tsx
-<Tabs defaultValue="profile">
+<ComponentDemo
+  code={`<Tabs defaultValue="profile">
   <Tabs.List>
     <Tabs.Tab value="profile">Profile</Tabs.Tab>
     <Tabs.Tab value="settings">Settings</Tabs.Tab>
     <Tabs.Tab value="billing">Billing</Tabs.Tab>
   </Tabs.List>
   <Tabs.Panels>
-    <Tabs.Panel value="profile">…</Tabs.Panel>
-    <Tabs.Panel value="settings">…</Tabs.Panel>
-    <Tabs.Panel value="billing">…</Tabs.Panel>
+    <Tabs.Panel value="profile">Profile content</Tabs.Panel>
+    <Tabs.Panel value="settings">Settings content</Tabs.Panel>
+    <Tabs.Panel value="billing">Billing content</Tabs.Panel>
   </Tabs.Panels>
-</Tabs>
-```
+</Tabs>`}
+  preview={
+    <Tabs defaultValue="profile">
+      <Tabs.List>
+        <Tabs.Tab value="profile">Profile</Tabs.Tab>
+        <Tabs.Tab value="settings">Settings</Tabs.Tab>
+        <Tabs.Tab value="billing">Billing</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panels>
+        <Tabs.Panel value="profile">
+          <Text paddingTop="$3">Display name, avatar, bio.</Text>
+        </Tabs.Panel>
+        <Tabs.Panel value="settings">
+          <Text paddingTop="$3">Notifications, language, privacy.</Text>
+        </Tabs.Panel>
+        <Tabs.Panel value="billing">
+          <Text paddingTop="$3">Card on file, invoices, plan.</Text>
+        </Tabs.Panel>
+      </Tabs.Panels>
+    </Tabs>
+  }
+  caption="←/→/Home/End keyboard nav included."
+/>
+
+## Variants
+
+<ComponentDemo
+  code={`<Tabs defaultValue="a" variant="soft-rounded" colorScheme="blue">
+  <Tabs.List>
+    <Tabs.Tab value="a">First</Tabs.Tab>
+    <Tabs.Tab value="b">Second</Tabs.Tab>
+    <Tabs.Tab value="c">Third</Tabs.Tab>
+  </Tabs.List>
+</Tabs>`}
+  preview={
+    <VStack gap="$5">
+      <Tabs defaultValue="a" variant="line" colorScheme="blue">
+        <Tabs.List>
+          <Tabs.Tab value="a">line</Tabs.Tab>
+          <Tabs.Tab value="b">variant</Tabs.Tab>
+          <Tabs.Tab value="c">default</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+      <Tabs defaultValue="a" variant="enclosed" colorScheme="blue">
+        <Tabs.List>
+          <Tabs.Tab value="a">enclosed</Tabs.Tab>
+          <Tabs.Tab value="b">variant</Tabs.Tab>
+          <Tabs.Tab value="c">tabs</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+      <Tabs defaultValue="a" variant="soft-rounded" colorScheme="purple">
+        <Tabs.List>
+          <Tabs.Tab value="a">soft</Tabs.Tab>
+          <Tabs.Tab value="b">rounded</Tabs.Tab>
+          <Tabs.Tab value="c">tabs</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+      <Tabs defaultValue="a" variant="solid-rounded" colorScheme="green">
+        <Tabs.List>
+          <Tabs.Tab value="a">solid</Tabs.Tab>
+          <Tabs.Tab value="b">rounded</Tabs.Tab>
+          <Tabs.Tab value="c">tabs</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    </VStack>
+  }
+/>
 
 ## Props — Tabs (root)
 

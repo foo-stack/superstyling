@@ -17,30 +17,68 @@ import { Slider, RangeSlider } from "@superstyling/core";
 
 ## Single thumb
 
-```tsx
-const [value, setValue] = useState([50]);
-
-<Slider value={value} onChange={setValue} min={0} max={100}>
+<ComponentDemo
+  code={`<Slider defaultValue={[50]}>
   <Slider.Track>
     <Slider.FilledTrack />
   </Slider.Track>
   <Slider.Thumb index={0} />
-</Slider>;
-```
+</Slider>`}
+  preview={
+    <Box width={320}>
+      <Slider defaultValue={[50]}>
+        <Slider.Track>
+          <Slider.FilledTrack />
+        </Slider.Track>
+        <Slider.Thumb index={0} />
+      </Slider>
+    </Box>
+  }
+/>
 
 ## Range (two thumbs)
 
-```tsx
-const [range, setRange] = useState([20, 80]);
-
-<RangeSlider value={range} onChange={setRange}>
+<ComponentDemo
+  code={`<RangeSlider defaultValue={[20, 80]}>
   <RangeSlider.Track>
     <RangeSlider.FilledTrack />
   </RangeSlider.Track>
   <RangeSlider.Thumb index={0} />
   <RangeSlider.Thumb index={1} />
-</RangeSlider>;
-```
+</RangeSlider>`}
+  preview={
+    <Box width={320}>
+      <RangeSlider defaultValue={[20, 80]}>
+        <RangeSlider.Track>
+          <RangeSlider.FilledTrack />
+        </RangeSlider.Track>
+        <RangeSlider.Thumb index={0} />
+        <RangeSlider.Thumb index={1} />
+      </RangeSlider>
+    </Box>
+  }
+/>
+
+## Stepped + min/max
+
+<ComponentDemo
+  code={`<Slider defaultValue={[40]} min={0} max={100} step={10}>
+  <Slider.Track>
+    <Slider.FilledTrack />
+  </Slider.Track>
+  <Slider.Thumb index={0} />
+</Slider>`}
+  preview={
+    <Box width={320}>
+      <Slider defaultValue={[40]} min={0} max={100} step={10}>
+        <Slider.Track>
+          <Slider.FilledTrack />
+        </Slider.Track>
+        <Slider.Thumb index={0} />
+      </Slider>
+    </Box>
+  }
+/>
 
 ## Props
 

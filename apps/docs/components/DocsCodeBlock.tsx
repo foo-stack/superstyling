@@ -2,6 +2,7 @@
 
 /* oxlint-disable react-perf/jsx-no-new-function-as-prop -- docs building block */
 import { useMemo, useState } from "react";
+import "../app/_landing/prism.css";
 import { refractor } from "refractor";
 import tsLang from "refractor/lang/typescript.js";
 import tsxLang from "refractor/lang/tsx.js";

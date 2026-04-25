@@ -1,0 +1,77 @@
+/* Prism / refractor token styles, driven by Tamagui CSS vars so they
+   re-tone automatically across light + dark modes. Contrast targets
+   WCAG AA (4.5:1) against `$color2` background using the 10-shade in
+   each scale, which Tamagui guarantees is at-least-AA on both modes. */
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--color9);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--color11);
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--pink10);
+}
+
+.token.number,
+.token.regex,
+.token.important {
+  color: var(--orange10);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--green10);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--color11);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--purple10);
+}
+
+.token.function,
+.token.class-name {
+  color: var(--blue10);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--orange11);
+}
+
+.token.bold {
+  font-weight: 700;
+}
+
+.token.italic {
+  font-style: italic;
+}

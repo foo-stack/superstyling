@@ -8,6 +8,7 @@ declare module 'one' {
     export interface __routes<T extends string = string> extends Record<string, unknown> {
       StaticRoutes: 
         | `/`
+        | `/_landing/icons`
         | `/_sitemap`
         | `/components/checkbox`
         | `/components/modal`

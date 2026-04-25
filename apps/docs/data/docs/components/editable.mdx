@@ -17,12 +17,38 @@ import { Editable } from "@superstyling/core";
 
 ## Basic
 
-```tsx
-<Editable defaultValue="Untitled" onSubmit={(next) => rename(next)}>
+<ComponentDemo
+  code={`<Editable defaultValue="Untitled" onSubmit={(next) => rename(next)}>
   <Editable.Preview />
   <Editable.Input />
-</Editable>
-```
+</Editable>`}
+  preview={
+    <Box minHeight={32}>
+      <Editable defaultValue="Click to edit me">
+        <Editable.Preview />
+        <Editable.Input />
+      </Editable>
+    </Box>
+  }
+  caption="Click the text to edit. Enter commits, Esc cancels."
+/>
+
+## With placeholder
+
+<ComponentDemo
+  code={`<Editable placeholder="Untitled document">
+  <Editable.Preview />
+  <Editable.Input />
+</Editable>`}
+  preview={
+    <Box minHeight={32}>
+      <Editable placeholder="Untitled document">
+        <Editable.Preview />
+        <Editable.Input />
+      </Editable>
+    </Box>
+  }
+/>
 
 ## Multi-line (textarea)
 
